@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bottom_stroke"
+                android:orientation="horizontal"
+
+                >
+
+                <LinearLayout
+                    android:id="@+id/bottomBt1"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/footer_icon1"
+                        android:padding="5dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="운동체크"
+                        android:textSize="9dp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:fontFamily="@font/r_reguar"
+                        android:layout_marginBottom="2dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bottomBt2"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/footer_icon2"
+                        android:padding="5dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="알람"
+                        android:textSize="9dp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:fontFamily="@font/r_reguar"
+                        android:layout_marginBottom="2dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"/>
+
+
+
+                <LinearLayout
+                    android:id="@+id/bottomBt4"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/footer_icon4"
+                        android:padding="5dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="검색"
+                        android:textSize="9dp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:fontFamily="@font/r_reguar"
+                        android:layout_marginBottom="2dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bottomBt5"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/footer_icon5"
+                        android:padding="5dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="마이리스트"
+                        android:textSize="9dp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:fontFamily="@font/r_reguar"
+                        android:layout_marginBottom="2dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomBt3"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            >
+            <ImageView
+                android:elevation="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/footer_icon3"
+                android:padding="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bottom_cir"
+                />
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="메뉴"
+                android:textSize="9dp"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:fontFamily="@font/r_reguar"
+                />
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
+
+
+</LinearLayout>
+
+
+

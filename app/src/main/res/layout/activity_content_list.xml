@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContentListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff">
+
+        <FrameLayout
+            android:id="@+id/content_top"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/content_title"
+                android:layout_weight="1.2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TITLE"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:textSize="30dp"
+                android:textColor="@android:color/black"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:layout_marginRight="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"/>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/content_fav_radius">
+                    <ImageView
+                        android:layout_width="27dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/content_start"
+                        android:padding="5dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="즐겨찾기 선택"
+                        android:fontFamily="@font/r_bold"
+                        android:textSize="13dp"
+                        android:textColor="@android:color/white"
+                        android:gravity="center_vertical"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/content_tab"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ececf9"
+                app:tabGravity="fill"
+                app:tabMinWidth="180dp"
+                app:tabMaxWidth="150dp"
+                app:tabMode="scrollable"
+                app:tabIndicatorHeight="5dp"
+                />
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_marginTop="5dp"
+                android:id="@+id/content_pager"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            />
+
+    </LinearLayout>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

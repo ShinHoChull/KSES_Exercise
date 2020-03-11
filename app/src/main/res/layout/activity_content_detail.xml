@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContentDetailActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        >
+        <FrameLayout
+            android:id="@+id/content_top"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/detail_play_back"
+                                android:padding="30dp"
+                                android:layout_weight="1"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/detail_play"
+                                android:padding="10dp"
+                                android:layout_weight="1"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/detail_play_next"
+                                android:padding="30dp"
+                                android:layout_weight="1"/>
+
+                            <LinearLayout
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"/>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ececf9"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:textColor="@android:color/black"
+                                android:text="TITLE"
+                                android:layout_marginLeft="20dp"
+                                android:gravity="center_vertical"
+                                android:textSize="20dp"
+
+                                />
+
+                            <EditText
+                                android:id="@+id/detail_edittext"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="#ececf9"
+                                android:text="1. 편한 자세로 섭니다.\n2. 어깨를 귀 쪽으로 올립니다.
+\n3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.\n4. 이 동작을 10-15회 반복합니다.1. 편한 자세로 섭니다.\n2. 어깨를 귀 쪽으로 올립니다.
+\n3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.\n4. 이 동작을 10-15회 반복합니다.1. 편한 자세로 섭니다.\n2. 어깨를 귀 쪽으로 올립니다.
+\n3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.\n4. 이 동작을 10-15회 반복합니다."
+                                android:gravity="top"
+                                android:paddingStart="10dp"
+                                android:textSize="16dp"
+                                android:textColor="@android:color/black"
+                                />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="70dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/content_fav_radius">
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/content_start"
+                            android:padding="5dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="즐겨찾기"
+                            android:fontFamily="@font/r_bold"
+                            android:textSize="10dp"
+                            android:textColor="@android:color/white"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            />
+
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

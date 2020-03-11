@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalendarActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff">
+
+        <FrameLayout
+            android:id="@+id/content_top"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="!"
+                android:textColor="#ffb034"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/alarm_detail_cir"
+                android:textSize="20dp"
+                android:fontFamily="@font/r_bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="운동 시작일을 선택해 주세요."
+                android:textSize="20dp"
+                android:textColor="@android:color/black"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/r_medium"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:gravity="center"
+                    android:layout_weight="1.1"
+                    android:id="@+id/schadule_backDateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/btn_d_back1"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/schadule_mainDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="0000.00.00"
+                    android:fontFamily="@font/r_bold"
+                    android:textSize="17dp"
+                    android:textColor="@android:color/black"
+                    />
+
+                <ImageView
+                    android:gravity="center"
+                    android:layout_weight="1.1"
+                    android:id="@+id/schadule_nextDateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/btn_d_next1"
+                    />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="일"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="월"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="화"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="수"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="목"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="금"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="토"/>
+
+            </LinearLayout>
+
+            <GridView
+                android:id="@+id/scheduleView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:listSelector="@drawable/list_selector"
+                android:verticalSpacing="0dp"
+                android:horizontalSpacing="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:numColumns="7"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/calendar_nextBt"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/alarm_detail_success_bt"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:text="다음"
+            android:gravity="center"
+            android:textSize="17dp"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/r_medium"
+            />
+        <FrameLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

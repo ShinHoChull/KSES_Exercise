@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/main_top_radius"
+            android:elevation="3dp"
+            android:layout_weight="1.6"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/main_logo"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1.3"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:text="꾸준한 운동을 위해\n알람을 설정해 주세요."
+                    android:fontFamily="@font/r_medium"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingStart="25dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+                    android:layout_marginRight="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/main_alarm_bt_cir"
+                        android:text="운동알람 설정 +"
+                        android:gravity="center"
+                        android:textColor="#d71447"
+                        android:fontFamily="@font/r_bold"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.3"
+            >
+            <com.tenclouds.gaugeseekbar.GaugeSeekBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_gravity="center"
+                app:progress="0.55"
+                app:progressGradient="@array/progressRainbow"
+                app:thumbColor="#ffffff"
+                app:trackWidth="10dp"
+                app:thumbRadius="15dp"
+                app:interactive="false"
+                app:trackGradient="@array/progressBack"
+                />
+            <LinearLayout
+                android:id="@+id/main_innerView"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:background="@drawable/main_cir"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:elevation="8dp"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="견관절 운동"
+                    android:textColor="#fff263"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:fontFamily="@font/r_medium"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="START"
+                    android:textColor="#ffffff"
+                    android:textSize="22dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/r_medium"
+                    />
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        >
+                        <ImageView
+                            android:id="@+id/main_bt1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/main_bt3"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:text="스트레칭"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/r_medium"
+                            />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        >
+                        <ImageView
+                            android:id="@+id/main_bt2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/main_bt2"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:text="운동 1단"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/r_medium"
+                            />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        >
+                        <ImageView
+                            android:id="@+id/main_bt3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/main_bt1"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:text="운동 2단계"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/r_medium"
+                            />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        >
+                        <ImageView
+                            android:id="@+id/main_bt4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/main_bt4"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:text="운동 3단계"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/r_medium"
+                            />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/bottom"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

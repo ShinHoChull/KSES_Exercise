@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <array name="progressRainbow">
+        <item>#3974f6</item>
+        <item>#1cdae2</item>
+        <item>#1cdae2</item>
+        <item>#1cdae2</item>
+    </array>
+
+    <array name="progressBack">
+        <item>#f3f5f7</item>
+        <item>#f3f5f7</item>
+        <item>#f3f5f7</item>
+    </array>
+
+    <color name="menu_back_color">#ffffff</color>
+    <color name="content_top_color">#253fac</color>
+
+    <color name="schadule_sat_color">#6F88FF</color>
+    <color name="schadule_sun_color">#EF6161</color>
+    <color name="main_color_black">#3B3B3B</color>
+
+</resources>
