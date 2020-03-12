@@ -17,7 +17,6 @@ public class AlarmDTO extends RealmObject {
 
     public AlarmDTO(){}
 
-
     public AlarmDTO(int num, String am_pm, String date, boolean isPush, byte[] week, int pushState) {
         this.num = num;
         this.am_pm = am_pm;

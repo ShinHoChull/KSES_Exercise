@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import com.m2comm.kses_exercise.R;
+import com.m2comm.module.models.ExerciseDTO;
 import com.m2comm.module.models.ScheduleDTO;
 
 import java.text.ParseException;
@@ -31,20 +32,20 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     private ArrayList<String> list; //date ArrayList
-    private ArrayList<ScheduleDTO> scheduleArray; //Schadule ArrayList
+    private ArrayList<ExerciseDTO> scheduleArray; //Schadule ArrayList
 
     private Calendar mCal;
     private Calendar realmCal , lineCal;
     private Date date , lineDate;
 
-    public CustomSchduleGridViewAdapter(Context c, LayoutInflater inflater, Calendar mCal, Date date, ArrayList<String> list , ArrayList<ScheduleDTO> scheduleDTO , Calendar lineCal) {
+    public CustomSchduleGridViewAdapter(Context c, LayoutInflater inflater, Calendar mCal, Date date, ArrayList<String> list , ArrayList<ExerciseDTO> scheduleDTOS , Calendar lineCal) {
         this.c = c;
         this.inflater = inflater;
         this.mCal = mCal;
         this.realmCal = mCal;
         this.list = list;
         this.date = date;
-        this.scheduleArray = scheduleDTO;
+        this.scheduleArray = scheduleDTOS;
         this.lineCal = lineCal;
     }
 
@@ -149,14 +150,12 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
                 }
 
                 if ( this.lineCal != null ) {
-                    int lineDay = realmCal.get(Calendar.DAY_OF_MONTH);
 
                     Log.d("year1",lineCal.get(Calendar.YEAR)+"");
                     Log.d("year2",realmCal.get(Calendar.YEAR)+"");
                     Log.d("MONTH1",lineCal.get(Calendar.MONTH)+"");
-                    Log.d("MONTH2",realmCal.get(Calendar.MONTH)+"");
+
                     Log.d("DATE1",lineCal.get(Calendar.DATE)+"");
-                    Log.d("DATE2",realmCal.get(Calendar.DATE)+"");
                     Log.d("DATE",lineCal.compareTo(realmCal)+"");
                     Log.d("DATE23",click_calendar.compareTo(realmCal)+"");
 
@@ -166,29 +165,35 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
                 }
             }
 
-            if ( ! dayString.equals("") && this.scheduleArray != null) {
-                for ( ScheduleDTO scheduleDTO : scheduleArray ) {
+            if ( ! dayString.equals("") && this.scheduleArray != null && this.scheduleArray.size() > 0) {
+                for ( ExerciseDTO row : scheduleArray ) {
+                    Log.d("check_DATE",row.getCheckDate());
 
                     int pointDay = Integer.parseInt(getItem(position));
-                    String[] sDayArr = scheduleDTO.getSdate().split("-");
+                    String[] sDayArr = row.getCheckDate().split("\\.");
                     int sDay = Integer.parseInt(sDayArr[sDayArr.length - 1 ]);
+                    Log.d("DATE2",realmCal.get(Calendar.MONTH)+"."+realmCal.get(Calendar.DATE));
 
-                    Log.d("sDay_pointDay",sDay+"/"+pointDay);
-
-                    if ( ! scheduleDTO.getEdate().equals("") ) {
-                        String[] eDayArr = scheduleDTO.getEdate().split("-");
-                        int eDay = Integer.parseInt(eDayArr[eDayArr.length - 1 ]);
-                        if ( sDay <= pointDay && eDay >= pointDay ) {
-                            holder.tvItemGridView.setTextColor(Color.WHITE);
-                            holder.cirV.setVisibility(View.VISIBLE);
-                        }
-
-                    } else {
-                        if ( pointDay == sDay ) {
-                            holder.tvItemGridView.setTextColor(Color.WHITE);
-                            holder.cirV.setVisibility(View.VISIBLE);
-                        }
+                    if ( pointDay == sDay ) {
+                        holder.line.setBackgroundColor(Color.parseColor("#2d97ee"));
+                        holder.tvItemGridView.setTextColor(Color.parseColor("#ffffff"));
                     }
+
+//
+//                    if ( ! scheduleDTO.getEdate().equals("") ) {
+//                        String[] eDayArr = scheduleDTO.getEdate().split("-");
+//                        int eDay = Integer.parseInt(eDayArr[eDayArr.length - 1 ]);
+//                        if ( sDay <= pointDay && eDay >= pointDay ) {
+//                            holder.tvItemGridView.setTextColor(Color.WHITE);
+//                            holder.cirV.setVisibility(View.VISIBLE);
+//                        }
+//
+//                    } else {
+//                        if ( pointDay == sDay ) {
+//                            holder.tvItemGridView.setTextColor(Color.WHITE);
+//                            holder.cirV.setVisibility(View.VISIBLE);
+//                        }
+//                    }
                 }
             }
 

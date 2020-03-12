@@ -2,31 +2,28 @@ package com.m2comm.module.models;
 
 import java.io.Serializable;
 
-public class ScheduleDTO implements Serializable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-    private String sid;
-    private String subject;
-    private String category;
+public class ScheduleDTO extends RealmObject {
+
+    @PrimaryKey
+    private int num;
     private String sdate;
     private String edate;
+    private boolean isRun;
 
-    public ScheduleDTO(String sid, String subject, String category, String sdate, String edate) {
-        this.sid = sid;
-        this.subject = subject;
-        this.category = category;
+    public ScheduleDTO(){}
+
+    public ScheduleDTO(int num, String sdate, String edate, boolean isRun) {
+        this.num = num;
         this.sdate = sdate;
         this.edate = edate;
+        this.isRun = isRun;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public void setSdate(String sdate) {
@@ -37,12 +34,12 @@ public class ScheduleDTO implements Serializable {
         this.edate = edate;
     }
 
-    public String getSid() {
-        return sid;
+    public void setRun(boolean run) {
+        isRun = run;
     }
 
-    public String getSubject() {
-        return subject;
+    public int getNum() {
+        return num;
     }
 
     public String getSdate() {
@@ -53,8 +50,8 @@ public class ScheduleDTO implements Serializable {
         return edate;
     }
 
-    public String getCategory() {
-        return category;
+    public boolean isRun() {
+        return isRun;
     }
 
 }

@@ -19,6 +19,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.transition.CircularPropagation;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.m2comm.module.Common;
 import com.m2comm.module.Custom_SharedPreferences;
+import com.m2comm.module.dao.ScheduleDAO;
+import com.m2comm.module.models.ScheduleDTO;
 import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
 import java.io.BufferedReader;
@@ -37,6 +41,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout main_start_button;
     BottomActivity bottomActivity;
     Custom_SharedPreferences csp;
+    private ScheduleDAO scheduleDAO;
+    private Date nDate;
 
     private void idSetting () {
         this.bt1 = findViewById(R.id.main_bt1);
@@ -60,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.gaugeSeekBar = findViewById(R.id.progress);
         this.main_start_button = findViewById(R.id.main_innerView);
         this.csp = new Custom_SharedPreferences(this);
+        this.scheduleDAO = new ScheduleDAO(this);
     }
 
     @Override
@@ -67,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.idSetting();
+        this.createNotificationChannel();
+
         this.bt1.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt3)));
         this.bt2.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt2)));
         this.bt3.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt1)));
@@ -102,6 +113,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } catch (Exception e) {
             Toast.makeText(this , "Menu Save Fail",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ScheduleDTO row = null;
+        //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
+        if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
+        if ( row != null ) {
+            long now = System.currentTimeMillis();
+            this.nDate = new Date(now);
+            Date eDate = Common.getDate(row.getEdate());
+            if ( nDate.getTime() > eDate.getTime() ) {
+                //현재 날짜가 등록된 스케줄 끝나는 날짜보다 크면 완료 스테이트 변경
+
+            } else {
+                //아니면 현재 운동 진행상황 표시!
+
+
+            }
+
         }
 
     }
@@ -156,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return writer.toString();
     }
 
-    void CreateNotificationChannel() {
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel notificationChannel = new NotificationChannel(getResources().getString(R.string.app_name), getResources().getString(R.string.app_name), NotificationManager.IMPORTANCE_DEFAULT);
