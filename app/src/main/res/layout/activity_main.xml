@@ -36,18 +36,88 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/main_exercise_base_text"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@android:color/white"
-                    android:textSize="18dp"
-                    android:text="꾸준한 운동을 위해\n알람을 설정해 주세요."
-                    android:fontFamily="@font/r_medium"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingStart="25dp"
-                    />
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp"
+                        android:text="꾸준한 운동을 위해\n알람을 설정해 주세요."
+                        android:fontFamily="@font/r_medium"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingStart="25dp"
+                        />
+                </LinearLayout>
+
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/main_exercise_detail_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/main_exercise_detail_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center"
+                            android:text="2020.01.01~2020.01.31"
+                            android:textSize="11dp"
+                            android:textColor="#ffe468"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center"
+                            android:text="나의 운동 목표달성"
+                            android:textSize="15dp"
+                            android:textColor="#ffffff"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/main_exercise_detail_CountDay"
+                            android:layout_width="33dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="20"
+                            android:textSize="27dp"
+                            android:textColor="#ffe468"
+                            android:fontFamily="@font/r_medium"
+                            />
+                        <TextView
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="일"
+                            android:textSize="15dp"
+                            android:textColor="#ffffff"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main_exercise_start_bt"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
@@ -60,11 +130,53 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/main_alarm_bt_cir"
-                        android:text="운동알람 설정 +"
+                        android:text="운동 시작일 설정 +"
+                        android:textSize="13dp"
                         android:gravity="center"
                         android:textColor="#d71447"
                         android:fontFamily="@font/r_bold"
                         />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/main_exercise_check_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/main_alarm_bt_cir">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="운동 체크하기"
+                            android:gravity="center"
+                            android:textSize="15dp"
+                            android:textColor="#d71447"
+                            android:fontFamily="@font/r_bold"
+                            />
+
+                        <ImageView
+                            android:id="@+id/check_bt"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="7dp"
+                            android:src="@drawable/btn_d_check1"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -83,16 +195,18 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_gravity="center"
-                app:progress="0.55"
+                app:progress="0"
                 app:progressGradient="@array/progressRainbow"
-                app:thumbColor="#ffffff"
+                app:thumbColor="#FAFAFA"
                 app:trackWidth="10dp"
                 app:thumbRadius="15dp"
                 app:interactive="false"
                 app:trackGradient="@array/progressBack"
                 />
+
             <LinearLayout
-                android:id="@+id/main_innerView"
+                android:visibility="visible"
+                android:id="@+id/main_innerView1"
                 android:layout_width="135dp"
                 android:layout_height="135dp"
                 android:background="@drawable/main_cir"
@@ -100,16 +214,16 @@
                 android:orientation="vertical"
                 android:elevation="8dp"
                 android:gravity="center">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/r_medium"
+                    android:gravity="center"
                     android:text="견관절 운동"
                     android:textColor="#fff263"
                     android:textSize="12dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:fontFamily="@font/r_medium"
-                    />
+                    android:textStyle="bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,7 +233,55 @@
                     android:gravity="center"
                     android:fontFamily="@font/r_medium"
                     />
+            </LinearLayout>
 
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/main_innerView2"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:background="@drawable/main_cir"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:elevation="8dp"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/main_per_count"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/r_light"
+                        android:gravity="center"
+                        android:text="75"
+                        android:textColor="#ffffff"
+                        android:textSize="36dp"
+                         />
+                    <TextView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/r_light"
+                        android:gravity="center"
+                        android:text="%"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"
+                        android:layout_marginTop="7dp"
+                        />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/main_count_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="20/30일"
+                    android:textColor="#ffe468"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/r_medium"
+                    />
             </LinearLayout>
 
 

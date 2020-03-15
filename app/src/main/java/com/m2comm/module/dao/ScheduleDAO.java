@@ -3,6 +3,7 @@ package com.m2comm.module.dao;
 import android.content.Context;
 import android.util.Log;
 
+import com.m2comm.kses_exercise.MyExerciseList;
 import com.m2comm.module.models.ExerciseDTO;
 import com.m2comm.module.models.ScheduleDTO;
 
@@ -33,7 +34,8 @@ public class ScheduleDAO implements Realm.Transaction {
     }
 
     public ScheduleDTO find() {
-        return this.realm.copyFromRealm(this.realm.where(ScheduleDTO.class).equalTo("isRun", true).findFirst());
+        ScheduleDTO scheduleDTO = this.realm.where(ScheduleDTO.class).equalTo("isRun", true).findFirst();
+        return scheduleDTO;
     }
 
     public boolean addSchedule(final ScheduleDTO scheduleDTO) {
@@ -49,10 +51,37 @@ public class ScheduleDAO implements Realm.Transaction {
         return true;
     }
 
-    public boolean updateSchedule (int scheduleid) {
-
+    public boolean updateSchedule (final int id) {
+        this.realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                ScheduleDTO scheduleDTO = realm.where(ScheduleDTO.class).equalTo("num",id).findFirst();
+                scheduleDTO.setRun(false);
+            }
+        });
         return true;
     }
+
+    public boolean findDelete (final int id) {
+        this.realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                ScheduleDTO scheduleDTO = realm.where(ScheduleDTO.class).equalTo("num",id).findFirst();
+                if ( scheduleDTO.isValid() )scheduleDTO.deleteFromRealm();
+            }
+        }, new OnSuccess() {
+            @Override
+            public void onSuccess() {
+                ((MyExerciseList)context).updateListView();
+            }
+        });
+        return true;
+    }
+
+    public ScheduleDTO find(int id) {
+        return (ScheduleDTO) this.realm.copyFromRealm(this.realm.where(ScheduleDTO.class).equalTo("num",id).findFirst());
+    }
+
 
     public List<ScheduleDTO> getAllList() {
         ArrayList<ScheduleDTO> scheduleDTOS = new ArrayList<>();

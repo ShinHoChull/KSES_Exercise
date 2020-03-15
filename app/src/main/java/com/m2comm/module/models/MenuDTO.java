@@ -1,6 +1,8 @@
 package com.m2comm.module.models;
 
-public class MenuDTO {
+import java.io.Serializable;
+
+public class MenuDTO implements Serializable {
 
     String title;
     String url;

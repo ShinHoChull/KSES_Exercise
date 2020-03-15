@@ -26,11 +26,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m2comm.module.Common;
 import com.m2comm.module.Custom_SharedPreferences;
+import com.m2comm.module.dao.ExerciseDAO;
 import com.m2comm.module.dao.ScheduleDAO;
+import com.m2comm.module.models.ExerciseDTO;
 import com.m2comm.module.models.ScheduleDTO;
 import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
@@ -41,19 +44,40 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView bt1,bt2,bt3,bt4;
+    ImageView bt1,bt2,bt3,bt4,cehckImg;
     GaugeSeekBar gaugeSeekBar;
-    LinearLayout main_start_button;
+
     BottomActivity bottomActivity;
     Custom_SharedPreferences csp;
     private ScheduleDAO scheduleDAO;
     private Date nDate;
+    private ScheduleDTO row;
+
+    //프로그레스바 원형 뷰 ( 2는 현재 운동이 있을경우 )
+    LinearLayout main_start_button , main_start_button2;
+    TextView main_per_num , main_count_day;
+
+    //상단 운동 체크 & 운동시작 버튼
+    private LinearLayout exercise_start_bt,exercise_check_bt;
+
+    //상단 운동 기록 텍스트
+    private LinearLayout main_exercise_base_text , main_exercise_detail_text;
+    private TextView main_exercise_detail_date ,main_exercise_detail_count_day;
+    private ArrayList<ExerciseDTO> exerciseDTOS;
+    private ExerciseDAO exerciseDAO;
+
+    int main_per_count = 0;
+    int counter = 0;
+    Timer timer = new Timer();
 
     private void idSetting () {
         this.bt1 = findViewById(R.id.main_bt1);
@@ -64,11 +88,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.bt3.setOnClickListener(this);
         this.bt4 = findViewById(R.id.main_bt4);
         this.bt4.setOnClickListener(this);
+        this.cehckImg = findViewById(R.id.check_bt);
+        this.cehckImg.setColorFilter(Color.parseColor("#d71447"));
+
+        this.exercise_check_bt = findViewById(R.id.main_exercise_check_bt);
+        this.exercise_start_bt = findViewById(R.id.main_exercise_start_bt);
+        this.exercise_start_bt.setOnClickListener(this);
+        this.exercise_check_bt.setOnClickListener(this);
+
+        this.main_exercise_base_text = findViewById(R.id.main_exercise_base_text);
+        this.main_exercise_detail_text = findViewById(R.id.main_exercise_detail_text);
+        this.main_exercise_detail_date = findViewById(R.id.main_exercise_detail_date);
+        this.main_exercise_detail_count_day = findViewById(R.id.main_exercise_detail_CountDay);
 
         this.gaugeSeekBar = findViewById(R.id.progress);
-        this.main_start_button = findViewById(R.id.main_innerView);
+        this.main_start_button = findViewById(R.id.main_innerView1);
+        this.main_start_button.setOnClickListener(this);
+        this.main_start_button2 = findViewById(R.id.main_innerView2);
+        this.main_per_num = findViewById(R.id.main_per_count);
+        this.main_count_day = findViewById(R.id.main_count_day);
+
         this.csp = new Custom_SharedPreferences(this);
         this.scheduleDAO = new ScheduleDAO(this);
+        this.exerciseDAO = new ExerciseDAO(this);
     }
 
     @Override
@@ -84,9 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.bt4.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt4)));
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
 
-
-        this.gaugeSeekBar.setProgress(0.8f);
-
         this.gaugeSeekBar.post(new Runnable() {
             @Override
             public void run() {
@@ -101,6 +140,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         main_start_button.setLayoutParams(params);
 //                        main_start_button.getLayoutParams().width = gaugeSeekBar.getHeight() / 2;
 //                        main_start_button.getLayoutParams().height = gaugeSeekBar.getHeight() / 2;
+                    }
+                });
+                main_start_button2.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) main_start_button.getLayoutParams();
+                        params.width = (int) (gaugeSeekBar.getHeight() / 1.4);
+                        params.height = (int) (gaugeSeekBar.getHeight() / 1.4);
+                        main_start_button2.setLayoutParams(params);
                     }
                 });
             }
@@ -120,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        ScheduleDTO row = null;
+        this.row = null;
         //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
         if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
         if ( row != null ) {
@@ -129,16 +177,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Date eDate = Common.getDate(row.getEdate());
             if ( nDate.getTime() > eDate.getTime() ) {
                 //현재 날짜가 등록된 스케줄 끝나는 날짜보다 크면 완료 스테이트 변경
-
+                this.scheduleDAO.updateSchedule(row.getNum());
             } else {
                 //아니면 현재 운동 진행상황 표시!
-
-
+                scheduleCheck();
             }
-
         }
+    }
+
+    private void scheduleCheck() {
+        this.main_start_button.setVisibility(View.GONE);
+        this.main_exercise_base_text.setVisibility(View.GONE);
+        this.exercise_start_bt.setVisibility(View.GONE);
+
+        this.main_exercise_detail_text.setVisibility(View.VISIBLE);
+        this.main_start_button2.setVisibility(View.VISIBLE);
+        this.exercise_check_bt.setVisibility(View.VISIBLE);
+        this.main_exercise_detail_date.setText(this.row.getSdate()+"~"+this.row.getEdate());
+        this.exerciseDTOS = this.exerciseDAO.finds(this.row.getNum());
+        this.main_exercise_detail_count_day.setText(String.valueOf(this.exerciseDTOS.size()));
+        this.main_count_day.setText(this.exerciseDTOS.size()+"/30일");
+        main_per_count = this.exerciseDTOS.size() * 100 / 30;
+        //this.main_per_num.setText(String.valueOf(main_per_count));
+
+        //this.gaugeSeekBar.setProgress(main_per_count*0.01f);
+
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+                Log.d("timer",""+timer);
+                main_per_num.setText(String.valueOf(counter));
+                gaugeSeekBar.setProgress(counter*0.01f);
+                if ( counter == main_per_count ) {
+                    timer.cancel();
+                    counter = 0;
+                }
+                counter = counter + 1;
+            }
+        };
+        timer = new Timer();
+        timer.schedule(tt, 0, 50);
 
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -165,6 +247,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_bt4:
                 intent = new Intent(getApplicationContext() , ContentListActivity.class);
                 intent.putExtra("groupId",3);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                break;
+
+            case R.id.main_innerView1:
+            case R.id.main_exercise_check_bt:
+            case R.id.main_exercise_start_bt:
+                intent = new Intent(this , CalendarActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;

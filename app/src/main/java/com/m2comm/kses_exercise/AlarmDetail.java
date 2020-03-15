@@ -138,7 +138,9 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
             triggerTime = setTriggerTime();
             mAlarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pending);
         }
-        Toast.makeText(this , "설정 완료 되었습니다.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this , "설정이 완료 되었습니다.",Toast.LENGTH_SHORT).show();
+        intent = new Intent(this , MainActivity.class);
+        startActivity(intent);
         this.finish();
     }
 

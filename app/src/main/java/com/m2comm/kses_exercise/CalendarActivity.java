@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +21,13 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.m2comm.module.Common;
 import com.m2comm.module.adapters.CustomSchduleGridViewAdapter;
 import com.m2comm.module.dao.ExerciseDAO;
 import com.m2comm.module.dao.ScheduleDAO;
 import com.m2comm.module.models.ExerciseDTO;
 import com.m2comm.module.models.ScheduleDTO;
+import com.tenclouds.gaugeseekbar.GaugeSeekBar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -68,18 +74,47 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     //Line표시
     Calendar lineCal;
 
+    //상단 스텝
+    LinearLayout step1 , step2 , step3 , runBt;
+
+    //하단 버튼
+    private TextView  calendarNextBt , todayBt;
+
     //달력 좌측 , 우측 버튼
     private ImageView nextButton , backButton;
-    private TextView tvDate , calendarNextBt;
+    private TextView tvDate;
 
     //등록된 스케줄이 있을 경우
     private boolean isSchedul = false;
+    //운동시작일 설정 버튼을 누를경우
+    private boolean isRun = false;
+
     private String startDate = "";
     private String endDate = "";
     private int scheduleId = 0;
 
     private ScheduleDAO scheduleDAO;
     private ExerciseDAO exerciseDAO;
+
+    //프로그레스
+    GaugeSeekBar gaugeSeekBar;
+    LinearLayout innerView;
+
+    //프로그레스에 필요한 변수
+    int main_per_count = 0;
+    int counter = 0;
+    Timer timer = new Timer();
+
+    //텍스트 버튼 수정
+    TextView count_day , count_date , per_count;
+
+    ScheduleDTO row;
+    private ArrayList<ExerciseDTO> exerciseDTOS;
+
+    //step3 운동체크 버튼
+    FrameLayout step3_exercise_check_bt;
+    //나의 운동기록 버튼
+    LinearLayout my_exercise_list_bt1 ,my_exercise_list_bt2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +126,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if ( !isRun ) {
+                    Toast.makeText(getApplicationContext(),"운동 시작일 설정 버튼을 눌러주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
                 try {
                     //등록된 스케줄이 없을 경우
@@ -105,22 +144,31 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                         Date checkDate = dateFormat.parse((String) tvDate.getText().toString()+"."+ dayList.get(position));
                         if (nDate.getTime() <= checkDate.getTime() &&
                                 checkDate.getTime() <= eDate.getTime() )   {
-
-                            for ( ExerciseDTO row : schduleArray ) {
-                                Date rowDate = dateFormat.parse((String) row.getCheckDate());
-                                if ( rowDate.getTime() == checkDate.getTime() ) {
-                                    return;
-                                }
-                            }
-
                             regExerciseCheckDate(checkDate);
                         }
-
                     }
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(),"Date click Error",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        this.gaugeSeekBar.post(new Runnable() {
+            @Override
+            public void run() {
+                innerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) innerView.getLayoutParams();
+                        params.width = (int) (gaugeSeekBar.getHeight() / 1.4);
+                        params.height = (int) (gaugeSeekBar.getHeight() / 1.4);
+                        innerView.setLayoutParams(params);
+//                        main_start_button.getLayoutParams().width = gaugeSeekBar.getHeight() / 2;
+//                        main_start_button.getLayoutParams().height = gaugeSeekBar.getHeight() / 2;
+                    }
+                });
+
             }
         });
     }
@@ -131,7 +179,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.todayDate();
         this.schduleArray = new ArrayList<>();
 
-        ScheduleDTO row = null;
+        this.row = null;
         //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
         if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
         if ( row != null ) {
@@ -139,9 +187,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             this.endDate = row.getEdate();
             this.scheduleId = row.getNum();
         }
+        this.dataReload();
+    }
+
+    private void dataReload() {
         //저장된 데이터가 있을 경우.
         if ( ! this.startDate.equals("") ) {
             this.isSchedul = true;
+            this.isRun = true;
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
             try {
                 nDate = dateFormat.parse(this.startDate);
@@ -154,11 +207,65 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             lineCal.setTime(nDate);
             lineCal.add(Calendar.DAY_OF_MONTH , 30);
             chnageAdapter();
-        }
+            this.exerciseDTOS = this.exerciseDAO.finds(this.row.getNum());
+            this.topViewChange(this.step3);
 
+            this.count_date.setText(this.row.getSdate()+"~"+this.row.getEdate());
+            this.count_day.setText(this.exerciseDTOS.size()+"");
+            this.main_per_count = this.exerciseDTOS.size() * 100 / 30;
+
+            TimerTask tt = new TimerTask() {
+                @Override
+                public void run() {
+                    Log.d("timer",""+timer);
+                    per_count.setText(String.valueOf(counter));
+                    gaugeSeekBar.setProgress(counter*0.01f);
+                    if ( counter == main_per_count ) {
+                        timer.cancel();
+                        counter = 0;
+                    }
+                    counter = counter + 1;
+                }
+            };
+            timer = new Timer();
+            timer.schedule(tt, 0, 50);
+
+        } else {
+            this.topViewChange(this.step1);
+        }
     }
 
+    private void topViewChange(LinearLayout linearLayout) {
+        this.step1.setVisibility(View.GONE);
+        this.step2.setVisibility(View.GONE);
+        this.step3.setVisibility(View.GONE);
+
+        if ( linearLayout.equals(this.step2) ) {
+            this.todayBt.setVisibility(View.GONE);
+            this.calendarNextBt.setVisibility(View.VISIBLE);
+        } else {
+            this.todayBt.setVisibility(View.VISIBLE);
+            this.calendarNextBt.setVisibility(View.GONE);
+        }
+        linearLayout.setVisibility(View.VISIBLE);
+    }
+
+
     private void regExerciseCheckDate(final Date checkDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
+        for ( ExerciseDTO row : schduleArray ) {
+            try {
+                Date rowDate = dateFormat.parse((String) row.getCheckDate());
+                if ( rowDate.getTime() == checkDate.getTime() ) {
+                    Toast.makeText(getApplicationContext(),"운동체크가 되어있습니다.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"reg 255 line Error",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         new MaterialDialog.Builder(CalendarActivity.this).title(R.string.app_name)
                 .content("오늘 견관절 운동을 하셨나요?")
                 .positiveText("네").negativeText("아니요").
@@ -168,14 +275,15 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 //운동 일자를 저장
                 Calendar checkCalendar = Calendar.getInstance() ;
                 checkCalendar.setTime(checkDate);
-
-                Toast.makeText(getApplicationContext(),checkCalendar.get(Calendar.YEAR)+"."+
-                        (checkCalendar.get(Calendar.MONTH)+1)+"."+checkCalendar.get(Calendar.DATE),Toast.LENGTH_SHORT).show();
+//
+//                Toast.makeText(getApplicationContext(),checkCalendar.get(Calendar.YEAR)+"."+
+//                        (checkCalendar.get(Calendar.MONTH)+1)+"."+checkCalendar.get(Calendar.DATE),Toast.LENGTH_SHORT).show();
 
                 exerciseDAO.addExercise(new ExerciseDTO(0,scheduleId,checkCalendar.get(Calendar.YEAR)+"."+
                         (checkCalendar.get(Calendar.MONTH)+1)+"."+checkCalendar.get(Calendar.DATE)));
 
                 chnageAdapter();
+                dataReload();
             }
         }).show();
     }
@@ -259,10 +367,29 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
+
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.my_exercise_list2:
+            case R.id.my_exercise_list1:
+                //나의 운동기록
+                intent = new Intent(this , MyExerciseList.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                break;
+
+            case R.id.step3_exercise_checkBt:
+                this.regExerciseCheckDate(Common.getDate(this.realDate));
+                break;
+
+            case R.id.calendar_runBt:
+                this.isRun = true;
+                this.topViewChange(this.step2);
+                break;
+
             case R.id.schadule_nextDateButton:
                 this.changeDate(1);
                 break;
@@ -313,7 +440,26 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.calendarNextBt = findViewById(R.id.calendar_nextBt);
         this.calendarNextBt.setOnClickListener(this);
 
+        this.step1 = findViewById(R.id.c_step1);
+        this.step2 = findViewById(R.id.c_step2);
+        this.step3 = findViewById(R.id.c_step3);
+        this.runBt = findViewById(R.id.calendar_runBt);
+        this.runBt.setOnClickListener(this);
+        this.todayBt = findViewById(R.id.calendar_today);
+
         this.scheduleDAO = new ScheduleDAO(this);
         this.exerciseDAO = new ExerciseDAO(this);
+
+        this.count_date = findViewById(R.id.count_date);
+        this.count_day = findViewById(R.id.count_day);
+        this.per_count = findViewById(R.id.main_per_count);
+        this.gaugeSeekBar = findViewById(R.id.progress);
+        this.innerView = findViewById(R.id.main_innerView2);
+        this.step3_exercise_check_bt = findViewById(R.id.step3_exercise_checkBt);
+        this.step3_exercise_check_bt.setOnClickListener(this);
+        this.my_exercise_list_bt1 = findViewById(R.id.my_exercise_list1);
+        this.my_exercise_list_bt1.setOnClickListener(this);
+        this.my_exercise_list_bt2 = findViewById(R.id.my_exercise_list2);
+        this.my_exercise_list_bt2.setOnClickListener(this);
     }
 }

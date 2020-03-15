@@ -3,6 +3,7 @@ package com.m2comm.module.dao;
 import android.content.Context;
 import android.util.Log;
 
+import com.m2comm.kses_exercise.MyExerciseList;
 import com.m2comm.module.models.AlarmDTO;
 import com.m2comm.module.models.ExerciseDTO;
 import com.m2comm.module.models.ScheduleDTO;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ExerciseDAO implements Realm.Transaction {
     Realm realm;
@@ -50,6 +52,22 @@ public class ExerciseDAO implements Realm.Transaction {
         ArrayList<ExerciseDTO> exerciseDTOS = new ArrayList<>();
         exerciseDTOS.addAll(this.realm.copyFromRealm(this.realm.where(ExerciseDTO.class).equalTo("scheduleNum",scheduleNum).findAll()));
         return exerciseDTOS;
+    }
+
+    public void delete (final int scheduleNum) {
+        this.realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<ExerciseDTO> results = realm.where(ExerciseDTO.class).equalTo("num",scheduleNum).findAll();
+                results.deleteAllFromRealm();
+            }
+        }, new OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+            }
+        });
+
     }
 
     public List<ExerciseDTO> getAllList() {

@@ -154,7 +154,7 @@ public class ContentListActivity extends AppCompatActivity {
             } catch (Exception e){
                 Log.d("leftClickError",e.toString());
             }
-            return ContentFragment.newInstance(position,"HEOO",arrs);
+            return ContentFragment.newInstance(position,title,arrs);
         }
 
         @Override

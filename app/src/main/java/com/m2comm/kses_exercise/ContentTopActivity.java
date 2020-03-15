@@ -2,6 +2,7 @@ package com.m2comm.kses_exercise;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.IpSecAlgorithm;
 import android.util.Log;
@@ -42,6 +43,7 @@ public class ContentTopActivity implements View.OnClickListener {
         this.idSetting();
         this.parent.setBackgroundColor(this.context.getResources().getColor(R.color.content_top_color));
         this.titleView.setText(this.title);
+        this.titleView.setOnClickListener(this);
         this.back.setOnClickListener(this);
     }
 
@@ -52,6 +54,13 @@ public class ContentTopActivity implements View.OnClickListener {
             case R.id.top_back:
                 this.activity.finish();
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+                break;
+            case R.id.top_title:
+                Intent intent = new Intent(this.activity , MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                this.activity.startActivity(intent);
+
                 break;
         }
 

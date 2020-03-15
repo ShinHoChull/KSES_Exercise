@@ -29,7 +29,7 @@
                 android:layout_weight="1.2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="TITLE"
+                android:text="마이 리스트"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:textSize="30dp"
@@ -54,7 +54,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:background="@drawable/content_fav_radius">
+                    android:background="@drawable/content_fav_radius"
+                    >
                     <ImageView
                         android:layout_width="27dp"
                         android:layout_height="match_parent"

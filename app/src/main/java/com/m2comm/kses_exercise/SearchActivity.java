@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         this.idSetting();
         this.search_img.setColorFilter(Color.WHITE);
+        this.arrayList = new ArrayList<>();
 
         ContentListViewAdapter contentListViewAdapter = new ContentListViewAdapter(this , getLayoutInflater() , this.arrayList);
         listView.setAdapter(contentListViewAdapter);

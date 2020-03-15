@@ -66,7 +66,7 @@ public class BottomActivity implements View.OnClickListener {
                 break;
 
             case R.id.bottomBt5:
-                intent = new Intent(this.activity , ContentListActivity.class);
+                intent = new Intent(this.activity , MyListActivity.class);
                 this.activity.startActivity(intent);
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;

@@ -97,8 +97,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(getApplicationContext() , ContentDetailActivity.class);
                 intent.putExtra("groupId",groupDefaultNum);
                 intent.putExtra("depth2Id",leftClick);
-                intent.putExtra("depth3Id",position);
+                intent.putExtra("position",position);
+                intent.putExtra("arr",rightArray);
                 intent.putExtra("title",leftArray.get(leftClick));
+                intent.putExtra("content_title",rightArray.get(position).getTitle());
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 finish();
