@@ -36,8 +36,8 @@ public class SearchActivity extends AppCompatActivity {
         this.search_img.setColorFilter(Color.WHITE);
         this.arrayList = new ArrayList<>();
 
-        ContentListViewAdapter contentListViewAdapter = new ContentListViewAdapter(this , getLayoutInflater() , this.arrayList);
-        listView.setAdapter(contentListViewAdapter);
+       // ContentListViewAdapter contentListViewAdapter = new ContentListViewAdapter(this , getLayoutInflater() , this.arrayList , false);
+       // listView.setAdapter(contentListViewAdapter);
 
     }
 }

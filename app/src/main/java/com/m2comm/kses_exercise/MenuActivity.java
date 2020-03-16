@@ -95,9 +95,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext() , ContentDetailActivity.class);
-                intent.putExtra("groupId",groupDefaultNum);
-                intent.putExtra("depth2Id",leftClick);
-                intent.putExtra("position",position);
+                intent.putExtra("groupNum",groupDefaultNum);
+                intent.putExtra("depth2Num",leftClick);
+                intent.putExtra("depth3Num",position);
                 intent.putExtra("arr",rightArray);
                 intent.putExtra("title",leftArray.get(leftClick));
                 intent.putExtra("content_title",rightArray.get(position).getTitle());

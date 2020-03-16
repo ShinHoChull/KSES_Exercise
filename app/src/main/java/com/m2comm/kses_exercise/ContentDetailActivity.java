@@ -22,7 +22,7 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
     String title,content_title_txt;
     TextView content_title;
     private ArrayList<MenuDTO> arrayList;
-    private int position;
+    private int groupNum , depth2Num , depth3Num;
     private ImageView backBt , nextBt;
 
     private void idSetting() {
@@ -30,7 +30,9 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
         this.title = intent.getStringExtra("title");
         this.content_title_txt = intent.getStringExtra("content_title");
         this.arrayList = (ArrayList<MenuDTO>)intent.getSerializableExtra("arr");
-        this.position = intent.getIntExtra("position",0);
+        this.groupNum = intent.getIntExtra("groupNum",0);
+        this.depth2Num = intent.getIntExtra("depth2Num",0);
+        this.depth3Num = intent.getIntExtra("depth3Num",0);
 
         this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,this.title);
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
@@ -57,13 +59,13 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     private void chagenVideo( int num ) {
-        this.position = this.position + num;
-        if (this.position < 0) {
-            this.position = 0;
-        } else if ( this.position >= this.arrayList.size() ) {
-            this.position = this.arrayList.size() - 1;
+        this.depth3Num = this.depth3Num + num;
+        if (this.depth3Num < 0) {
+            this.depth3Num = 0;
+        } else if ( this.depth3Num >= this.arrayList.size() ) {
+            this.depth3Num = this.arrayList.size() - 1;
         }
-        this.content_title.setText(this.arrayList.get(this.position).getTitle());
+        this.content_title.setText(this.arrayList.get(this.depth3Num).getTitle());
     }
 
     @Override

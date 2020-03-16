@@ -11,24 +11,37 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.m2comm.kses_exercise.R;
+import com.m2comm.module.Common;
+import com.m2comm.module.Custom_SharedPreferences;
 import com.m2comm.module.models.ContentDTO;
+import com.m2comm.module.models.FavDTO;
 import com.m2comm.module.models.MenuDTO;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ContentListViewAdapter extends BaseAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
     ArrayList<MenuDTO> contentArray;
+    boolean isFav = false;
+    private Custom_SharedPreferences csp;
+    int groupNum , depth2Num;
+    String group_title;
 
-
-    public ContentListViewAdapter(Context context, LayoutInflater layoutInflater , ArrayList<MenuDTO> contentArray) {
+    public ContentListViewAdapter(Context context, LayoutInflater layoutInflater, ArrayList<MenuDTO> contentArray, boolean isFav , int groupNum , int depth2Num , String group_title) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.contentArray = contentArray;
+        this.isFav = isFav;
+        this.groupNum = groupNum;
+        this.depth2Num = depth2Num;
+        this.group_title = group_title;
+        this.csp = new Custom_SharedPreferences(context);
     }
 
     @Override
@@ -48,19 +61,54 @@ public class ContentListViewAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        if ( convertView == null ) {
-            MenuDTO contentDTO = contentArray.get(position);
-            convertView  = this.layoutInflater.inflate(R.layout.content_item,parent,false);
+        if (convertView == null) {
+            final MenuDTO contentDTO = contentArray.get(position);
+            convertView = this.layoutInflater.inflate(R.layout.content_item, parent, false);
             ImageView content_item = convertView.findViewById(R.id.content_thumbnail);
+            final ImageView favBt = convertView.findViewById(R.id.favBt);
             TextView tv = convertView.findViewById(R.id.content_title);
+
             tv.setText(contentDTO.getTitle());
+            if (this.isFav) {
+                favBt.setVisibility(View.VISIBLE);
+            } else {
+                favBt.setVisibility(View.GONE);
+            }
+            final FavDTO favDTO = new FavDTO(0,this.groupNum , this.depth2Num , position , contentDTO.getUrl(),this.group_title+">"+contentDTO.getTitle(), contentDTO.getTitle());
+
+            favBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (Common.common_menuDTO_ArrayList.size() > 0) {
+                        boolean isAdd = true;
+                        for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
+                            FavDTO row = it.next();
+                            if ( row.equals(favDTO) ) {
+                                it.remove();
+                                favBt.setImageResource(R.drawable.content_off);
+                                isAdd = false;
+                            }
+                        }
+
+                        if (isAdd) {
+                            Common.common_menuDTO_ArrayList.add(favDTO);
+                            favBt.setImageResource(R.drawable.content_on);
+                        }
+
+                    } else {
+                        Common.common_menuDTO_ArrayList.add(favDTO);
+                        favBt.setImageResource(R.drawable.content_on);
+                    }
+                }
+            });
+
         }
 
         return convertView;
     }
-
 
 
 }

@@ -9,21 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m2comm.kses_exercise.R;
+import com.m2comm.module.Common;
 import com.m2comm.module.models.ContentDTO;
 import com.m2comm.module.models.FavDTO;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class FavViewAdapter extends BaseAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
     ArrayList<FavDTO> contentArray;
+    boolean isDel = false;
 
-    public FavViewAdapter(Context context, LayoutInflater layoutInflater , ArrayList<FavDTO> contentArray) {
+    public FavViewAdapter(Context context, LayoutInflater layoutInflater , ArrayList<FavDTO> contentArray , boolean isDel) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.contentArray = contentArray;
+        this.isDel = isDel;
     }
 
     @Override
@@ -46,8 +50,46 @@ public class FavViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if ( convertView == null ) {
-            FavDTO contentDTO = contentArray.get(position);
+            final FavDTO favDTO = contentArray.get(position);
             convertView  = this.layoutInflater.inflate(R.layout.fav_group_item,parent,false);
+            TextView groupTitle = convertView.findViewById(R.id.groupTitle);
+            TextView contentTitle = convertView.findViewById(R.id.content_title);
+            final ImageView delBt = convertView.findViewById(R.id.delBt);
+
+            if ( isDel ) {
+                delBt.setVisibility(View.VISIBLE);
+            } else {
+                delBt.setVisibility(View.GONE);
+            }
+
+            groupTitle.setText(favDTO.getGroupTitle());
+            contentTitle.setText(favDTO.getContent_title());
+
+            delBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (Common.common_menuDTO_ArrayList.size() > 0) {
+                        boolean isAdd = true;
+                        for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
+                            FavDTO row = it.next();
+                            if ( row.equals(favDTO) ) {
+                                it.remove();
+                                delBt.setImageResource(R.drawable.content_off);
+                                isAdd = false;
+                            }
+                        }
+
+                        if (isAdd) {
+                            Common.common_menuDTO_ArrayList.add(favDTO);
+                            delBt.setImageResource(R.drawable.content_on);
+                        }
+                    } else {
+                        Common.common_menuDTO_ArrayList.add(favDTO);
+                        delBt.setImageResource(R.drawable.content_on);
+                    }
+                }
+            });
 
         }
 

@@ -51,10 +51,12 @@ public class AlarmListActivity extends AppCompatActivity {
         this.alarmList = this.alarmDAO.getAllList();
 
         if ( this.alarmList.size() > 0 ) {
+            this.alarmAddBt.setVisibility(View.VISIBLE);
             this.clock_view.setVisibility(View.GONE);
             AlarmViewAdapter contentListViewAdapter = new AlarmViewAdapter(this , getLayoutInflater() , this.alarmList);
             listView.setAdapter(contentListViewAdapter);
         } else {
+            this.alarmAddBt.setVisibility(View.GONE);
             this.clock_view.setVisibility(View.VISIBLE);
         }
     }

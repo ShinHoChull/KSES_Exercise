@@ -79,6 +79,9 @@ public class ExerciseListAdapter extends BaseAdapter {
             TextView count_day = convertView.findViewById(R.id.count_day);
             TextView count_date = convertView.findViewById(R.id.count_date);
             TextView run_state = convertView.findViewById(R.id.run_state);
+            TextView text1 = convertView.findViewById(R.id.text1);
+            TextView text2 = convertView.findViewById(R.id.text2);
+            TextView text3 = convertView.findViewById(R.id.text3);
             LinearLayout deleteBt = convertView.findViewById(R.id.deleteBt);
             gaugeSeekBar.post(new Runnable() {
                 @Override
@@ -101,6 +104,11 @@ public class ExerciseListAdapter extends BaseAdapter {
             } else {
                 run_state.setText("운동종료");
                 run_state.setBackgroundColor(Color.parseColor("#3e51a2"));
+                text1.setTextColor(Color.parseColor("#999999"));
+                text2.setTextColor(Color.parseColor("#999999"));
+                text3.setTextColor(Color.parseColor("#999999"));
+                count_date.setTextColor(Color.parseColor("#999999"));
+                count_day.setTextColor(Color.parseColor("#999999"));
             }
             count_date.setText(row.getSdate()+"~"+row.getEdate());
             count_day.setText(this.exerciseDTOS.size()+"");

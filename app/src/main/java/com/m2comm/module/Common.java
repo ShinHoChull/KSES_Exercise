@@ -1,11 +1,17 @@
 package com.m2comm.module;
 
+import com.m2comm.module.models.FavDTO;
+import com.m2comm.module.models.MenuDTO;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class Common {
+
+    public static ArrayList<FavDTO> common_menuDTO_ArrayList;
 
     public  static  Calendar getCalendar (Date date) {
         Calendar checkCalendar = Calendar.getInstance() ;

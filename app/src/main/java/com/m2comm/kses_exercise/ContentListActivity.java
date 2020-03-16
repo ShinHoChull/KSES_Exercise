@@ -1,9 +1,11 @@
 package com.m2comm.kses_exercise;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -11,11 +13,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.m2comm.module.Common;
 import com.m2comm.module.Custom_SharedPreferences;
+import com.m2comm.module.dao.FavDAO;
+import com.m2comm.module.models.FavDTO;
 import com.m2comm.module.models.MenuDTO;
 
 import org.json.JSONArray;
@@ -23,31 +30,26 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ContentListActivity extends AppCompatActivity {
+public class ContentListActivity extends AppCompatActivity implements View.OnClickListener {
 
     ContentTopActivity contentTopActivity;
     BottomActivity bottomActivity;
-    TextView title_tv;
+    TextView title_tv , favText;
     TabLayout tabLayout;
+    LinearLayout favBt;
     ViewPager viewPager;
     ContentViewPagerAdapter contentViewPagerAdapter;
     Custom_SharedPreferences csp;
     JSONArray menuDepth2JsonArray;
     ArrayList<String> leftArray;
     ArrayList<MenuDTO> rightArray;
+    private boolean isFav = false;
     private String title;
     private int groupDefaultNum = 0;
     private int leftClick = 0;
 
-    private void idSetting() {
-        this.viewPager = findViewById(R.id.content_pager);
-        this.tabLayout = findViewById(R.id.content_tab);
-        this.title_tv = findViewById(R.id.content_title);
-        this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
-        this.csp = new Custom_SharedPreferences(this);
-        Intent intent = getIntent();
-        this.groupDefaultNum = intent.getIntExtra("groupId",0);
-    }
+    private FavDAO favDAO;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class ContentListActivity extends AppCompatActivity {
             }
         });
 
-        this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager() ,this, this.leftArray.size());
+        this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager() ,this, this.leftArray.size() , isFav);
         this.viewPager.setAdapter(contentViewPagerAdapter);
         this.viewPager.setClipToPadding(false);
         this.viewPager.setPageMargin(132);
@@ -130,15 +132,22 @@ public class ContentListActivity extends AppCompatActivity {
         }
     }
 
-    public class ContentViewPagerAdapter extends FragmentPagerAdapter {
+    public class ContentViewPagerAdapter extends FragmentStatePagerAdapter {
 
         private Context context;
         private int pagerCount;
+        private boolean isFav;
 
-        public ContentViewPagerAdapter(FragmentManager fragmentManager , Context context, int pagerCount) {
+        public ContentViewPagerAdapter(FragmentManager fragmentManager , Context context, int pagerCount, boolean isFav) {
             super(fragmentManager);
             this.context = context;
             this.pagerCount = pagerCount;
+            this.isFav = isFav;
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return super.getItemPosition(object);
         }
 
         @Override
@@ -151,17 +160,55 @@ public class ContentListActivity extends AppCompatActivity {
                     JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
                     arrs.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),0));
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 Log.d("leftClickError",e.toString());
             }
-            return ContentFragment.newInstance(position,title,arrs);
+            return ContentFragment.newInstance(position,title,arrs,isFav,groupDefaultNum);
         }
 
         @Override
         public int getCount() {
             return this.pagerCount;
         }
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.favBt:
+                if ( Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
+                    Log.d("commonArrayList",Common.common_menuDTO_ArrayList.size()+"");
+                    for (FavDTO row : Common.common_menuDTO_ArrayList ) {
+                        this.favDAO.addFav(row);
+                    }
+                    Toast.makeText(this,"즐겨찾기에 추가 되었습니다.",Toast.LENGTH_SHORT).show();
+                }
+                Common.common_menuDTO_ArrayList = new ArrayList<>();
+                if ( this.isFav ) {
+                    this.favText.setText("즐겨찾기 선택");
+                } else {
+                    this.favText.setText("즐겨찾기 추가");
+                }
+                this.isFav = !this.isFav;
+                this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager() ,this, this.leftArray.size() , this.isFav);
+                this.viewPager.setAdapter(contentViewPagerAdapter);
+                this.contentViewPagerAdapter.notifyDataSetChanged();
+                tabLayout.setScrollPosition(0,0,true);
+                break;
+        }
+    }
 
+    private void idSetting() {
+        this.viewPager = findViewById(R.id.content_pager);
+        this.tabLayout = findViewById(R.id.content_tab);
+        this.title_tv = findViewById(R.id.content_title);
+        this.favText = findViewById(R.id.favText);
+        this.favBt = findViewById(R.id.favBt);
+        this.favBt.setOnClickListener(this);
+        this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
+        this.csp = new Custom_SharedPreferences(this);
+        Intent intent = getIntent();
+        this.groupDefaultNum = intent.getIntExtra("groupId",0);
+        this.favDAO = new FavDAO(this);
     }
 }
