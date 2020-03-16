@@ -154,8 +154,9 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
                     Log.d("year1",lineCal.get(Calendar.YEAR)+"");
                     Log.d("year2",realmCal.get(Calendar.YEAR)+"");
                     Log.d("MONTH1",lineCal.get(Calendar.MONTH)+"");
-
+                    Log.d("MONTH1",realmCal.get(Calendar.MONTH)+"");
                     Log.d("DATE1",lineCal.get(Calendar.DATE)+"");
+                    Log.d("DATE1",realmCal.get(Calendar.DATE)+"");
                     Log.d("DATE",lineCal.compareTo(realmCal)+"");
                     Log.d("DATE23",click_calendar.compareTo(realmCal)+"");
 
@@ -169,31 +170,17 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
                 for ( ExerciseDTO row : scheduleArray ) {
                     Log.d("check_DATE",row.getCheckDate());
 
-                    int pointDay = Integer.parseInt(getItem(position));
-                    String[] sDayArr = row.getCheckDate().split("\\.");
-                    int sDay = Integer.parseInt(sDayArr[sDayArr.length - 1 ]);
-                    Log.d("DATE2",realmCal.get(Calendar.MONTH)+"."+realmCal.get(Calendar.DATE));
+                    String pointDate = mCal.get(Calendar.YEAR)+"."+(mCal.get(Calendar.MONTH)+1)+"."+getItem(position);
+                    String clickDate = row.getCheckDate();
 
-                    if ( pointDay == sDay ) {
+                    Log.d("pointDate",pointDate);
+                    Log.d("clickDate",clickDate);
+
+                    if ( clickDate.equals(pointDate) ) {
                         holder.line.setBackgroundColor(Color.parseColor("#2d97ee"));
                         holder.tvItemGridView.setTextColor(Color.parseColor("#ffffff"));
                     }
 
-//
-//                    if ( ! scheduleDTO.getEdate().equals("") ) {
-//                        String[] eDayArr = scheduleDTO.getEdate().split("-");
-//                        int eDay = Integer.parseInt(eDayArr[eDayArr.length - 1 ]);
-//                        if ( sDay <= pointDay && eDay >= pointDay ) {
-//                            holder.tvItemGridView.setTextColor(Color.WHITE);
-//                            holder.cirV.setVisibility(View.VISIBLE);
-//                        }
-//
-//                    } else {
-//                        if ( pointDay == sDay ) {
-//                            holder.tvItemGridView.setTextColor(Color.WHITE);
-//                            holder.cirV.setVisibility(View.VISIBLE);
-//                        }
-//                    }
                 }
             }
 

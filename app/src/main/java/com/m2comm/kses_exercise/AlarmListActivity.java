@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.m2comm.module.adapters.AlarmViewAdapter;
 import com.m2comm.module.adapters.ContentListViewAdapter;
 import com.m2comm.module.dao.AlarmDAO;
+import com.m2comm.module.dao.ScheduleDAO;
 import com.m2comm.module.models.AlarmDTO;
 import com.m2comm.module.models.ContentDTO;
+import com.m2comm.module.models.ScheduleDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,22 +27,44 @@ public class AlarmListActivity extends AppCompatActivity {
     BottomActivity bottomActivity;
     private ListView listView;
     List<AlarmDTO> alarmList;
-    AlarmDAO alarmDAO;
-
+    private AlarmDAO alarmDAO;
+    private ScheduleDAO scheduleDAO;
+    ScheduleDTO row;
     private LinearLayout clock_view;
-    private TextView alarmAddBt;
+    private TextView alarmAddBt , alarm_list_start_exercise;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_list);
         this.idSetting();
+
+        this.row = null;
+        //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
+        if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
+
         this.alarmAddBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext() , AlarmDetail.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+        });
+
+        this.alarm_list_start_exercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( row != null ) {
+                    Intent intent = new Intent(getApplicationContext() , AlarmDetail.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext() , CalendarActivity.class);
+                    startActivity(intent);
+                }
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+
             }
         });
     }
@@ -66,9 +90,10 @@ public class AlarmListActivity extends AppCompatActivity {
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         this.listView = findViewById(R.id.alarm_list);
         this.alarmDAO = new AlarmDAO(this);
+        this.scheduleDAO = new ScheduleDAO(this);
         this.clock_view = findViewById(R.id.alarm_nonItem_view);
         this.alarmAddBt = findViewById(R.id.add_alarmBt);
-
+        this.alarm_list_start_exercise = findViewById(R.id.alarm_list_start_exercise);
     }
 
 

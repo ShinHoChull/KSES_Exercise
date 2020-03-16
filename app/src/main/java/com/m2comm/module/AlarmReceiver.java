@@ -1,5 +1,6 @@
 package com.m2comm.module;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,16 +17,26 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.m2comm.kses_exercise.R;
+import com.m2comm.module.dao.AlarmDAO;
+import com.m2comm.module.dao.ScheduleDAO;
+import com.m2comm.module.models.AlarmDTO;
+import com.m2comm.module.models.ScheduleDTO;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
+    ScheduleDAO scheduleDAO;
+    AlarmDAO alarmDAO;
     @Override
     public void onReceive(Context context, Intent intent) {
 
         Bundle extra = intent.getExtras();
+        this.scheduleDAO = new ScheduleDAO(context);
+        this.alarmDAO = new AlarmDAO(context);
         if (extra != null)
         {
             boolean isOneTime = extra.getBoolean("one_time");
@@ -33,9 +44,49 @@ public class AlarmReceiver extends BroadcastReceiver {
                 //AlarmDataManager.getInstance().setAlarmEnable(context, false);
                 // 알람 울리기.
             } else {
-                int num = extra.getInt("num");
+                int num = extra.getInt("alarmNum");
+                int scheduleNum = extra.getInt("alarmNum");
                 byte[] week = extra.getByteArray("day_of_week");
-                Log.d("kkkk","week"+week);
+
+                Log.d("kkkk","sche="+scheduleNum);
+                Log.d("kkkk","num="+num);
+                if ( scheduleNum <= 0) {
+                    return;
+                }
+                //전송된 푸시가 활성화가 아닐때 등록된 푸시를 삭제...
+                ScheduleDTO scheduleDTO = this.scheduleDAO.find(scheduleNum);
+                if ( scheduleDTO != null ) {
+                    if (!scheduleDTO.isRun()) {
+                        this.cancelAlarm(context,num);
+                        return;
+                    }
+                    Log.d("schedu",scheduleDTO.getEdate());
+                    //저장한 날짜 Month를 +1 해서 번거로운 작업을 해야한다....
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(new Date());
+                    String nCal = cal.get(Calendar.YEAR)+"."+(cal.get(Calendar.MONTH)+1)+"."+cal.get(Calendar.DATE);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
+
+                    try{
+                        Date nDate = dateFormat.parse(nCal);
+                        Date eDate = dateFormat.parse(scheduleDTO.getEdate());
+                        //예약 푸시가 발송된 시간이 저장된 스케줄 날짜보다 후이면 종료시킨다.
+                        if (nDate.getTime() > eDate.getTime()) {
+                            this.cancelAlarm(context,num);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        Log.d("alarmReceiverError",e.toString());
+                    }
+
+                }
+
+                //등록된 알림이 꺼져있을때
+                AlarmDTO alarmDTO = this.alarmDAO.find(num);
+                if ( alarmDTO != null && !alarmDTO.isPush()) {
+                    return;
+                }
+
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
                 if (week[Integer.valueOf(cal.get(Calendar.DAY_OF_WEEK))] == 1) {
@@ -44,7 +95,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     NotificationCompat.Builder builder;
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        NotificationChannel mChannel = new NotificationChannel("ebookPush", "ebookPush", NotificationManager.IMPORTANCE_DEFAULT);
+                        NotificationChannel mChannel = new NotificationChannel(context.getResources().getString(R.string.app_name), context.getResources().getString(R.string.app_name), NotificationManager.IMPORTANCE_DEFAULT);
                         notificationManager.createNotificationChannel(mChannel);
                         builder = new NotificationCompat.Builder(context, mChannel.getId());
                     } else {
@@ -71,5 +122,13 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
         }
     }
+
+    public void cancelAlarm(Context context , int alarmId) {
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,alarmId,intent,0);
+        alarmManager.cancel(pendingIntent);
+    }
+
 
 }

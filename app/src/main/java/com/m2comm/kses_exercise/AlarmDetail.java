@@ -17,10 +17,14 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.m2comm.module.AlarmReceiver;
+import com.m2comm.module.Common;
 import com.m2comm.module.dao.AlarmDAO;
+import com.m2comm.module.dao.ScheduleDAO;
 import com.m2comm.module.models.AlarmDTO;
+import com.m2comm.module.models.ScheduleDTO;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class AlarmDetail extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,13 +40,17 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
     AlarmDAO alarmDAO;
     Resources system;
     TimePicker time_picker;
-    private int alarm_max_num;
+    private int alarm_max_num , scheduleNum;
+
+    private ScheduleDAO scheduleDAO;
+    private ScheduleDTO row;
 
     private void idSetting() {
         this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         this.mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         this.alarmDAO = new AlarmDAO(this);
+        this.scheduleDAO = new ScheduleDAO(this);
         this.time_picker = findViewById(R.id.timepicker);
         this.successBt = findViewById(R.id.alarm_detail_success);
         this.successBt.setOnClickListener(this);
@@ -84,10 +92,19 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
         });
         //Pending Intent ID를 기억하기위해서 DB의 Max ID를 가져와서
         this.alarm_max_num = this.alarmDAO.getID();
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
+        if ( row != null ) {
+            this.scheduleNum = row.getNum();
+        }
+    }
 
-    private void isCheck(TextView tv , LinearLayout linearLayout ,  int num) {
+    private void isCheck(TextView tv , LinearLayout linearLayout , int num) {
         this.week[num] = (byte) (this.week[num] == 0 ? 1 : 0);
 
         if ( this.week[num] == 1 ) {
@@ -102,7 +119,6 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
     private void registAlarm()
     {
         //cancelAlarm();
-
         boolean isRepeat = false;
         int len = week.length;
         for (int i = 0; i < len; i++)
@@ -124,10 +140,14 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
 
         long triggerTime = 0;
         long intervalTime = 24 * 60 * 60 * 1000;// 24시간
+
         if(isRepeat)
         {
             intent.putExtra("one_time", false);
             intent.putExtra("day_of_week", week);
+            intent.putExtra("scheduleNum",this.scheduleNum);
+            intent.putExtra("alarmNum",this.alarm_max_num);
+
             //requestCode는 Noti ID
             PendingIntent pending = PendingIntent.getBroadcast(this , this.alarm_max_num , intent , 0);
             triggerTime = setTriggerTime();
@@ -140,6 +160,7 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
         }
         Toast.makeText(this , "설정이 완료 되었습니다.",Toast.LENGTH_SHORT).show();
         intent = new Intent(this , MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
         startActivity(intent);
         this.finish();
     }
@@ -152,7 +173,7 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
 
     private PendingIntent getPendingIntent(Intent intent)
     {
-        PendingIntent pIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pIntent = PendingIntent.getBroadcast(this, this.alarm_max_num, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pIntent;
     }
 
@@ -211,7 +232,7 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
                     am_pm = "PM";
                 }
 
-                if ( alarmDAO.addAlarm(new AlarmDTO(0,am_pm,hour+":"+min,true,week,0)) ) {
+                if ( alarmDAO.addAlarm(new AlarmDTO(0,am_pm,hour+":"+min,true,week,row.getNum())) ) {
                     this.registAlarm();
                 }
 

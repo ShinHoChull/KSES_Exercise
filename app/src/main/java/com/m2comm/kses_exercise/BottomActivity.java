@@ -43,30 +43,35 @@ public class BottomActivity implements View.OnClickListener {
 
             case R.id.bottomBt1:
                 intent = new Intent(this.activity , CalendarActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 this.activity.startActivity(intent);
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
 
             case R.id.bottomBt2:
                 intent = new Intent(this.activity , AlarmListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 this.activity.startActivity(intent);
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
 
             case R.id.bottomBt3:
                 intent = new Intent(this.activity , MenuActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 this.activity.startActivity(intent);
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_left,0);
                 break;
 
             case R.id.bottomBt4:
                 intent = new Intent(this.activity , SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 this.activity.startActivity(intent);
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
 
             case R.id.bottomBt5:
                 intent = new Intent(this.activity , MyListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 this.activity.startActivity(intent);
                 this.activity.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;

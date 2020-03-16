@@ -10,23 +10,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.m2comm.kses_exercise.R;
+import com.m2comm.module.dao.AlarmDAO;
 import com.m2comm.module.models.AlarmDTO;
 import com.m2comm.module.models.ContentDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+
 public class AlarmViewAdapter extends BaseAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
     List<AlarmDTO> contentArray;
+    AlarmDAO alarmDAO;
 
 
     public AlarmViewAdapter(Context context, LayoutInflater layoutInflater , List<AlarmDTO> contentArray) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.contentArray = contentArray;
+        this.alarmDAO = new AlarmDAO(context);
     }
 
     @Override
@@ -49,7 +54,7 @@ public class AlarmViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if ( convertView == null ) {
-            AlarmDTO row = contentArray.get(position);
+            final AlarmDTO row = contentArray.get(position);
             convertView  = this.layoutInflater.inflate(R.layout.alarm_list_item,parent,false);
             TextView am_pm = convertView.findViewById(R.id.am_pm);
             TextView time = convertView.findViewById(R.id.time);
@@ -60,6 +65,7 @@ public class AlarmViewAdapter extends BaseAdapter {
             TextView thu = convertView.findViewById(R.id.alarm_thu);
             TextView fri = convertView.findViewById(R.id.alarm_fri);
             TextView sat = convertView.findViewById(R.id.alarm_sat);
+            final ImageView img = convertView.findViewById(R.id.alarm_img);
 
             am_pm.setText(row.getAm_pm());
             time.setText(row.getDate());
@@ -71,6 +77,25 @@ public class AlarmViewAdapter extends BaseAdapter {
             thu.setTextColor( week[5] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
             fri.setTextColor( week[6] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
             sat.setTextColor( week[7] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+            if ( row.isPush() ) {
+                img.setImageResource(R.drawable.alarm_on);
+            } else {
+                img.setImageResource(R.drawable.alarm_off);
+            }
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if ( row.isPush() ) {
+                        alarmDAO.updateAlarm(row.getNum(),false);
+                        row.setPush(false);
+                        img.setImageResource(R.drawable.alarm_off);
+                    } else {
+                        alarmDAO.updateAlarm(row.getNum(),true);
+                        row.setPush(true);
+                        img.setImageResource(R.drawable.alarm_on);
+                    }
+                }
+            });
 
         }
 

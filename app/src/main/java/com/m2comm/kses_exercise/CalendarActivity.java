@@ -220,8 +220,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                     Log.d("timer",""+timer);
                     per_count.setText(String.valueOf(counter));
                     gaugeSeekBar.setProgress(counter*0.01f);
-                    if ( counter == main_per_count ) {
+                    if ( counter >= main_per_count ) {
                         timer.cancel();
+                        gaugeSeekBar.setProgress(main_per_count*0.01f);
                         counter = 0;
                     }
                     counter = counter + 1;

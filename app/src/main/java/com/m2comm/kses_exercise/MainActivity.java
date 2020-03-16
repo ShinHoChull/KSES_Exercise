@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.m2comm.module.Common;
 import com.m2comm.module.Custom_SharedPreferences;
+import com.m2comm.module.dao.AlarmDAO;
 import com.m2comm.module.dao.ExerciseDAO;
 import com.m2comm.module.dao.ScheduleDAO;
 import com.m2comm.module.models.ExerciseDTO;
@@ -58,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     BottomActivity bottomActivity;
     Custom_SharedPreferences csp;
-    private ScheduleDAO scheduleDAO;
+
     private Date nDate;
-    private ScheduleDTO row;
+
 
     //프로그레스바 원형 뷰 ( 2는 현재 운동이 있을경우 )
     LinearLayout main_start_button , main_start_button2;
@@ -72,8 +73,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //상단 운동 기록 텍스트
     private LinearLayout main_exercise_base_text , main_exercise_detail_text;
     private TextView main_exercise_detail_date ,main_exercise_detail_count_day;
-    private ArrayList<ExerciseDTO> exerciseDTOS;
+
+    private AlarmDAO alarmDAO;
+    private ScheduleDAO scheduleDAO;
     private ExerciseDAO exerciseDAO;
+    private ArrayList<ExerciseDTO> exerciseDTOS;
+    private ScheduleDTO row;
 
     int main_per_count = 0;
     int counter = 0;
@@ -111,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.csp = new Custom_SharedPreferences(this);
         this.scheduleDAO = new ScheduleDAO(this);
         this.exerciseDAO = new ExerciseDAO(this);
+        this.alarmDAO = new AlarmDAO(this);
     }
 
     @Override
@@ -178,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if ( nDate.getTime() > eDate.getTime() ) {
                 //현재 날짜가 등록된 스케줄 끝나는 날짜보다 크면 완료 스테이트 변경
                 this.scheduleDAO.updateSchedule(row.getNum());
+                this.alarmDAO.delete(row.getNum());
             } else {
                 //아니면 현재 운동 진행상황 표시!
                 scheduleCheck();
@@ -205,14 +212,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
-                Log.d("timer",""+timer);
+                Log.d("main_per_count",""+main_per_count);
                 main_per_num.setText(String.valueOf(counter));
                 gaugeSeekBar.setProgress(counter*0.01f);
-                if ( counter == main_per_count ) {
+                if ( counter >= main_per_count ) {
                     timer.cancel();
+                    gaugeSeekBar.setProgress(main_per_count*0.01f);
                     counter = 0;
                 }
                 counter = counter + 1;
+
             }
         };
         timer = new Timer();

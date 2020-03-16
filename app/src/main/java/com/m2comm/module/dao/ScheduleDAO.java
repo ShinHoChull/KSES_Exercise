@@ -38,6 +38,10 @@ public class ScheduleDAO implements Realm.Transaction {
         return scheduleDTO;
     }
 
+    public ScheduleDTO find(int id) {
+        return this.realm.where(ScheduleDTO.class).equalTo("num", id).findFirst();
+    }
+
     public boolean addSchedule(final ScheduleDTO scheduleDTO) {
 
         this.realm.executeTransaction(new Realm.Transaction() {
@@ -78,9 +82,6 @@ public class ScheduleDAO implements Realm.Transaction {
         return true;
     }
 
-    public ScheduleDTO find(int id) {
-        return (ScheduleDTO) this.realm.copyFromRealm(this.realm.where(ScheduleDTO.class).equalTo("num",id).findFirst());
-    }
 
 
     public List<ScheduleDTO> getAllList() {

@@ -12,8 +12,7 @@ public class AlarmDTO extends RealmObject {
     private String Date;
     private boolean isPush;
     private byte[] week;
-
-    private int pushState; //0 = 일반
+    private int pushState; //0 = Schedule ID
 
     public AlarmDTO(){}
 
