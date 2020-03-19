@@ -121,7 +121,7 @@ public class ExerciseListAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     new MaterialDialog.Builder(context).title(R.string.app_name)
                             .content("삭제하시겠습니까?")
-                            .positiveText("네").negativeText("아니요").
+                            .positiveText("네").negativeText("아니오").
                             theme(Theme.LIGHT).onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

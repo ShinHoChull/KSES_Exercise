@@ -33,8 +33,9 @@ import java.util.ArrayList;
 public class ContentListActivity extends AppCompatActivity implements View.OnClickListener {
 
     ContentTopActivity contentTopActivity;
+    PopTopActivity popTopActivity;
     BottomActivity bottomActivity;
-    TextView title_tv , favText;
+    TextView title_tv, favText;
     TabLayout tabLayout;
     LinearLayout favBt;
     ViewPager viewPager;
@@ -47,7 +48,6 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
     private String title;
     private int groupDefaultNum = 0;
     private int leftClick = 0;
-
     private FavDAO favDAO;
 
 
@@ -58,14 +58,13 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
         this.idSetting();
         this.getMenuDataSetting(this.groupDefaultNum);
         this.title_tv.setText(this.title);
-        this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,this.title);
 
-        for ( int i = 0 , j = this.leftArray.size(); i < j ; i ++ ) {
+        for (int i = 0, j = this.leftArray.size(); i < j; i++) {
             this.tabLayout.addTab(this.tabLayout.newTab().setText(this.leftArray.get(i)));
         }
 
         this.tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#2483EA"));
-        this.tabLayout.setTabTextColors(Color.parseColor("#000000"),Color.parseColor("#2483EA"));
+        this.tabLayout.setTabTextColors(Color.parseColor("#000000"), Color.parseColor("#2483EA"));
 
         this.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -84,51 +83,63 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager() ,this, this.leftArray.size() , isFav);
+        this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager(), this, this.leftArray.size(), isFav);
         this.viewPager.setAdapter(contentViewPagerAdapter);
         this.viewPager.setClipToPadding(false);
         this.viewPager.setPageMargin(132);
         this.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-            @Override
-            public void onPageSelected(int position) {
-                tabLayout.setScrollPosition(position,0,true);
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageSelected(int position) {
+                tabLayout.setScrollPosition(position, 0, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
         });
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("isFav", false)) {
+            this.favList();
+            this.popTopActivity = new PopTopActivity(this, this, getLayoutInflater(), R.id.content_top, this.title);
+            findViewById(R.id.bottom).setVisibility(View.INVISIBLE);
+            this.isFav = true;
+        } else {
+            this.contentTopActivity = new ContentTopActivity(this, this, getLayoutInflater(), R.id.content_top, this.title);
+            this.bottomActivity = new BottomActivity(getLayoutInflater(), R.id.bottom, this, this);
+        }
     }
 
-    private void getMenuDataSetting ( int groupNum ) {
+    private void getMenuDataSetting(int groupNum) {
         this.leftArray = new ArrayList<>();
         this.rightArray = new ArrayList<>();
         this.leftClick = 0;
         this.groupDefaultNum = groupNum;
         try {
-            JSONArray menuGroupJsonArray = new JSONArray(this.csp.getValue("menu",""));
+            JSONArray menuGroupJsonArray = new JSONArray(this.csp.getValue("menu", ""));
 
             JSONObject menuDepth2JObj = new JSONObject(menuGroupJsonArray.get(groupNum).toString());
             //MainTitle 가져오기.
             this.title = menuDepth2JObj.getString("TITLE");
             this.menuDepth2JsonArray = new JSONArray(menuDepth2JObj.getString("VALUES"));
-            for ( int i = 0 , j =  this.menuDepth2JsonArray.length(); i < j ; i++ ) {
+            for (int i = 0, j = this.menuDepth2JsonArray.length(); i < j; i++) {
                 JSONObject objTitle = new JSONObject(this.menuDepth2JsonArray.get(i).toString());
                 this.leftArray.add(objTitle.getString("TITLE"));
             }
 
             JSONObject menuDepth3JObj = new JSONObject(this.menuDepth2JsonArray.get(0).toString());
             JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
-            for ( int i = 0 , j =  menuDepth3JsonArray.length(); i < j ; i++ ) {
+            for (int i = 0, j = menuDepth3JsonArray.length(); i < j; i++) {
                 JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),0));
+                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE"), objTitle.getString("VALUE"), objTitle.getInt("SID")));
             }
 
         } catch (Exception e) {
-            Log.d("errror",e.toString());
-            Toast.makeText(this , "Menu Paser Error1",Toast.LENGTH_SHORT).show();
+            Log.d("errror", e.toString());
+            Toast.makeText(this, "Menu Paser Error1", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -138,7 +149,7 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
         private int pagerCount;
         private boolean isFav;
 
-        public ContentViewPagerAdapter(FragmentManager fragmentManager , Context context, int pagerCount, boolean isFav) {
+        public ContentViewPagerAdapter(FragmentManager fragmentManager, Context context, int pagerCount, boolean isFav) {
             super(fragmentManager);
             this.context = context;
             this.pagerCount = pagerCount;
@@ -153,17 +164,19 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
         @Override
         public Fragment getItem(int position) {
             ArrayList<MenuDTO> arrs = new ArrayList<>();
+            String depth2Title = "";
             try {
                 JSONObject menuDepth3JObj = new JSONObject(menuDepth2JsonArray.get(position).toString());
                 JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
-                for ( int i = 0 , j =  menuDepth3JsonArray.length(); i < j ; i++ ) {
+                depth2Title = menuDepth3JObj.getString("TITLE");
+                for (int i = 0, j = menuDepth3JsonArray.length(); i < j; i++) {
                     JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                    arrs.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),0));
+                    arrs.add(new MenuDTO(objTitle.getString("TITLE"), objTitle.getString("VALUE"), objTitle.getInt("SID")));
                 }
             } catch (Exception e) {
-                Log.d("leftClickError",e.toString());
+                Log.d("leftClickError", e.toString());
             }
-            return ContentFragment.newInstance(position,title,arrs,isFav,groupDefaultNum);
+            return ContentFragment.newInstance(position, title, arrs, isFav, groupDefaultNum,depth2Title);
         }
 
         @Override
@@ -172,30 +185,58 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    public void changeCount(int count) {
+        this.popTopActivity.changeCount(count);
+    }
+
+    private void favList() {
+
+        Common.common_menuDTO_ArrayList = new ArrayList<>();
+        if (this.isFav) {
+            this.favText.setText("즐겨찾기 선택");
+        } else {
+            this.favText.setText("즐겨찾기 추가");
+        }
+        this.isFav = !this.isFav;
+        this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager(), this, this.leftArray.size(), this.isFav);
+        this.viewPager.setAdapter(contentViewPagerAdapter);
+        this.contentViewPagerAdapter.notifyDataSetChanged();
+        tabLayout.setScrollPosition(0, 0, true);
+    }
+
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
+
             case R.id.favBt:
-                if ( Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
-                    Log.d("commonArrayList",Common.common_menuDTO_ArrayList.size()+"");
-                    for (FavDTO row : Common.common_menuDTO_ArrayList ) {
-                        this.favDAO.addFav(row);
-                    }
-                    Toast.makeText(this,"즐겨찾기에 추가 되었습니다.",Toast.LENGTH_SHORT).show();
-                }
-                Common.common_menuDTO_ArrayList = new ArrayList<>();
                 if ( this.isFav ) {
-                    this.favText.setText("즐겨찾기 선택");
+                    if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
+                        Log.d("commonArrayList", Common.common_menuDTO_ArrayList.size() + "");
+                        for (FavDTO row : Common.common_menuDTO_ArrayList) {
+                            this.favDAO.addFav(row);
+                        }
+                        Toast.makeText(this, "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
                 } else {
-                    this.favText.setText("즐겨찾기 추가");
+                    Intent intent = new Intent(this, ContentListActivity.class);
+                    intent.putExtra("isFav",true);
+                    startActivity(intent);
+                    overridePendingTransition(0,R.anim.anim_slide_in_bottom_login);
                 }
-                this.isFav = !this.isFav;
-                this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager() ,this, this.leftArray.size() , this.isFav);
-                this.viewPager.setAdapter(contentViewPagerAdapter);
-                this.contentViewPagerAdapter.notifyDataSetChanged();
-                tabLayout.setScrollPosition(0,0,true);
+
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        Common.common_menuDTO_ArrayList = new ArrayList<>();
+        super.finish();
+        if ( this.isFav )overridePendingTransition(0, R.anim.anim_slide_out_bottom_login);
+        else overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     private void idSetting() {
@@ -205,10 +246,9 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
         this.favText = findViewById(R.id.favText);
         this.favBt = findViewById(R.id.favBt);
         this.favBt.setOnClickListener(this);
-        this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         this.csp = new Custom_SharedPreferences(this);
         Intent intent = getIntent();
-        this.groupDefaultNum = intent.getIntExtra("groupId",0);
+        this.groupDefaultNum = intent.getIntExtra("groupId", 0);
         this.favDAO = new FavDAO(this);
     }
 }

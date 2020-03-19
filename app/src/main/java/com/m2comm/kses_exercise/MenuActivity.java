@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +33,9 @@ import java.util.ArrayList;
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView leftList,rightList;
-
     private MenuLeftAdapter menuLeftAdapter;
     private MenuRightAdapter menuRightAdapter;
+
     private int groupDefaultNum = 0;
     private int leftClick = 0;
     private TextView closeBt;
@@ -42,6 +43,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<MenuDTO> rightArray;
     JSONArray menuDepth2JsonArray;
     private Custom_SharedPreferences csp;
+
+
     int[] group_imgsId = {
             R.id.group1_img,
             R.id.group2_img,
@@ -50,16 +53,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     };
     int[] groupImgResourceOn = {
             R.drawable.menu_icon01_on,
-            R.drawable.menu_icon01_on,
-            R.drawable.menu_icon01_on,
-            R.drawable.menu_icon01_on,
+            R.drawable.menu_icon02_on,
+            R.drawable.menu_icon03_on,
+            R.drawable.menu_icon04_on,
     };
 
     int[] groupImgResourceOff = {
             R.drawable.menu_icon01_off,
-            R.drawable.menu_icon01_off,
-            R.drawable.menu_icon01_off,
-            R.drawable.menu_icon01_off,
+            R.drawable.menu_icon02_off,
+            R.drawable.menu_icon03_off,
+            R.drawable.menu_icon04_off,
     };
 
     @Override
@@ -82,7 +85,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
                     for ( int i = 0 , j =  menuDepth3JsonArray.length(); i < j ; i++ ) {
                         JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                        rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),0));
+                        rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),objTitle.getInt("SID")));
                     }
                     menuChange();
                 } catch (Exception e){
@@ -139,7 +142,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
             for ( int i = 0 , j =  menuDepth3JsonArray.length(); i < j ; i++ ) {
                 JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),0));
+                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),objTitle.getInt("SID")));
             }
 
             this.menuChange();
@@ -166,6 +169,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.menu_groupBt1:
                 this.groupImageChange(0);
@@ -186,13 +190,40 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu_closeBt:
                 finish();
                 break;
+
+            case R.id.menu_search_bt:
+                intent = new Intent(this , SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                break;
+
+            case R.id.menu_scheduleBt:
+                intent = new Intent(this , CalendarActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                break;
+
+            case R.id.menu_favBt:
+                intent = new Intent(this , MyListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.homeBt:
+                intent = new Intent(this , MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                break;
         }
     }
 
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.anim_slide_out_left);
+        overridePendingTransition(0, R.anim.anim_slide_out_bottom_login);
     }
 
     private void idSetting () {
@@ -203,6 +234,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.menu_groupBt3).setOnClickListener(this);
         findViewById(R.id.menu_groupBt4).setOnClickListener(this);
         findViewById(R.id.menu_closeBt).setOnClickListener(this);
+        findViewById(R.id.menu_search_bt).setOnClickListener(this);
+        findViewById(R.id.menu_favBt).setOnClickListener(this);
+        findViewById(R.id.menu_scheduleBt).setOnClickListener(this);
+        findViewById(R.id.homeBt).setOnClickListener(this);
         this.csp = new Custom_SharedPreferences(this);
     }
 

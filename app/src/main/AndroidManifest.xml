@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.m2comm.kses_exercise">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name="com.m2comm.module.MyApplication"
         android:allowBackup="true"
@@ -11,11 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyListActivity">
+        <activity android:name=".IntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".MyExerciseList"></activity>
-        <activity android:name=".CalendarActivity"></activity>
+        <activity android:name=".MyListActivity"></activity>
+        <activity android:name=".MyExerciseList" />
+        <activity android:name=".CalendarActivity" />
         <activity android:name=".AlarmDetail" />
         <activity android:name=".AlarmListActivity" />
         <activity android:name=".SearchActivity" />
@@ -25,17 +34,10 @@
             android:name=".MenuActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
-        <receiver android:name="com.m2comm.module.AlarmReceiver"/>
-
-
-
+        <receiver android:name="com.m2comm.module.AlarmReceiver" />
     </application>
 
 </manifest>

@@ -5,15 +5,25 @@ public class ContentDTO {
     String imgUrl;
     String sid;
     String groupSid;
+    String contentSid;
     String Title;
     String videoUrl;
 
-    public ContentDTO(String imgUrl, String sid, String groupSid, String title, String videoUrl) {
+    public ContentDTO(String imgUrl, String sid, String groupSid, String title, String videoUrl ,String contentSid) {
         this.imgUrl = imgUrl;
         this.sid = sid;
         this.groupSid = groupSid;
         Title = title;
         this.videoUrl = videoUrl;
+        this.contentSid = contentSid;
+    }
+
+    public void setContentSid(String contentSid) {
+        this.contentSid = contentSid;
+    }
+
+    public String getContentSid() {
+        return contentSid;
     }
 
     public void setImgUrl(String imgUrl) {

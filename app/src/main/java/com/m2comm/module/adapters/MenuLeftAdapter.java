@@ -82,7 +82,7 @@ public class MenuLeftAdapter extends BaseAdapter {
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         final RectF rectF = new RectF(rect);
-        final float roundPx = bitmap.getWidth()/2; // 테두리 곡률 설정
+        final float roundPx = bitmap.getWidth()/3; // 테두리 곡률 설정
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);

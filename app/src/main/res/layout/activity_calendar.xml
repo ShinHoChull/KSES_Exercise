@@ -534,6 +534,7 @@
             android:fontFamily="@font/r_medium"
             />
         <TextView
+            android:visibility="gone"
             android:id="@+id/calendar_today"
             android:layout_width="100dp"
             android:layout_height="35dp"

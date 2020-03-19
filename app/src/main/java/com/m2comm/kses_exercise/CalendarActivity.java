@@ -242,10 +242,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.step3.setVisibility(View.GONE);
 
         if ( linearLayout.equals(this.step2) ) {
-            this.todayBt.setVisibility(View.GONE);
+            //this.todayBt.setVisibility(View.GONE);
             this.calendarNextBt.setVisibility(View.VISIBLE);
         } else {
-            this.todayBt.setVisibility(View.VISIBLE);
+            //this.todayBt.setVisibility(View.VISIBLE);
             this.calendarNextBt.setVisibility(View.GONE);
         }
         linearLayout.setVisibility(View.VISIBLE);
@@ -269,7 +269,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
         new MaterialDialog.Builder(CalendarActivity.this).title(R.string.app_name)
                 .content("오늘 견관절 운동을 하셨나요?")
-                .positiveText("네").negativeText("아니요").
+                .positiveText("네").negativeText("아니오").
                 theme(Theme.LIGHT).onPositive(new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -368,8 +368,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-
-
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -419,6 +417,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     private void idSetting() {

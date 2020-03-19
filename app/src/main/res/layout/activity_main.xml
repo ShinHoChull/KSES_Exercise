@@ -355,7 +355,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:textColor="@android:color/white"
-                            android:text="운동 1단"
+                            android:text="운동 1단계"
                             android:textSize="18dp"
                             android:fontFamily="@font/r_medium"
                             />

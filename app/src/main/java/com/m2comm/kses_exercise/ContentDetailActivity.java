@@ -38,11 +38,10 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         this.detail_edittext = findViewById(R.id.detail_edittext);
         this.content_title = findViewById(R.id.title);
-        this.nextBt = findViewById(R.id.nextBt);
-        this.nextBt.setOnClickListener(this);
-        this.backBt = findViewById(R.id.backBt);
-        this.backBt.setOnClickListener(this);
-
+        //this.nextBt = findViewById(R.id.nextBt);
+        //this.nextBt.setOnClickListener(this);
+        //this.backBt = findViewById(R.id.backBt);
+        //this.backBt.setOnClickListener(this);
     }
 
     @Override
@@ -71,12 +70,18 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.nextBt:
-                this.chagenVideo(1);
-                break;
-            case R.id.backBt:
-                this.chagenVideo(-1);
-                break;
+//            case R.id.nextBt:
+//                this.chagenVideo(1);
+//                break;
+//            case R.id.backBt:
+//                this.chagenVideo(-1);
+//                break;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 }

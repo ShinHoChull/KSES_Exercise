@@ -59,7 +59,7 @@ public class BottomActivity implements View.OnClickListener {
                 intent = new Intent(this.activity , MenuActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 this.activity.startActivity(intent);
-                this.activity.overridePendingTransition(R.anim.anim_slide_in_left,0);
+                this.activity.overridePendingTransition(R.anim.anim_slide_in_bottom_login,0);
                 break;
 
             case R.id.bottomBt4:

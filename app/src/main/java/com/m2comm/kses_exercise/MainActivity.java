@@ -29,6 +29,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.m2comm.module.Common;
 import com.m2comm.module.Custom_SharedPreferences;
 import com.m2comm.module.dao.AlarmDAO;
@@ -54,7 +58,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView bt1,bt2,bt3,bt4,cehckImg;
+    ImageView bt1, bt2, bt3, bt4, cehckImg;
     GaugeSeekBar gaugeSeekBar;
 
     BottomActivity bottomActivity;
@@ -64,15 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //프로그레스바 원형 뷰 ( 2는 현재 운동이 있을경우 )
-    LinearLayout main_start_button , main_start_button2;
-    TextView main_per_num , main_count_day;
+    LinearLayout main_start_button, main_start_button2;
+    TextView main_per_num, main_count_day;
 
     //상단 운동 체크 & 운동시작 버튼
-    private LinearLayout exercise_start_bt,exercise_check_bt;
+    private LinearLayout exercise_start_bt, exercise_check_bt;
 
     //상단 운동 기록 텍스트
-    private LinearLayout main_exercise_base_text , main_exercise_detail_text;
-    private TextView main_exercise_detail_date ,main_exercise_detail_count_day;
+    private LinearLayout main_exercise_base_text, main_exercise_detail_text;
+    private TextView main_exercise_detail_date, main_exercise_detail_count_day;
 
     private AlarmDAO alarmDAO;
     private ScheduleDAO scheduleDAO;
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int counter = 0;
     Timer timer = new Timer();
 
-    private void idSetting () {
+    private void idSetting() {
         this.bt1 = findViewById(R.id.main_bt1);
         this.bt1.setOnClickListener(this);
         this.bt2 = findViewById(R.id.main_bt2);
@@ -126,16 +130,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.idSetting();
         this.createNotificationChannel();
 
-        this.bt1.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt3)));
-        this.bt2.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt2)));
-        this.bt3.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt1)));
-        this.bt4.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.main_bt4)));
-        this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
+        this.bt1.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.main_bt3)));
+        this.bt2.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.main_bt2)));
+        this.bt3.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.main_bt1)));
+        this.bt4.setImageBitmap(this.getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.main_bt4)));
+        this.bottomActivity = new BottomActivity(getLayoutInflater(), R.id.bottom, this, this);
 
         this.gaugeSeekBar.post(new Runnable() {
             @Override
             public void run() {
-                Log.d("heightt",gaugeSeekBar.getHeight()+"");
+                Log.d("heightt", gaugeSeekBar.getHeight() + "");
                 //gaugeSeekBar.setProgressWidth(gaugeSeekBar.getHeight());
                 main_start_button.post(new Runnable() {
                     @Override
@@ -162,11 +166,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Menu List 한번만 불러와서 디바이스에 저장한다.
         try {
-            if ( csp.getValue("menu","").equals("") ) {
-                this.csp.put("menu",getMenu());
+            if (csp.getValue("version", "").equals("")) {
+                //처음에 한
+                this.csp.put("menu", getMenu());
+                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+                        .setPriority(Priority.LOW)
+                        .build()
+                        .getAsString(new StringRequestListener() {
+                            @Override
+                            public void onResponse(String response) {
+                                csp.put("version",response);
+                            }
+                            @Override
+                            public void onError(ANError anError) {
+                                Log.d("versionerror",anError.getErrorDetail());
+                            }
+                        });
+            } else {
+                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+                        .setPriority(Priority.LOW)
+                        .build()
+                        .getAsString(new StringRequestListener() {
+                                @Override
+                            public void onResponse(String response) {
+                                if ( !csp.getValue("version","").equals(response) ) {
+                                    //버전이 다를경우 Menu를 가져온다.
+                                    csp.put("version",response);
+                                    AndroidNetworking.get("http://ezv.kr/kses_exercise/menu.json")
+                                            .setPriority(Priority.LOW)
+                                            .build().getAsString(new StringRequestListener() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            Log.d("menu",response);
+                                            csp.put("menu",response);
+                                        }
+
+                                        @Override
+                                        public void onError(ANError anError) {
+                                            Log.d("menuerror",anError.getErrorDetail());
+                                        }
+                                    });
+                                }
+                            }
+                            @Override
+                            public void onError(ANError anError) {
+
+                            }
+                        });
             }
+
         } catch (Exception e) {
-            Toast.makeText(this , "Menu Save Fail",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Menu Save Fail", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -176,12 +226,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.row = null;
         //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
-        if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
-        if ( row != null ) {
+        if (scheduleDAO.getID() > 1) row = this.scheduleDAO.find();
+        if (row != null) {
             long now = System.currentTimeMillis();
             this.nDate = new Date(now);
             Date eDate = Common.getDate(row.getEdate());
-            if ( nDate.getTime() > eDate.getTime() ) {
+            if (nDate.getTime() > eDate.getTime()) {
                 //현재 날짜가 등록된 스케줄 끝나는 날짜보다 크면 완료 스테이트 변경
                 this.scheduleDAO.updateSchedule(row.getNum());
                 this.alarmDAO.delete(row.getNum());
@@ -200,10 +250,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.main_exercise_detail_text.setVisibility(View.VISIBLE);
         this.main_start_button2.setVisibility(View.VISIBLE);
         this.exercise_check_bt.setVisibility(View.VISIBLE);
-        this.main_exercise_detail_date.setText(this.row.getSdate()+"~"+this.row.getEdate());
+        this.main_exercise_detail_date.setText(this.row.getSdate() + "~" + this.row.getEdate());
         this.exerciseDTOS = this.exerciseDAO.finds(this.row.getNum());
         this.main_exercise_detail_count_day.setText(String.valueOf(this.exerciseDTOS.size()));
-        this.main_count_day.setText(this.exerciseDTOS.size()+"/30일");
+        this.main_count_day.setText(this.exerciseDTOS.size() + "/30일");
         main_per_count = this.exerciseDTOS.size() * 100 / 30;
         //this.main_per_num.setText(String.valueOf(main_per_count));
 
@@ -212,16 +262,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
-                Log.d("main_per_count",""+main_per_count);
+                Log.d("main_per_count", "" + main_per_count);
                 main_per_num.setText(String.valueOf(counter));
-                gaugeSeekBar.setProgress(counter*0.01f);
-                if ( counter >= main_per_count ) {
+                gaugeSeekBar.setProgress(counter * 0.01f);
+                if (counter >= main_per_count) {
                     timer.cancel();
-                    gaugeSeekBar.setProgress(main_per_count*0.01f);
+                    gaugeSeekBar.setProgress(main_per_count * 0.01f);
                     counter = 0;
                 }
                 counter = counter + 1;
-
             }
         };
         timer = new Timer();
@@ -230,32 +279,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
             case R.id.main_bt1:
-                intent = new Intent(getApplicationContext() , ContentListActivity.class);
-                intent.putExtra("groupId",0);
+                intent = new Intent(getApplicationContext(), ContentListActivity.class);
+                intent.putExtra("groupId", 0);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
             case R.id.main_bt2:
-                intent = new Intent(getApplicationContext() , ContentListActivity.class);
-                intent.putExtra("groupId",1);
+                intent = new Intent(getApplicationContext(), ContentListActivity.class);
+                intent.putExtra("groupId", 1);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
             case R.id.main_bt3:
-                intent = new Intent(getApplicationContext() , ContentListActivity.class);
-                intent.putExtra("groupId",2);
+                intent = new Intent(getApplicationContext(), ContentListActivity.class);
+                intent.putExtra("groupId", 2);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
             case R.id.main_bt4:
-                intent = new Intent(getApplicationContext() , ContentListActivity.class);
-                intent.putExtra("groupId",3);
+                intent = new Intent(getApplicationContext(), ContentListActivity.class);
+                intent.putExtra("groupId", 3);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
@@ -263,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_innerView1:
             case R.id.main_exercise_check_bt:
             case R.id.main_exercise_start_bt:
-                intent = new Intent(this , CalendarActivity.class);
+                intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
@@ -280,10 +328,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             while ((n = reader.read(buffer)) != -1) {
                 writer.write(buffer, 0, n);
             }
-        } catch (Exception e){
-            Toast.makeText(this , "Menu Paser Error2",Toast.LENGTH_SHORT).show();
-        } finally
-        {
+        } catch (Exception e) {
+            Toast.makeText(this, "Menu Paser Error2", Toast.LENGTH_SHORT).show();
+        } finally {
             is.close();
         }
         return writer.toString();
@@ -324,7 +371,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         canvas.drawBitmap(bitmap, rect, rect, paint);
         return output;
     }
-
 
 
 }

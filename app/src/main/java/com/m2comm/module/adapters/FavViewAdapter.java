@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.m2comm.kses_exercise.ContentListActivity;
+import com.m2comm.kses_exercise.MyListActivity;
 import com.m2comm.kses_exercise.R;
 import com.m2comm.module.Common;
 import com.m2comm.module.models.ContentDTO;
@@ -49,7 +51,6 @@ public class FavViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if ( convertView == null ) {
             final FavDTO favDTO = contentArray.get(position);
             convertView  = this.layoutInflater.inflate(R.layout.fav_group_item,parent,false);
             TextView groupTitle = convertView.findViewById(R.id.groupTitle);
@@ -64,6 +65,15 @@ public class FavViewAdapter extends BaseAdapter {
 
             groupTitle.setText(favDTO.getGroupTitle());
             contentTitle.setText(favDTO.getContent_title());
+
+            if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
+                for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
+                    FavDTO row = it.next();
+                    if ( row.getDepth2Num() == favDTO.getDepth2Num() && row.getNum() == favDTO.getNum() ) {
+                        delBt.setImageResource(R.drawable.content_on);
+                    }
+                }
+            }
 
             delBt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,10 +98,11 @@ public class FavViewAdapter extends BaseAdapter {
                         Common.common_menuDTO_ArrayList.add(favDTO);
                         delBt.setImageResource(R.drawable.content_on);
                     }
+                    ((MyListActivity)context).changeCount(Common.common_menuDTO_ArrayList.size());
                 }
             });
 
-        }
+
 
         return convertView;
     }

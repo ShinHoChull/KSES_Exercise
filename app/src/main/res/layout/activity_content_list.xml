@@ -95,10 +95,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#ececf9"
+                app:tabMaxWidth="0dp"
                 app:tabGravity="fill"
-                app:tabMinWidth="180dp"
-                app:tabMaxWidth="150dp"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabIndicatorHeight="5dp"
                 />
 

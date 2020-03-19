@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.m2comm.kses_exercise.ContentListActivity;
 import com.m2comm.kses_exercise.R;
 import com.m2comm.module.Common;
 import com.m2comm.module.Custom_SharedPreferences;
@@ -31,9 +33,9 @@ public class ContentListViewAdapter extends BaseAdapter {
     boolean isFav = false;
     private Custom_SharedPreferences csp;
     int groupNum , depth2Num;
-    String group_title;
+    String group_title , depth2Title;
 
-    public ContentListViewAdapter(Context context, LayoutInflater layoutInflater, ArrayList<MenuDTO> contentArray, boolean isFav , int groupNum , int depth2Num , String group_title) {
+    public ContentListViewAdapter(Context context, LayoutInflater layoutInflater, ArrayList<MenuDTO> contentArray, boolean isFav , int groupNum , int depth2Num , String group_title, String depth2Title) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.contentArray = contentArray;
@@ -41,6 +43,7 @@ public class ContentListViewAdapter extends BaseAdapter {
         this.groupNum = groupNum;
         this.depth2Num = depth2Num;
         this.group_title = group_title;
+        this.depth2Title = depth2Title;
         this.csp = new Custom_SharedPreferences(context);
     }
 
@@ -76,7 +79,16 @@ public class ContentListViewAdapter extends BaseAdapter {
             } else {
                 favBt.setVisibility(View.GONE);
             }
-            final FavDTO favDTO = new FavDTO(0,this.groupNum , this.depth2Num , position , contentDTO.getUrl(),this.group_title+">"+contentDTO.getTitle(), contentDTO.getTitle());
+            final FavDTO favDTO = new FavDTO(0,this.groupNum , this.depth2Num , position , contentDTO.getUrl(),this.group_title+">"+this.depth2Title, contentDTO.getTitle());
+
+            if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
+                for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
+                    FavDTO row = it.next();
+                    if ( row.getDepth2Num() == this.depth2Num && row.getDepth3Num() == position ) {
+                        favBt.setImageResource(R.drawable.content_on);
+                    }
+                }
+            }
 
             favBt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +104,6 @@ public class ContentListViewAdapter extends BaseAdapter {
                                 isAdd = false;
                             }
                         }
-
                         if (isAdd) {
                             Common.common_menuDTO_ArrayList.add(favDTO);
                             favBt.setImageResource(R.drawable.content_on);
@@ -102,6 +113,7 @@ public class ContentListViewAdapter extends BaseAdapter {
                         Common.common_menuDTO_ArrayList.add(favDTO);
                         favBt.setImageResource(R.drawable.content_on);
                     }
+                    ((ContentListActivity)context).changeCount(Common.common_menuDTO_ArrayList.size());
                 }
             });
 

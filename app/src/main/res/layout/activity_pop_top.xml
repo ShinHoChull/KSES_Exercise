@@ -14,7 +14,7 @@
             android:id="@+id/top_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TITLE"
+            android:text=""
             android:gravity="center"
             android:textSize="18dp"
             android:textColor="@android:color/white"
@@ -24,32 +24,26 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/top_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/btn_d_back1"
-                    android:layout_weight="1"
-                    />
                 <TextView
+                    android:id="@+id/pop_count"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Back"
+                    android:text="2개 선택"
                     android:textColor="@android:color/white"
                     android:gravity="center_vertical"
                     android:textSize="15dp"
+                    android:layout_marginLeft="10dp"
                     />
-
             </LinearLayout>
         </FrameLayout>
         <ImageView
-            android:id="@+id/homeBt"
+            android:id="@+id/back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:src="@drawable/home"
+            android:src="@drawable/close"
             android:layout_gravity="right"
             android:scaleType="fitCenter"
             android:padding="9dp"

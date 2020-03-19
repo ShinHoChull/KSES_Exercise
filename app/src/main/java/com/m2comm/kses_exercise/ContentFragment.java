@@ -28,17 +28,19 @@ import java.util.ArrayList;
 public class ContentFragment extends Fragment {
 
     private int depth2Num,groupNum;
-    private String top_title;
+    private String top_title , depth2Title;
     private ArrayList<MenuDTO> arrayList;
     private boolean isFav;
 
 
-    public static ContentFragment newInstance( int page , String title , ArrayList<MenuDTO> arrayList ,boolean isFav , int groupNum) {
+
+    public static ContentFragment newInstance( int page , String title , ArrayList<MenuDTO> arrayList ,boolean isFav , int groupNum ,String depth2Title) {
 
         ContentFragment fragment = new ContentFragment();
         Bundle args = new Bundle();
         args.putInt("groupNum",groupNum);
         args.putInt("depth2Num", page);
+        args.putString("depth2Title",depth2Title);
         args.putString("title", title);
         args.putBoolean("isFav",isFav);
         args.putSerializable("item",arrayList);
@@ -55,6 +57,7 @@ public class ContentFragment extends Fragment {
         this.groupNum = getArguments().getInt("groupNum", 0);
         this.depth2Num = getArguments().getInt("depth2Num", 0);
         this.top_title = getArguments().getString("title","");
+        this.depth2Title = getArguments().getString("depth2Title", "");
         this.isFav = getArguments().getBoolean("isFav",false);
         this.arrayList = (ArrayList<MenuDTO>) getArguments().getSerializable("item");
         Log.d("pageGETEGETGET","++"+this.depth2Num);
@@ -66,7 +69,7 @@ public class ContentFragment extends Fragment {
         View view = inflater.inflate(R.layout.content_list_group, container, false);
         ListView listView = view.findViewById(R.id.content_listview);
         ContentListViewAdapter contentListViewAdapter = new ContentListViewAdapter(getContext() , getLayoutInflater() , this.arrayList ,
-                this.isFav , this.groupNum , this.depth2Num,this.top_title);
+                this.isFav , this.groupNum , this.depth2Num,this.top_title , this.depth2Title);
         listView.setAdapter(contentListViewAdapter);
         contentListViewAdapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
