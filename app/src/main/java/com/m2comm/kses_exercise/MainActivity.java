@@ -117,10 +117,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.main_per_num = findViewById(R.id.main_per_count);
         this.main_count_day = findViewById(R.id.main_count_day);
 
+        this.reset();
+    }
+
+    private void reset(){
+        this.main_start_button.setVisibility(View.VISIBLE);
+        this.main_exercise_base_text.setVisibility(View.VISIBLE);
+        this.exercise_start_bt.setVisibility(View.VISIBLE);
+
+        this.main_exercise_detail_text.setVisibility(View.GONE);
+        this.main_start_button2.setVisibility(View.GONE);
+        this.exercise_check_bt.setVisibility(View.GONE);
+
         this.csp = new Custom_SharedPreferences(this);
         this.scheduleDAO = new ScheduleDAO(this);
         this.exerciseDAO = new ExerciseDAO(this);
         this.alarmDAO = new AlarmDAO(this);
+
+        this.main_per_count = 0;
+        this.counter = 0;
+        main_per_num.setText(String.valueOf(main_per_count));
+        gaugeSeekBar.setProgress(main_per_count * 0.01f);
     }
 
     @Override
@@ -223,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-
         this.row = null;
         //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
         if (scheduleDAO.getID() > 1) row = this.scheduleDAO.find();
@@ -239,8 +255,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //아니면 현재 운동 진행상황 표시!
                 scheduleCheck();
             }
+        } else {
+            this.reset();
         }
     }
+
+
 
     private void scheduleCheck() {
         this.main_start_button.setVisibility(View.GONE);
@@ -267,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 gaugeSeekBar.setProgress(counter * 0.01f);
                 if (counter >= main_per_count) {
                     timer.cancel();
+                    main_per_num.setText(String.valueOf(main_per_count));
                     gaugeSeekBar.setProgress(main_per_count * 0.01f);
                     counter = 0;
                 }
@@ -312,8 +333,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_exercise_check_bt:
             case R.id.main_exercise_start_bt:
                 intent = new Intent(this, CalendarActivity.class);
+                if( row == null )intent.putExtra("isStart",true);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                if( row != null )overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                else overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
+
                 break;
         }
     }

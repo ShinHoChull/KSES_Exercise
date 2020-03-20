@@ -58,7 +58,7 @@ public class ExerciseDAO implements Realm.Transaction {
         this.realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                RealmResults<ExerciseDTO> results = realm.where(ExerciseDTO.class).equalTo("num",scheduleNum).findAll();
+                RealmResults<ExerciseDTO> results = realm.where(ExerciseDTO.class).equalTo("scheduleNum",scheduleNum).findAll();
                 results.deleteAllFromRealm();
             }
         }, new OnSuccess() {

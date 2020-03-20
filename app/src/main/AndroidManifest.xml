@@ -18,18 +18,23 @@
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyListActivity"></activity>
+        <activity android:name=".MyListActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"></activity>
         <activity android:name=".MyExerciseList" />
-        <activity android:name=".CalendarActivity" />
-        <activity android:name=".AlarmDetail" />
+        <activity android:name=".CalendarActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".AlarmDetail"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity android:name=".AlarmListActivity" />
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".SearchActivity" >
+
+        </activity>
         <activity android:name=".ContentDetailActivity" />
-        <activity android:name=".ContentListActivity" />
+        <activity android:name=".ContentListActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
         <activity
             android:name=".MenuActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />

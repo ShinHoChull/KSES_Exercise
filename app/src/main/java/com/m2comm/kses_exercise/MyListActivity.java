@@ -86,7 +86,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent(this, MyListActivity.class);
                 intent.putExtra("isFav",true);
                 startActivity(intent);
-                overridePendingTransition(0,R.anim.anim_slide_in_bottom_login);
+                overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
                 break;
 
             case R.id.step_2_delete:

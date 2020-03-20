@@ -49,7 +49,7 @@ public class AlarmListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext() , AlarmDetail.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
             }
         });
 
@@ -61,10 +61,10 @@ public class AlarmListActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getApplicationContext() , CalendarActivity.class);
+                    intent.putExtra("isStart",true);
                     startActivity(intent);
                 }
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-
+                overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
             }
         });
     }

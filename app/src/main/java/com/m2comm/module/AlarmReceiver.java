@@ -83,7 +83,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                 //등록된 알림이 꺼져있을때
                 AlarmDTO alarmDTO = this.alarmDAO.find(num);
-                if ( alarmDTO != null && !alarmDTO.isPush()) {
+                if ( alarmDTO == null || !alarmDTO.isPush()) {
                     return;
                 }
 

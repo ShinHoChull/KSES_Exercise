@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.Theme;
 import com.m2comm.kses_exercise.CalendarActivity;
 import com.m2comm.kses_exercise.MyExerciseList;
 import com.m2comm.kses_exercise.R;
+import com.m2comm.module.dao.AlarmDAO;
 import com.m2comm.module.dao.ExerciseDAO;
 import com.m2comm.module.dao.ScheduleDAO;
 import com.m2comm.module.models.AlarmDTO;
@@ -41,6 +42,7 @@ public class ExerciseListAdapter extends BaseAdapter {
     private ArrayList<ExerciseDTO> exerciseDTOS;
     private ExerciseDAO exerciseDAO;
     private ScheduleDAO scheduleDAO;
+    private AlarmDAO alarmDAO;
 
     public ExerciseListAdapter(Context context, LayoutInflater layoutInflater , List<ScheduleDTO> contentArray) {
         this.context = context;
@@ -71,6 +73,7 @@ public class ExerciseListAdapter extends BaseAdapter {
             final ScheduleDTO row = contentArray.get(position);
             this.exerciseDAO = new ExerciseDAO(this.context);
             this.scheduleDAO = new ScheduleDAO(this.context);
+            this.alarmDAO = new AlarmDAO(this.context);
 
             convertView  = this.layoutInflater.inflate(R.layout.my_exercise_item,parent,false);
             final GaugeSeekBar gaugeSeekBar = convertView.findViewById(R.id.progress);
@@ -128,6 +131,8 @@ public class ExerciseListAdapter extends BaseAdapter {
                             //운동 일자를 저장
                             scheduleDAO.findDelete(row.getNum());
                             exerciseDAO.delete(row.getNum());
+                            alarmDAO.delete(row.getNum());
+
                         }
                     }).show();
 

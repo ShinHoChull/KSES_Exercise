@@ -18,7 +18,7 @@ public class PopTopActivity implements View.OnClickListener {
     private LayoutInflater inflater;
     private int ParentID;
     private String title;
-    private TextView titleView;
+    private TextView titleView , mainTitle;
     private ImageView back;
 
     public PopTopActivity(Context context, Activity activity, LayoutInflater inflater, int parentID, String title ) {
@@ -35,6 +35,12 @@ public class PopTopActivity implements View.OnClickListener {
         View view = inflater.inflate(R.layout.activity_pop_top,this.parent,true);
         this.titleView = view.findViewById(R.id.pop_count);
         this.back = view.findViewById(R.id.back);
+        this.mainTitle = view.findViewById(R.id.top_title);
+        if ( !this.title.equals("") ) {
+            this.mainTitle.setText(this.title);
+            this.mainTitle.setVisibility(View.VISIBLE);
+            this.titleView.setVisibility(View.GONE);
+        }
         this.changeCount(0);
     }
 

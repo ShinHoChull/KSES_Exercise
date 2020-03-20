@@ -57,6 +57,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"/>
                             <LinearLayout
+                                android:id="@+id/favBt"
                                 android:layout_width="80dp"
                                 android:layout_height="30dp"
                                 android:gravity="center"
@@ -69,6 +70,7 @@
                                     android:padding="5dp"
                                     />
                                 <TextView
+
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:text="즐겨찾기"

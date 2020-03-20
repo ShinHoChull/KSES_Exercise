@@ -43,7 +43,6 @@ public class AlarmDAO implements Realm.Transaction {
                 realm.insertOrUpdate(alarmDTO);
             }
         });
-
         return true;
     }
 

@@ -32,6 +32,7 @@
                 android:gravity="center">
 
                 <EditText
+                    android:id="@+id/searchText"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -59,16 +60,43 @@
                 android:layout_height="70dp"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textSize="25dp"
-                    android:text="검색결과: 0건"
-                    android:textColor="@android:color/black"
-                    android:fontFamily="@font/r_medium"
-                    />
+                    >
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="25dp"
+                        android:text="검색결과 :"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/r_medium"
+                        />
+                    <TextView
+                        android:id="@+id/searchCount"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="25dp"
+                        android:text="0"
+                        android:textColor="#d71447"
+                        android:fontFamily="@font/r_medium"
+                        />
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:text="건"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/r_medium"
+                        />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

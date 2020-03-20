@@ -224,7 +224,7 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
                     Intent intent = new Intent(this, ContentListActivity.class);
                     intent.putExtra("isFav",true);
                     startActivity(intent);
-                    overridePendingTransition(0,R.anim.anim_slide_in_bottom_login);
+                    overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
                 }
 
                 break;

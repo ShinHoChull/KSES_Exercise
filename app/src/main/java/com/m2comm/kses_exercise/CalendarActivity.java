@@ -41,6 +41,7 @@ import java.util.TimerTask;
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
     ContentTopActivity contentTopActivity;
+    PopTopActivity popTopActivity;
     BottomActivity bottomActivity;
 
     /**
@@ -100,6 +101,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     GaugeSeekBar gaugeSeekBar;
     LinearLayout innerView;
 
+
     //프로그레스에 필요한 변수
     int main_per_count = 0;
     int counter = 0;
@@ -116,12 +118,28 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     //나의 운동기록 버튼
     LinearLayout my_exercise_list_bt1 ,my_exercise_list_bt2;
 
+    private void reset() {
+        this.isSchedul = false;
+        this.scheduleDAO = new ScheduleDAO(this);
+        this.exerciseDAO = new ExerciseDAO(this);
+        this.dayList = new ArrayList<>();
+        this.exerciseDTOS = new ArrayList<>();
+        this.nDate = null;
+        this.mCal = null;
+        this.lineCal = null;
+        this.startDate = "";
+        this.endDate = "";
+        this.main_per_count = 0;
+        this.counter = 0;
+        per_count.setText(String.valueOf(main_per_count));
+        gaugeSeekBar.setProgress(main_per_count*0.01f);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         this.idSetting();
-
 
         this.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -132,7 +150,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 }
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
                 try {
-                    //등록된 스케줄이 없을 경우
                     if ( ! isSchedul ) {
                         nDate = dateFormat.parse((String) tvDate.getText().toString()+"."+ dayList.get(position));
                         lineCal = Calendar.getInstance();
@@ -142,12 +159,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         //현재 선택한 날짜가 스케줄의 시작 날짜에 포함되어있는지 보기.
                         Date checkDate = dateFormat.parse((String) tvDate.getText().toString()+"."+ dayList.get(position));
+
                         if (nDate.getTime() <= checkDate.getTime() &&
                                 checkDate.getTime() <= eDate.getTime() )   {
                             regExerciseCheckDate(checkDate);
                         }
                     }
-
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(),"Date click Error",Toast.LENGTH_SHORT).show();
                 }
@@ -168,17 +185,25 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 //                        main_start_button.getLayoutParams().height = gaugeSeekBar.getHeight() / 2;
                     }
                 });
-
             }
         });
+
+        Intent intent = getIntent();
+        this.isRun = intent.getBooleanExtra("isStart" , false);
+        if ( this.isRun) {
+            this.topViewChange(this.step2);
+            this.popTopActivity = new PopTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
+        } else {
+            this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
+            this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.todayDate();
-        this.schduleArray = new ArrayList<>();
 
+        this.schduleArray = new ArrayList<>();
         this.row = null;
         //데이터베이스 생성 전에 오류가 떨어져서 임시적으로 넣어둠.
         if ( scheduleDAO.getID() > 1 ) row = this.scheduleDAO.find();
@@ -186,13 +211,16 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             this.startDate = row.getSdate();
             this.endDate = row.getEdate();
             this.scheduleId = row.getNum();
+        } else {
+            this.reset();
         }
+        this.todayDate();
         this.dataReload();
     }
 
     private void dataReload() {
         //저장된 데이터가 있을 경우.
-        if ( ! this.startDate.equals("") ) {
+        if ( this.row != null && ! this.startDate.equals("")) {
             this.isSchedul = true;
             this.isRun = true;
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
@@ -222,6 +250,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                     gaugeSeekBar.setProgress(counter*0.01f);
                     if ( counter >= main_per_count ) {
                         timer.cancel();
+                        per_count.setText(String.valueOf(main_per_count));
                         gaugeSeekBar.setProgress(main_per_count*0.01f);
                         counter = 0;
                     }
@@ -232,11 +261,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             timer.schedule(tt, 0, 50);
 
         } else {
-            this.topViewChange(this.step1);
+            if ( this.isRun )this.topViewChange(this.step2);
         }
     }
 
     private void topViewChange(LinearLayout linearLayout) {
+        Log.d("viewview","view");
         this.step1.setVisibility(View.GONE);
         this.step2.setVisibility(View.GONE);
         this.step3.setVisibility(View.GONE);
@@ -288,6 +318,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             }
         }).show();
     }
+
 
     public void chnageAdapter() {
         if ( this.isSchedul ) this.schduleArray = this.exerciseDAO.finds(this.scheduleId);
@@ -385,8 +416,12 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.calendar_runBt:
-                this.isRun = true;
-                this.topViewChange(this.step2);
+                intent = new Intent(this, CalendarActivity.class);
+                intent.putExtra("isStart",true);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
+//                this.isRun = true;
+//                this.topViewChange(this.step2);
                 break;
 
             case R.id.schadule_nextDateButton:
@@ -413,8 +448,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 this.scheduleDAO.addSchedule(scheduleDTO);
 
                 intent = new Intent(this , AlarmDetail.class);
+                intent.putExtra("isStart",this.isRun);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
+                if ( this.isRun )finish();
                 break;
         }
     }
@@ -426,11 +463,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void idSetting() {
-        this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
-        this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
 
         this.gridView = findViewById(R.id.scheduleView);
-
         this.nextButton = findViewById(R.id.schadule_nextDateButton);
         this.nextButton.setColorFilter(Color.parseColor("#666666"));
         this.nextButton.setOnClickListener(this);
@@ -440,8 +474,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.backButton.setOnClickListener(this);
 
         this.tvDate = findViewById(R.id.schadule_mainDate);
-        this.dayList = new ArrayList<>();
-
         this.calendarNextBt = findViewById(R.id.calendar_nextBt);
         this.calendarNextBt.setOnClickListener(this);
 
@@ -451,9 +483,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.runBt = findViewById(R.id.calendar_runBt);
         this.runBt.setOnClickListener(this);
         this.todayBt = findViewById(R.id.calendar_today);
-
-        this.scheduleDAO = new ScheduleDAO(this);
-        this.exerciseDAO = new ExerciseDAO(this);
 
         this.count_date = findViewById(R.id.count_date);
         this.count_day = findViewById(R.id.count_day);
@@ -466,5 +495,11 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         this.my_exercise_list_bt1.setOnClickListener(this);
         this.my_exercise_list_bt2 = findViewById(R.id.my_exercise_list2);
         this.my_exercise_list_bt2.setOnClickListener(this);
+
+        this.reset();
     }
+
+
+
+
 }

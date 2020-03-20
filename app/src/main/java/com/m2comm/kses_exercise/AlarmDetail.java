@@ -30,6 +30,7 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
 
     ContentTopActivity contentTopActivity;
     BottomActivity bottomActivity;
+    PopTopActivity popTopActivity;
 
     TextView sun , mon , tue , wed , thu , fri , sat , successBt;
     LinearLayout sunV , monV , tueV , wedV , thuV , friV , satV;
@@ -44,10 +45,10 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
 
     private ScheduleDAO scheduleDAO;
     private ScheduleDTO row;
+    private boolean isRun;
 
     private void idSetting() {
-        this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
-        this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
+
         this.mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         this.alarmDAO = new AlarmDAO(this);
         this.scheduleDAO = new ScheduleDAO(this);
@@ -92,6 +93,15 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
         });
         //Pending Intent ID를 기억하기위해서 DB의 Max ID를 가져와서
         this.alarm_max_num = this.alarmDAO.getID();
+        Intent intent = getIntent();
+        this.isRun = intent.getBooleanExtra("isStart",false);
+        if ( this.isRun ) {
+            this.popTopActivity = new PopTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
+        } else {
+            //this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
+            this.popTopActivity = new PopTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
+            this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
+        }
 
     }
 
@@ -168,7 +178,9 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+        if (this.isRun)overridePendingTransition(0, R.anim.anim_slide_out_bottom_login);
+        else overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+
     }
 
     private PendingIntent getPendingIntent(Intent intent)
