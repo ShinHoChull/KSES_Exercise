@@ -62,7 +62,7 @@
                                 android:layout_height="30dp"
                                 android:gravity="center"
                                 android:layout_marginRight="15dp"
-                                android:background="@drawable/content_fav_radius">
+                                android:background="@drawable/content_fav_radius_off">
                                 <ImageView
                                     android:layout_width="22dp"
                                     android:layout_height="match_parent"

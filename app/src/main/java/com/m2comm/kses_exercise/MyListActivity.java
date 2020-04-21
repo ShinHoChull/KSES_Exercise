@@ -6,14 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.m2comm.module.Common;
+import com.m2comm.module.Custom_SharedPreferences;
 import com.m2comm.module.adapters.FavViewAdapter;
 import com.m2comm.module.dao.FavDAO;
 import com.m2comm.module.models.FavDTO;
+import com.m2comm.module.models.MenuDTO;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,13 +35,16 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
     FavDAO favDAO;
     LinearLayout deleteBt1 , deleteBt2;
     boolean isDel = false ;
+    ArrayList<MenuDTO> rightArray;
+    String depth2Title;
+    private Custom_SharedPreferences csp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
+        Common.common_menuDTO_ArrayList = new ArrayList<>();
         this.idSetting();
-
         Intent intent = getIntent();
         if (intent.getBooleanExtra("isFav", false)) {
             this.delList();
@@ -44,6 +53,45 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             this.contentTopActivity = new ContentTopActivity(this, this, getLayoutInflater(), R.id.content_top, "즐겨찾기");
             this.bottomActivity = new BottomActivity(getLayoutInflater(), R.id.bottom, this, this);
+        }
+
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FavDTO favDTO = arrayList.get(position);
+                getMenuDataSetting(favDTO.getGroupNum(),favDTO.getDepth2Num());
+                Intent intent = new Intent(getApplicationContext() , ContentDetailActivity.class);
+                intent.putExtra("groupNum",favDTO.getGroupNum());
+                intent.putExtra("depth2Num",favDTO.getDepth2Num());
+                intent.putExtra("depth3Num",favDTO.getDepth3Num());
+                intent.putExtra("arr",rightArray);
+                intent.putExtra("title",depth2Title);
+                intent.putExtra("content_title",favDTO.getContent_title());
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+        });
+    }
+
+    private void getMenuDataSetting ( int groupNum , int depth2Num  ) {
+        this.rightArray = new ArrayList<>();
+        try {
+            JSONArray menuGroupJsonArray = new JSONArray(this.csp.getValue("menu",""));
+            JSONObject menuDepth2JObj = new JSONObject(menuGroupJsonArray.get(groupNum).toString());
+            JSONArray menuDepth2JsonArray = new JSONArray(menuDepth2JObj.getString("VALUES"));
+
+            JSONObject menuDepth3JObj = new JSONObject(menuDepth2JsonArray.get(depth2Num).toString());
+            this.depth2Title = menuDepth3JObj.getString("TITLE");
+            JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
+
+            for ( int k = 0 , l =  menuDepth3JsonArray.length(); k < l ; k++ ) {
+                JSONObject tt = new JSONObject(menuDepth3JsonArray.get(k).toString());
+                rightArray.add(new MenuDTO(tt.getString("TITLE") , tt.getString("VALUE"), tt.getInt("SID")));
+            }
+
+        } catch (Exception e) {
+            Log.d("errror",e.toString());
+            Toast.makeText(this , "Menu Paser Error1",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -65,9 +113,6 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
             this.listView.setAdapter(this.favViewAdapter);
             this.favViewAdapter.notifyDataSetChanged();
         }
-
-        Log.d("arraySize2",this.arrayList.size()+"");
-
     }
 
     public void delList() {
@@ -122,6 +167,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
 
         this.arrayList = new ArrayList<>();
         this.favDAO = new FavDAO(this);
+        this.csp = new Custom_SharedPreferences(this);
 
 
     }

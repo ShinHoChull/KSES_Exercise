@@ -2,6 +2,7 @@ package com.m2comm.module.dao;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.m2comm.kses_exercise.MyExerciseList;
 import com.m2comm.module.models.AlarmDTO;
@@ -15,6 +16,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class ExerciseDAO implements Realm.Transaction {
+
     Realm realm;
     Context context;
 
@@ -67,7 +69,6 @@ public class ExerciseDAO implements Realm.Transaction {
 
             }
         });
-
     }
 
     public List<ExerciseDTO> getAllList() {

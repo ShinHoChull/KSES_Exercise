@@ -30,6 +30,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.realm.RealmList;
+
 public class ContentListActivity extends AppCompatActivity implements View.OnClickListener {
 
     ContentTopActivity contentTopActivity;
@@ -103,9 +105,9 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
         });
         Intent intent = getIntent();
         if (intent.getBooleanExtra("isFav", false)) {
-            this.favList();
             this.popTopActivity = new PopTopActivity(this, this, getLayoutInflater(), R.id.content_top, this.title);
             findViewById(R.id.bottom).setVisibility(View.INVISIBLE);
+            this.favList();
             this.isFav = true;
         } else {
             this.contentTopActivity = new ContentTopActivity(this, this, getLayoutInflater(), R.id.content_top, this.title);
@@ -190,12 +192,13 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void favList() {
-
-        Common.common_menuDTO_ArrayList = new ArrayList<>();
+        Log.d("kkkkk","kkkkkkkkk");
+        Common.common_menuDTO_ArrayList = this.favDAO.findGroup(this.groupDefaultNum);
         if (this.isFav) {
             this.favText.setText("즐겨찾기 선택");
         } else {
             this.favText.setText("즐겨찾기 추가");
+            this.changeCount(Common.common_menuDTO_ArrayList.size());
         }
         this.isFav = !this.isFav;
         this.contentViewPagerAdapter = new ContentViewPagerAdapter(getSupportFragmentManager(), this, this.leftArray.size(), this.isFav);
@@ -211,24 +214,31 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.favBt:
                 if ( this.isFav ) {
-                    if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
-                        Log.d("commonArrayList", Common.common_menuDTO_ArrayList.size() + "");
-                        for (FavDTO row : Common.common_menuDTO_ArrayList) {
-                            this.favDAO.addFav(row);
-                        }
-                        Toast.makeText(this, "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
-                        finish();
+                    if (Common.common_menuDTO_ArrayList != null ) {
+                            Common.common_menuDTO_ArrayList_copy = new ArrayList<>();
+                            for ( FavDTO row :  Common.common_menuDTO_ArrayList) {
+                                Common.common_menuDTO_ArrayList_copy.add(new FavDTO(0,row.getGroupNum(),row.getDepth2Num(),row.getDepth3Num(),row.getUrl(),row.getGroupTitle(),row.getContent_title()));
+                            }
+                            this.favDAO.deleteAll(this.groupDefaultNum);
+
                         return;
                     }
                 } else {
                     Intent intent = new Intent(this, ContentListActivity.class);
                     intent.putExtra("isFav",true);
+                    intent.putExtra("groupId",this.groupDefaultNum);
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
                 }
-
                 break;
         }
+    }
+    public void contentAdd() {
+        for ( FavDTO row :  Common.common_menuDTO_ArrayList_copy) {
+            favDAO.addFav(row);
+        }
+        Toast.makeText(this,"즐겨찾기에 추가되었습니다.",Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.m2comm.kses_exercise;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Notification;
@@ -19,6 +20,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.provider.Settings;
 import android.transition.CircularPropagation;
 import android.util.Log;
@@ -29,11 +31,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.m2comm.module.Common;
+import com.m2comm.module.CustomHandler;
 import com.m2comm.module.Custom_SharedPreferences;
 import com.m2comm.module.dao.AlarmDAO;
 import com.m2comm.module.dao.ExerciseDAO;
@@ -87,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int main_per_count = 0;
     int counter = 0;
     Timer timer = new Timer();
+    CustomHandler handler;
 
     private void idSetting() {
         this.bt1 = findViewById(R.id.main_bt1);
@@ -99,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.bt4.setOnClickListener(this);
         this.cehckImg = findViewById(R.id.check_bt);
         this.cehckImg.setColorFilter(Color.parseColor("#d71447"));
+        this.handler = new CustomHandler(this);
 
         this.exercise_check_bt = findViewById(R.id.main_exercise_check_bt);
         this.exercise_start_bt = findViewById(R.id.main_exercise_start_bt);
@@ -194,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             public void onResponse(String response) {
                                 csp.put("version",response);
                             }
+
                             @Override
                             public void onError(ANError anError) {
                                 Log.d("versionerror",anError.getErrorDetail());
@@ -282,21 +291,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
-                Log.d("main_per_count", "" + main_per_count);
-                main_per_num.setText(String.valueOf(counter));
-                gaugeSeekBar.setProgress(counter * 0.01f);
-                if (counter >= main_per_count) {
-                    timer.cancel();
-                    main_per_num.setText(String.valueOf(main_per_count));
-                    gaugeSeekBar.setProgress(main_per_count * 0.01f);
-                    counter = 0;
-                }
-                counter = counter + 1;
+                Message msg = handler.obtainMessage();
+                msg.what = CustomHandler.PROGRESS_UPDATE2;
+                handler.sendMessage(msg);
             }
         };
+        if ( timer != null ) timer.cancel();
         timer = new Timer();
-        timer.schedule(tt, 0, 50);
+        timer.schedule(tt, 0, 30);
 
+    }
+
+    public void updateProgress() {
+        main_per_num.setText(String.valueOf(counter));
+        gaugeSeekBar.setProgress(counter * 0.01f);
+        if (counter >= main_per_count) {
+            timer.cancel();
+            main_per_num.setText(String.valueOf(main_per_count));
+            gaugeSeekBar.setProgress(main_per_count * 0.01f);
+            counter = 0;
+        }
+        counter = counter + 1;
     }
 
 
@@ -304,33 +319,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+
             case R.id.main_bt1:
                 intent = new Intent(getApplicationContext(), ContentListActivity.class);
                 intent.putExtra("groupId", 0);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
+
             case R.id.main_bt2:
                 intent = new Intent(getApplicationContext(), ContentListActivity.class);
                 intent.putExtra("groupId", 1);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
+
             case R.id.main_bt3:
                 intent = new Intent(getApplicationContext(), ContentListActivity.class);
                 intent.putExtra("groupId", 2);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 break;
+
             case R.id.main_bt4:
                 intent = new Intent(getApplicationContext(), ContentListActivity.class);
                 intent.putExtra("groupId", 3);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                //overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                break;
+
+            case R.id.main_exercise_check_bt:
+                intent = new Intent(MainActivity.this, PopupActivity.class);
+                intent.putExtra("state",0);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_scale, 0);
+
+//                new MaterialDialog.Builder(MainActivity.this).title(R.string.app_name)
+//                        .content("오늘 견관절 운동을 하셨나요?")
+//                        .positiveText("네").negativeText("아니오").
+//                        theme(Theme.LIGHT).onPositive(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                        //운동 일자를 저장
+//                        Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+//                        if( row == null )intent.putExtra("isStart",true);
+//                        else intent.putExtra("isToday",true);
+//                        startActivity(intent);
+//                        if( row != null )overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+//                        else overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
+//                    }
+//                }).show();
+
                 break;
 
             case R.id.main_innerView1:
-            case R.id.main_exercise_check_bt:
             case R.id.main_exercise_start_bt:
                 intent = new Intent(this, CalendarActivity.class);
                 if( row == null )intent.putExtra("isStart",true);

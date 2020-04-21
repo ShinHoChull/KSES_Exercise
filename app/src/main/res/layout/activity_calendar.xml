@@ -35,9 +35,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#2984eb"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:text="∙"/>
+                    android:textSize="5dp"
+                    android:gravity="center_vertical"
+                    android:text="●"/>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -56,9 +56,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#2984eb"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20dp"
+                    android:textSize="5dp"
                     android:gravity="center"
-                    android:text="∙"/>
+                    android:text="●"/>
                 <TextView
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -134,14 +134,14 @@
             android:layout_height="80dp"
             android:orientation="vertical"
             android:background="#f4f4f4"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#88929c"/>
+                android:background="#cccccc"/>
 
             <LinearLayout
                 android:layout_weight="1"
@@ -176,7 +176,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#88929c"/>
+                android:background="#cccccc"/>
 
         </LinearLayout>
 
@@ -192,7 +192,7 @@
             >
 
             <LinearLayout
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -233,13 +233,13 @@
                             android:gravity="center">
                             <TextView
                                 android:id="@+id/main_per_count"
-                                android:layout_width="20dp"
+                                android:layout_width="30dp"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/r_light"
                                 android:gravity="center"
-                                android:text="75"
+                                android:text="0"
                                 android:textColor="#ffffff"
-                                android:textSize="18dp"
+                                android:textSize="17dp"
                                 />
                             <TextView
                                 android:layout_width="8dp"
@@ -259,22 +259,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    >
 
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="20dp"
                         android:id="@+id/count_date"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:gravity="center_vertical"
                         android:text="2020.01.01~2020.01.31"
-                        android:textSize="11dp"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/r_medium"
                         android:textColor="#2d97ee"
                         />
                     <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="50dp"
@@ -287,11 +290,11 @@
                             android:id="@+id/count_day"
                             android:layout_width="20dp"
                             android:layout_height="match_parent"
-                            android:text="20"
+                            android:text="0"
                             android:textColor="#d71447"
                             android:textSize="17dp"
                             android:fontFamily="@font/r_medium"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             />
                         <TextView
                             android:layout_width="20dp"
@@ -299,14 +302,14 @@
                             android:text="일"
                             android:textColor="#000000"
                             android:textSize="17dp"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             />
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:text="/30일"
                             android:textColor="#000000"
-                            android:textSize="13dp"
+                            android:textSize="11dp"
                             android:gravity="center_vertical"
                             android:fontFamily="@font/r_light"
                             />
@@ -321,7 +324,7 @@
             <LinearLayout
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="4dp"
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

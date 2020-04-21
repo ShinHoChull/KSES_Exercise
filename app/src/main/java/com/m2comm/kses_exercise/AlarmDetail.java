@@ -45,7 +45,7 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
 
     private ScheduleDAO scheduleDAO;
     private ScheduleDTO row;
-    private boolean isRun;
+    private boolean isRun , isList;
 
     private void idSetting() {
 
@@ -95,6 +95,7 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
         this.alarm_max_num = this.alarmDAO.getID();
         Intent intent = getIntent();
         this.isRun = intent.getBooleanExtra("isStart",false);
+        this.isList = intent.getBooleanExtra("isList",false);
         if ( this.isRun ) {
             this.popTopActivity = new PopTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
         } else {
@@ -129,49 +130,34 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
     private void registAlarm()
     {
         //cancelAlarm();
-        boolean isRepeat = false;
-        int len = week.length;
-        for (int i = 0; i < len; i++)
-        {
-            if (week[i] == 1)
-            {
-                isRepeat = true;
-                break;
-            }
-        }
-
-        if ( ! isRepeat ) {
-            Toast.makeText(this , "요일반복을 선택해주세요." , Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         // 알람 등록
         Intent intent = new Intent(this, AlarmReceiver.class);
-
         long triggerTime = 0;
         long intervalTime = 24 * 60 * 60 * 1000;// 24시간
 
-        if(isRepeat)
-        {
-            intent.putExtra("one_time", false);
-            intent.putExtra("day_of_week", week);
-            intent.putExtra("scheduleNum",this.scheduleNum);
-            intent.putExtra("alarmNum",this.alarm_max_num);
+        intent.putExtra("one_time", false);
+        intent.putExtra("day_of_week", week);
+        intent.putExtra("scheduleNum",this.scheduleNum);
+        intent.putExtra("alarmNum",this.alarm_max_num);
 
-            //requestCode는 Noti ID
-            PendingIntent pending = PendingIntent.getBroadcast(this , this.alarm_max_num , intent , 0);
-            triggerTime = setTriggerTime();
-            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, intervalTime, pending);
-        } else {
-            intent.putExtra("one_time", true);
-            PendingIntent pending = getPendingIntent(intent);
-            triggerTime = setTriggerTime();
-            mAlarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pending);
-        }
+        //requestCode는 Noti ID
+        PendingIntent pending = PendingIntent.getBroadcast(this , this.alarm_max_num , intent , 0);
+        triggerTime = setTriggerTime();
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, intervalTime, pending);
+
+//        else {
+//            intent.putExtra("one_time", true);
+//            PendingIntent pending = getPendingIntent(intent);
+//            triggerTime = setTriggerTime();
+//            mAlarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pending);
+//        }
         Toast.makeText(this , "설정이 완료 되었습니다.",Toast.LENGTH_SHORT).show();
-        intent = new Intent(this , MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-        startActivity(intent);
+        if ( !this.isList ) {
+            intent = new Intent(this , CalendarActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         this.finish();
     }
 
@@ -180,7 +166,6 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
         super.finish();
         if (this.isRun)overridePendingTransition(0, R.anim.anim_slide_out_bottom_login);
         else overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
-
     }
 
     private PendingIntent getPendingIntent(Intent intent)
@@ -234,8 +219,23 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.alarm_detail_success:
 
-                if  (this.hour < 0 && this.min < 0) {
+                if  (this.hour <= 0 && this.min <= 0) {
                     Toast.makeText(this , "알람 시간을 선택해주세요." , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                boolean isRepeat = false;
+                int len = week.length;
+                for (int i = 0; i < len; i++)
+                {
+                    if (week[i] == 1)
+                    {
+                        isRepeat = true;
+                        break;
+                    }
+                }
+                if ( ! isRepeat ) {
+                    Toast.makeText(this , "요일반복을 선택해주세요." , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -244,13 +244,21 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
                     am_pm = "PM";
                 }
 
-                if ( alarmDAO.addAlarm(new AlarmDTO(0,am_pm,hour+":"+min,true,week,row.getNum())) ) {
+                if ( alarmDAO.addAlarm(new AlarmDTO(0,am_pm,this.zeroPoint(String.valueOf(hour))+":"+this.zeroPoint(String.valueOf(min)),true,week,row.getNum())) ) {
                     this.registAlarm();
                 }
 
             break;
         }
 
+    }
+
+    public String zeroPoint(String data) {
+        data = data.trim();
+        if (data.length() == 1) {
+            data = "0" + data;
+        }
+        return data;
     }
 }
 

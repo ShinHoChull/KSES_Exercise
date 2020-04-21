@@ -57,7 +57,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             R.drawable.menu_icon03_on,
             R.drawable.menu_icon04_on,
     };
-
     int[] groupImgResourceOff = {
             R.drawable.menu_icon01_off,
             R.drawable.menu_icon02_off,
@@ -171,22 +170,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+
             case R.id.menu_groupBt1:
                 this.groupImageChange(0);
                 getMenuDataSetting(0);
                 break;
+
             case R.id.menu_groupBt2:
                 this.groupImageChange(1);
                 getMenuDataSetting(1);
                 break;
+
             case R.id.menu_groupBt3:
                 this.groupImageChange(2);
                 getMenuDataSetting(2);
                 break;
+
             case R.id.menu_groupBt4:
                 this.groupImageChange(3);
                 getMenuDataSetting(3);
                 break;
+
             case R.id.menu_closeBt:
                 finish();
                 break;

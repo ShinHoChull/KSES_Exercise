@@ -84,7 +84,7 @@ public class ContentListViewAdapter extends BaseAdapter {
             if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
                 for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
                     FavDTO row = it.next();
-                    if ( row.getDepth2Num() == this.depth2Num && row.getDepth3Num() == position ) {
+                    if ( row.getGroupNum() == this.groupNum && row.getDepth2Num() == this.depth2Num && row.getDepth3Num() == position ) {
                         favBt.setImageResource(R.drawable.content_on);
                     }
                 }
@@ -98,7 +98,7 @@ public class ContentListViewAdapter extends BaseAdapter {
                         boolean isAdd = true;
                         for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
                             FavDTO row = it.next();
-                            if ( row.equals(favDTO) ) {
+                            if ( row.getGroupNum() == favDTO.getGroupNum() && row.getDepth2Num() == favDTO.getDepth2Num() && row.getDepth3Num() == favDTO.getDepth3Num() ) {
                                 it.remove();
                                 favBt.setImageResource(R.drawable.content_off);
                                 isAdd = false;

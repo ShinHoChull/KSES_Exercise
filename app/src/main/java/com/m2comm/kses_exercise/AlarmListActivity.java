@@ -48,6 +48,8 @@ public class AlarmListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext() , AlarmDetail.class);
+                intent.putExtra("isStart",true);
+                intent.putExtra("isList",true);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
             }
@@ -58,6 +60,8 @@ public class AlarmListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if ( row != null ) {
                     Intent intent = new Intent(getApplicationContext() , AlarmDetail.class);
+                    intent.putExtra("isStart",true);
+                    intent.putExtra("isList",true);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getApplicationContext() , CalendarActivity.class);
@@ -95,6 +99,7 @@ public class AlarmListActivity extends AppCompatActivity {
         this.alarmAddBt = findViewById(R.id.add_alarmBt);
         this.alarm_list_start_exercise = findViewById(R.id.alarm_list_start_exercise);
     }
+
 
 
 

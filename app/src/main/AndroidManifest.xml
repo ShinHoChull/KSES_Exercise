@@ -15,32 +15,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PopupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent">
+
+        </activity>
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyListActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"></activity>
+        <activity
+            android:name=".MyListActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".MyExerciseList" />
-        <activity android:name=".CalendarActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
-        <activity android:name=".AlarmDetail"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
+            android:name=".CalendarActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".AlarmDetail"
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".AlarmListActivity" />
-        <activity android:name=".SearchActivity" >
-
-        </activity>
+        <activity android:name=".SearchActivity"></activity>
         <activity android:name=".ContentDetailActivity" />
-        <activity android:name=".ContentListActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
+            android:name=".ContentListActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".MenuActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
 
         <receiver android:name="com.m2comm.module.AlarmReceiver" />
     </application>

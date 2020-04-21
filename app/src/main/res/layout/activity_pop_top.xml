@@ -31,7 +31,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="2개 선택"
+                    android:text="0개 선택"
                     android:textColor="@android:color/white"
                     android:gravity="center_vertical"
                     android:textSize="15dp"

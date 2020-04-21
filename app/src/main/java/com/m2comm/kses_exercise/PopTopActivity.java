@@ -41,7 +41,6 @@ public class PopTopActivity implements View.OnClickListener {
             this.mainTitle.setVisibility(View.VISIBLE);
             this.titleView.setVisibility(View.GONE);
         }
-        this.changeCount(0);
     }
 
     private void init () {
@@ -51,6 +50,7 @@ public class PopTopActivity implements View.OnClickListener {
     }
 
     public void changeCount (int count) {
+        this.titleView.setVisibility(View.VISIBLE);
         this.titleView.setText(count + "개 선택");
     }
 

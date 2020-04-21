@@ -2,6 +2,7 @@ package com.m2comm.kses_exercise;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
     private TextView searchCount;
     ArrayList<MenuDTO> rightArray;
     private String depth2Title , groupTitle;
-
+    InputMethodManager imm;
 
     private void idSetting() {
         this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"검색");
@@ -69,16 +72,18 @@ public class SearchActivity extends AppCompatActivity {
         for ( int i = 0 , j = 4 ; i < j ; i ++ ) {
             this.getMenuDataSetting( i );
         }
+        this.imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         this.search_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imm.hideSoftInputFromWindow(searchText.getWindowToken(),0);
                 copyList = new ArrayList<>();
                 if ( searchText.getText().toString().equals("") ) {
                     copyList.addAll(realList);
                 } else {
                     for ( FavDTO row : realList ) {
-                        if( row.getGroupTitle().toLowerCase().contains(searchText.getText().toString()) || row.getContent_title().toLowerCase().contains(searchText.getText().toString()) ) {
+                        if( row.getContent_title().toLowerCase().contains(searchText.getText().toString().trim()) ) {
                             copyList.add(row);
                         }
                     }
@@ -172,6 +177,18 @@ public class SearchActivity extends AppCompatActivity {
             Log.d("errror",e.toString());
             Toast.makeText(this , "Menu Paser Error1",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v == null) return super.dispatchTouchEvent(event);
+            InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(event);
     }
 
 

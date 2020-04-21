@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.Sort;
 
 public class ScheduleDAO implements Realm.Transaction {
     Realm realm;
@@ -86,7 +87,7 @@ public class ScheduleDAO implements Realm.Transaction {
 
     public List<ScheduleDTO> getAllList() {
         ArrayList<ScheduleDTO> scheduleDTOS = new ArrayList<>();
-        scheduleDTOS.addAll(this.realm.copyFromRealm(this.realm.where(ScheduleDTO.class).findAll()));
+        scheduleDTOS.addAll(this.realm.copyFromRealm(this.realm.where(ScheduleDTO.class).findAllSorted("num", Sort.DESCENDING)));
         return scheduleDTOS;
     }
 

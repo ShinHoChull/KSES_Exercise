@@ -32,8 +32,9 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
     private ArrayList<MenuDTO> arrayList;
     private int groupNum , depth2Num , depth3Num;
     private ImageView backBt , nextBt;
-    private FavDTO favDTO;
+    private FavDTO favDTO , findDTO;
     private FavDAO favDAO;
+    private LinearLayout favBt;
 
     Custom_SharedPreferences csp;
 
@@ -53,7 +54,8 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         this.detail_edittext = findViewById(R.id.detail_edittext);
         this.content_title = findViewById(R.id.title);
-        findViewById(R.id.favBt).setOnClickListener(this);
+        this.favBt = findViewById(R.id.favBt);
+        this.favBt.setOnClickListener(this);
 
         //this.nextBt = findViewById(R.id.nextBt);
         //this.nextBt.setOnClickListener(this);
@@ -65,14 +67,23 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_detail);
-
         this.idSetting();
-
         this.detail_edittext.setFocusableInTouchMode(false);
         this.detail_edittext.clearFocus();
 
         this.content_title.setText(this.content_title_txt);
+        this.getFindDTO();
     }
+
+    public void getFindDTO () {
+        this.findDTO = this.favDAO.find(this.groupNum , this.depth2Num , this.depth3Num);
+        if ( findDTO == null ) {
+            this.favBt.setBackgroundResource(R.drawable.content_fav_radius_off);
+        } else {
+            this.favBt.setBackgroundResource(R.drawable.content_fav_radius);
+        }
+    }
+
 
     private void chagenVideo( int num ) {
         this.depth3Num = this.depth3Num + num;
@@ -88,9 +99,11 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.favBt:
+                if ( findDTO != null ) return;
                 this.getMenuDataSetting();
                 this.favDAO.addFav(this.favDTO);
                 Toast.makeText(this, "즐겨찾기에 추가 되었습니다.", Toast.LENGTH_SHORT).show();
+                this.getFindDTO();
                 break;
 //            case R.id.nextBt:
 //                this.chagenVideo(1);
@@ -119,6 +132,7 @@ public class ContentDetailActivity extends AppCompatActivity implements View.OnC
 
             String depth3Title = tt.getString("TITLE");
             Log.d("title3=",depth3Title);
+
             this.favDTO = new FavDTO(0,groupNum , depth2Num , depth3Num ,
                     tt.getString("URL") , depth1Title + " > "+depth2Title,depth3Title);
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MyExerciseList extends AppCompatActivity implements View.OnClickListener {
 
-    ContentTopActivity contentTopActivity;
+    MyExerciseListTopActivity contentTopActivity;
     BottomActivity bottomActivity;
     private ListView listView;
     private List<ScheduleDTO> scheduleDTOS;
@@ -59,7 +59,7 @@ public class MyExerciseList extends AppCompatActivity implements View.OnClickLis
     }
 
     private void idSetting () {
-        this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동기록");
+        this.contentTopActivity = new MyExerciseListTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동기록");
         this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         this.listView = findViewById(R.id.listView);
         this.nonImageView = findViewById(R.id.nonItem_view);
@@ -73,8 +73,9 @@ public class MyExerciseList extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.list_start_exercise:
                 Intent intent = new Intent(this, CalendarActivity.class);
+                intent.putExtra("isStart",true);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                overridePendingTransition(R.anim.anim_slide_in_bottom_login, 0);
                 break;
         }
     }

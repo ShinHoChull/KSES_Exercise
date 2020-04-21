@@ -12,6 +12,7 @@ import java.util.Locale;
 public class Common {
 
     public static ArrayList<FavDTO> common_menuDTO_ArrayList;
+    public static ArrayList<FavDTO> common_menuDTO_ArrayList_copy;
 
     public  static  Calendar getCalendar (Date date) {
         Calendar checkCalendar = Calendar.getInstance() ;

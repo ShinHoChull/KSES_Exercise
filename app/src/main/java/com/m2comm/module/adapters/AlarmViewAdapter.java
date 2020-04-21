@@ -53,53 +53,70 @@ public class AlarmViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if ( convertView == null ) {
-            final AlarmDTO row = contentArray.get(position);
-            convertView  = this.layoutInflater.inflate(R.layout.alarm_list_item,parent,false);
-            TextView am_pm = convertView.findViewById(R.id.am_pm);
-            TextView time = convertView.findViewById(R.id.time);
-            TextView sun = convertView.findViewById(R.id.alarm_sun);
-            TextView mon = convertView.findViewById(R.id.alarm_mon);
-            TextView tue = convertView.findViewById(R.id.alarm_tue);
-            TextView wed = convertView.findViewById(R.id.alarm_wed);
-            TextView thu = convertView.findViewById(R.id.alarm_thu);
-            TextView fri = convertView.findViewById(R.id.alarm_fri);
-            TextView sat = convertView.findViewById(R.id.alarm_sat);
-            final ImageView img = convertView.findViewById(R.id.alarm_img);
+        final AlarmDTO row = contentArray.get(position);
+        convertView  = this.layoutInflater.inflate(R.layout.alarm_list_item,parent,false);
+        TextView am_pm = convertView.findViewById(R.id.am_pm);
+        TextView time = convertView.findViewById(R.id.time);
+        TextView sun = convertView.findViewById(R.id.alarm_sun);
+        TextView mon = convertView.findViewById(R.id.alarm_mon);
+        TextView tue = convertView.findViewById(R.id.alarm_tue);
+        TextView wed = convertView.findViewById(R.id.alarm_wed);
+        TextView thu = convertView.findViewById(R.id.alarm_thu);
+        TextView fri = convertView.findViewById(R.id.alarm_fri);
+        TextView sat = convertView.findViewById(R.id.alarm_sat);
+        final ImageView img = convertView.findViewById(R.id.alarm_img);
 
-            am_pm.setText(row.getAm_pm());
-            time.setText(row.getDate());
-            byte[] week = row.getWeek();
-            sun.setTextColor( week[1] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            mon.setTextColor( week[2] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            tue.setTextColor( week[3] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            wed.setTextColor( week[4] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            thu.setTextColor( week[5] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            fri.setTextColor( week[6] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            sat.setTextColor( week[7] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
-            if ( row.isPush() ) {
-                img.setImageResource(R.drawable.alarm_on);
-            } else {
-                img.setImageResource(R.drawable.alarm_off);
+        if ( row.getAm_pm().equals("PM") ) {
+            String[] timeCut = row.getDate().split(":");
+            int val = Integer.parseInt(timeCut[0]);
+            String hour = "";
+            if (val > 12) {
+                hour = zeroPoint(String.valueOf(val - 12));
+                row.setDate(hour+":"+zeroPoint(timeCut[1]));
             }
-            img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if ( row.isPush() ) {
-                        alarmDAO.updateAlarm(row.getNum(),false);
-                        row.setPush(false);
-                        img.setImageResource(R.drawable.alarm_off);
-                    } else {
-                        alarmDAO.updateAlarm(row.getNum(),true);
-                        row.setPush(true);
-                        img.setImageResource(R.drawable.alarm_on);
-                    }
-                }
-            });
-
         }
 
+        time.setText(row.getDate());
+        row.setAm_pm(row.getAm_pm().equals("AM") ? "오전":"오후");
+        am_pm.setText(row.getAm_pm());
+
+        byte[] week = row.getWeek();
+        sun.setTextColor( week[1] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        mon.setTextColor( week[2] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        tue.setTextColor( week[3] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        wed.setTextColor( week[4] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        thu.setTextColor( week[5] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        fri.setTextColor( week[6] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        sat.setTextColor( week[7] == 1 ? Color.parseColor("#253fac") :  Color.parseColor("#88929c"));
+        if ( row.isPush() ) {
+            img.setImageResource(R.drawable.alarm_on);
+        } else {
+            img.setImageResource(R.drawable.alarm_off);
+        }
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( row.isPush() ) {
+                    alarmDAO.updateAlarm(row.getNum(),false);
+                    row.setPush(false);
+                    img.setImageResource(R.drawable.alarm_off);
+                } else {
+                    alarmDAO.updateAlarm(row.getNum(),true);
+                    row.setPush(true);
+                    img.setImageResource(R.drawable.alarm_on);
+                }
+            }
+        });
+
         return convertView;
+    }
+
+    public String zeroPoint(String data) {
+        data = data.trim();
+        if (data.length() == 1) {
+            data = "0" + data;
+        }
+        return data;
     }
 
 

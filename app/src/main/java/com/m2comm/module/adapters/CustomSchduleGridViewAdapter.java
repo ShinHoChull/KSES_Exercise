@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -74,9 +75,11 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.schdule_grid_item, parent, false);
             holder = new ViewHolder();
             holder.tvItemGridView = (TextView) convertView.findViewById(R.id.tv_item_gridview);
-            holder.cirV= (LinearLayout) convertView.findViewById(R.id.schedule_startView);
+            holder.cirV= (FrameLayout) convertView.findViewById(R.id.schedule_startView);
             holder.choice_start_view = convertView.findViewById(R.id.choice_start_day);
             holder.line = convertView.findViewById(R.id.schedule_choice_line);
+            holder.check_view = convertView.findViewById(R.id.check_view);
+            holder.startSubView = convertView.findViewById(R.id.startSubView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -143,10 +146,13 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
                 ) {
                     holder.line.setVisibility(View.VISIBLE);
                     holder.choice_start_view.setVisibility(View.VISIBLE);
-                    holder.tvItemGridView.setBackgroundColor(Color.parseColor("#ff3a7f"));
+                    holder.tvItemGridView.setBackgroundColor(Color.parseColor("#73ff3a7f"));
                     holder.tvItemGridView.setTextColor(Color.parseColor("#ffffff"));
+                    holder.startSubView.setVisibility(View.VISIBLE);
                     //click_calendar.add(Calendar.DAY_OF_MONTH , 30);
                     //this.lineCal = click_calendar;
+                } else {
+
                 }
 
                 if ( this.lineCal != null ) {
@@ -177,7 +183,8 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
                     Log.d("clickDate",clickDate);
 
                     if ( clickDate.equals(pointDate) ) {
-                        holder.line.setBackgroundColor(Color.parseColor("#2d97ee"));
+                        //holder.line.setBackgroundColor(Color.parseColor("#2d97ee"));
+                        holder.check_view.setVisibility(View.VISIBLE);
                         holder.tvItemGridView.setTextColor(Color.parseColor("#ffffff"));
                     }
 
@@ -197,9 +204,10 @@ public class CustomSchduleGridViewAdapter extends BaseAdapter {
 
         TextView tvItemGridView;
         TextView choice_start_view;
-        LinearLayout cirV;
+        FrameLayout cirV;
         LinearLayout line;
-
+        LinearLayout check_view;
+        LinearLayout startSubView;
 
     }
 
