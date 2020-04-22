@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.m2comm.kses_exercise.R;
 import com.m2comm.module.models.ContentDTO;
 
@@ -18,6 +20,7 @@ public class SearchViewAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater;
     ArrayList<ContentDTO> contentArray;
+    ViewHodel viewHolder;
 
 
     public SearchViewAdapter(Context context, LayoutInflater layoutInflater , ArrayList<ContentDTO> contentArray) {
@@ -46,14 +49,25 @@ public class SearchViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if ( convertView == null ) {
-            ContentDTO contentDTO = contentArray.get(position);
+            this.viewHolder = new ViewHodel();
             convertView  = this.layoutInflater.inflate(R.layout.content_item,parent,false);
-            ImageView content_item = convertView.findViewById(R.id.content_thumbnail);
-            TextView tv = convertView.findViewById(R.id.content_title);
-            tv.setText(contentDTO.getTitle() + contentDTO.getGroupSid());
+
+            this.viewHolder.img = convertView.findViewById(R.id.content_thumbnail);
+            this.viewHolder.tv = convertView.findViewById(R.id.content_title);
+            convertView.setTag(this.viewHolder);
+        } else {
+            this.viewHolder = (ViewHodel) convertView.getTag();
         }
 
+        ContentDTO row = contentArray.get(position);
+        this.viewHolder.tv.setText(row.getTitle() + row.getGroupSid());
+
         return convertView;
+    }
+
+    class ViewHodel {
+        public ImageView img;
+        public TextView tv;
     }
 
 
