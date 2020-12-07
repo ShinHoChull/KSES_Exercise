@@ -11,8 +11,19 @@
                     {
                         "TITLE":"보조기 착용법",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 쿠션이 둥근 쪽이 앞을 향하게 하고, 오목한 부분을 옆구리에 붙입니다.
+2. 허리벨트를 허리에 둘러 쿠션 앞뒤로 연결합니다.
+3. 환측 팔을 팔걸이로 감싸고 쿠션의 둥근 부분인 바깥쪽에 붙입니다.
+4. 어깨벨트를 어깨에 두르고, 팔걸이의 앞쪽과 뒤쪽에 연결합니다.
+5. 팔걸이를 착용할 땐, 엄지 손가락을 걸어서 사용합니다.
+6. 팔걸이와 받침대를 안정적으로 고정하기 위해 짧은 스트랩을 팔의 위아래에 부착합니다.
+7. 수술 후, 초기에 이 자세를 유지하는 것이 매우 중요합니다. 주무실 때도 착용해야 하며, 수술 후 6-8주 정도 착용합니다.
+
+보조기 착용의 잘못된 예
+1. 보조기는 배 쪽에 위치하면 안되고 옆구리에 위치해야 합니다.
+2. 옆구리 쿠션을 제거하고 착용하면 안됩니다.",
+						"URL":"https://live360.co.kr/kses/20200710/01.html",
+						"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/01.png"
 
                     }
                 ]
@@ -24,38 +35,67 @@
                     {
                         "TITLE":"어깨 으쓱하기 스트레칭",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 편한 자세로 섭니다.
+2. 어깨를 귀 쪽으로 올립니다.
+3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.
+4. 이 동작을 10-15회 반복합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/2-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/2-1.png"
                     },
                     {
                         "TITLE":"팔 앞으로 올리기 스트레칭(1)",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 팔꿈치를 반대 손으로 받친 상태로 팔을 앞으로 올려줍니다.
+2. 참을 수 있는 약한 통증이 느껴지는 높이에서
+3. 3~5초 정도 유지하며 높이를 늘려갑니다.
+4. 동작을 10회 반복하며, 3~5세트 시행합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/2-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/2-2.png"
                     },
                     {
                         "TITLE":"팔 앞으로 올리기 스트레칭(2)",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 팔을 테이블에 올린 상태에서 허리를 굽혀 테이블에서 팔이 앞으로 미끄러지게 합니다.
+2. 참을 수 있는 약한 통증이 느껴지는 위치에서 3-5초 정도 유지합니다.
+3. 팔이 미끄러지는 거리를 늘려갑니다.
+4. 동작을 10회 반복하며, 3~5세트 시행합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/2-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/2-3.png"
                     },
                     {
-                        "TITLE":"굴곡 벽 올라가기 스트레칭",
+                        "TITLE":"벽 따라 올라가기 스트레칭",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 손가락으로 벽을 기어오르듯이 머리 위 높이까지 올립니다.
+2. 최대로 올라갔을 때 상체를 약간 앞으로 기울여 부하를 증가시킵니다.
+3. 약간 통증이 있는 높이까지 올린 후 10-15초간 멈추고 다시 천천히 내립니다.",
+						"URL":"https://live360.co.kr/kses/20200710/2-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/2-4.png"
                     },
                     {
                         "TITLE":"날개뼈 스트레칭",
                         "SID":4,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 고개는 정면을 응시하고, 거울을 보며 자세를 확인하세요.
+2. 팔을 자연스럽게 내린 상태에서 견갑골을 앞쪽으로 오므립니다.
+3. 견갑골 사이에 달걀을 끼운다는 느낌으로 견갑골을 뒤쪽으로 모아줍니다.
+
+주의사항
+1. 상체를 숙이면서 어깨를 앞으로 당기지 마세요.
+2. 배를 내밀면서 어깨를 모으지 마세요.
+",
+						"URL":"https://live360.co.kr/kses/20200710/2-5.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/2-5.png"
                     },
                     {
                         "TITLE":"팔 시계추 운동",
                         "SID":5,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 허리를 약간 숙인 상태로 팔을 내려놓습니다.
+2. 팔에 힘을 뺀 상태에서 천천히 원을 그리며 20-30초간 한 방향으로 돌려줍니다.
+3. 반대 방향도 동일하게 실시하며, 팔을 전후/좌우로 움직여주는 동작도 실시합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/2-6.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/2-6.png"
                     }
                 ]
             },
@@ -64,28 +104,42 @@
 				"SID":2,
                 "VALUES": [
                     {
-                        "TITLE":"외전 벽 올라가기 스트레칭",
+                        "TITLE":"옆으로 벽 올라가기 스트레칭",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 벽에 측면으로 선 자세로 팔을 벌린 상태에서 손가락으로 벽을 기어오르듯이 머리 위 높이까지 올립니다.
+2. 약한 통증이 있는 높이까지 올린 후 10-15초간 멈추고 다시 천천히 내립니다.
+3. 팔의 높이가 최대로 올라갔을 때 상체를 약간 옆으로 기울여 부하를 증가시킵니다.",
+						"URL":"https://live360.co.kr/kses/20200710/3-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/3-1.png"
                     },
                     {
-                        "TITLE":"팔 내전 스트레칭",
+                        "TITLE":"어깨 모으기 스트레칭",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 안 아픈 팔로  아픈 팔의 팔꿈치를 받쳐서 반대편 어깨 쪽으로 당겨줍니다.
+2. 10초정도 자세를 유지합니다.
+3. 동작을 10회 반복하며, 3~5세트 시행합니다. ",
+						"URL":"https://live360.co.kr/kses/20200710/3-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/3-2.png"
                     },
                     {
-                        "TITLE":"팔 외회전 스트레칭",
+                        "TITLE":"팔 밖으로 돌리기 스트레칭",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 팔꿈치를 90도로 굽힌 채, 옆구리에 붙이고 손으로 문고리(T-bar)와 같은 지지할 물건을 잡습니다.
+2. 몸통은 바깥 쪽으로 돌려, 아픈 쪽 어깨를 회전시키며 회전 각도를 늘려갑니다.
+3. 참을 수 있는 약한 통증 부위에서 3-5초 정도 유지합니다. 천천히 자세를 바르게 합니다.
+4. 동작을 10회 반복하며, 3~5세트 시행합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/3-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/3-3.png"
                     },
                     {
                         "TITLE":"코너 스트레칭",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 모퉁이 앞에서 양 팔을 90도 구부리고 벽에 댑니다.
+2. 상체를 벽 방향으로 기울여 앞쪽 가슴 부위가 늘어나는 느낌을 갖습니다.
+3. 이 동작을 10-15초간 유지한 후 3-5회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/3-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/3-4.png"
                     }
                 ]
             },
@@ -94,34 +148,59 @@
 				"SID":3,
                 "VALUES": [
                     {
-                        "TITLE":"T-bar를 이용한 굴곡 스트레칭",
+                        "TITLE":"T-bar를 이용한 팔 앞으로 올리기 스트레칭 ",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 누운 상태에서 양손으로 막대기를 어깨 너비로 잡고 천천히 팔을 들어 올려 참을 수 있는 약한 통증이 있을 때까지 각도를 올려준 후 10-15초간 자세를 유지합니다.
+2. 이 동작을 3-5회 반복 실시합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/4-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/4-1.png"
                     },
                     {
-                        "TITLE":"옆으로 누워서 내회전 스트레칭",
+                        "TITLE":"옆으로 누워서 팔 안으로 돌리기 스트레칭",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 환측이 바닥에 닿도록 옆으로 눕습니다.
+2. 환측의 팔꿈치를 90도 구부린 상태에서 건측으로 환측의 손목을 잡습니다.
+3. 환측의 손목을 지그시 바닥을 향해 누른 뒤, 10-15초간 자세를 유지합니다. ",
+						"URL":"https://live360.co.kr/kses/20200710/4-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/4-2.png"
                     },
                     {
-                        "TITLE":"팔 내회전 스트레칭",
+                        "TITLE":"팔 뒤로 올리기 스트레칭",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 안 아픈 팔로 머리 뒤로 넘기고 아픈 팔과 함께 수건을 잡습니다.
+2. 약한 통증내에서 안 아픈 팔로 수건을 위로 당겨줍니다.
+3. 약한 통증 높이에서 3-5초 정도 자세를 유지하며 높이를 늘려갑니다. 동작을 10회 반복하며, 3~5세트 시행합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/4-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/4-3.png"
                     },
                     {
-                        "TITLE":"T-bar를 이용한 내회전 스트레칭",
+                        "TITLE":"T-bar를 이용한 팔 뒤로 돌리기 스트레칭",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. T-bar를 양쪽 손으로 잡고, 안 아픈 쪽의 손 방향으로 잡아당깁니다.
+2. 10-15초간 버티며 이 동작을 3-5회 반복 실시 합니다.
+
+주의사항
+아픈 쪽 어깨의 앞부분에 통증이 없는 범위 내에서 실시합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/4-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/4-4.png"
                     },
                     {
-                        "TITLE":"T-bar를 이용한 외회전 스트레칭",
+                        "TITLE":"T-bar를 이용한 팔 밖으로 돌리기 스트레칭",
                         "SID":4,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 어깨너비 정도 되는 딱딱한 물건을 준비합니다.
+2. 양측 팔꿈치를 90도 굽힌 채 양측 옆구리에 팔꿈치를 붙입니다.
+3. 약한 통증 부위에서 10초 정도 자세를 유지합니다.
+4. 상기 동작을 10회 반복하며, 3~5세트 시행합니다.
+
+주의사항
+1. 안 아픈 팔을 이용하여, 아픈 팔을 수동적으로 밖으로 돌립니다.
+2. 조금씩 돌리는 각도를 늘려나갑니다.
+3. 운동 시, 몸통의 회전이나 반동을 쓰지 않게 주의합니다.
+ ",
+						"URL":"https://live360.co.kr/kses/20200710/4-5.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/4-5.png"
                     }
                 ]
             }
@@ -137,28 +216,40 @@
 				"SID":0,
                 "VALUES": [
                     {
-                        "TITLE":"기도 자세(prayer position)",
+                        "TITLE":"기도 자세",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 무릎을 꿇고 발꿈치 위에 앉아 준비를 합니다.
+2. 양손을 무릎 밖에 위치를 시킨 채로 준비를 합니다.
+3. 팔꿈치를 편 상태를 유지하면서 체중을 앞으로 이동시키면서 중심을 잡습니다.",
+						"URL":"https://live360.co.kr/kses/20200710/5-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/5-1.png"
                     },
                     {
                         "TITLE":"누워서 팔 들어 균형 잡기",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 가벼운 무게의 아령을 아픈 팔에 쥐고 누운상태에서 준비를 합니다.
+2. 팔꿈치를 펴고 팔을 어깨 높이로 들은 상태에서 위 아래로 60도의 범위 안에서(60-120도) 움직입니다. ",
+						"URL":"https://live360.co.kr/kses/20200710/5-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/5-2.png"
                     },
                     {
                         "TITLE":"누워서 팔 벌려 균형 잡기",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 아픈 어깨가 위로 가도록 옆으로 누워서 준비합니다.
+2. 팔을 어깨 높이까지 벌리고 팔꿈치를 편 상태로 위 아래로 움직입니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/5-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/5-3.png"
                     },
                     {
                         "TITLE":"엎드린 자세에서 자기수용감각 운동",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 양손바닥과 무릎을 바닥에 고정한 채로 엎드려 준비자세를 취합니다.
+2. 아프지 않은 어깨를 이용하여 팔을 앞으로 뻗고 뒤 이어서 반대편 무릎을 뒤로 뻗으며 중심을 잡습니다.
+3. 반복하며 아픈 어깨에 순차적으로 체중을 부가 시킵니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/5-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/5-4.png"
                     }
                 ]
             },
@@ -169,38 +260,55 @@
                     {
                         "TITLE":"벽 기대고 날개뼈 운동",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 벽에 등을 대고, 양팔로 W 모양을 만듭니다.
+2. 날개 뼈를 벽에 붙인 채 Y자로 팔을 펴줍니다.
+3. 이 동작을 10회 반복 실시합니다.
+4. 벽에서 몸이 떨어지면 안됩니다.
+5. 어깨가 으쓱하는 동작이 일어나지 않게 주의합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/6-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/6-1.png"
                     },
                     {
                         "TITLE":"맨손 펀치 운동(견갑골)",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 똑바로 누운 자세에서 팔을 어깨높이까지 올려줍니다.
+2. 팔꿈치를 굽히지 않고 천장을 향해 주먹을 밀어줍니다.
+3. 운동 중 가슴이 움직이는 것이 아니라 견갑골의 움직임에 집중합니다.
+4. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/6-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/6-2.png"
                     },
                     {
-                        "TITLE":"엎드려 옆으로 들기 운동",
+                        "TITLE":"엎드려 팔 옆으로 들기 운동",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 엎드린 자세에서 팔을 몸통의 높이까지 옆으로 들어 올립니다.
+2. 몸통의 높이에서 3초간 버팁니다.
+3. 원위치로 천천히 돌아 옵니다.
+4. 이 동작을 10-15회 반복합니다.
+5. 팔을 들어올릴 때 몸이 침대에서 떨어지지 않도록 주의 합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/6-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/6-3.png"
                     },
                     {
                         "TITLE":"엎드려 팔 뒤로 올리기 운동",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 엎드린 자세에서 팔을 몸통의 높이까지 엉덩이 옆으로 올립니다.
+2. 엉덩이 높이에서 3초간 버틴 후, 원위치로 천천히 돌아 옵니다.
+3. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/6-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/6-4.png"
                     },
                     {
                         "TITLE":"엎드려 팔 돌려 옆으로 들기 운동",
                         "SID":4,
-                        "VALUE":"",
-						"URL":""
-                    },
-                    {
-                        "TITLE":"엎드려 스캡션 운동(견갑골)",
-                        "SID":5,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 엎드린 자세에서 팔을 몸통의 높이까지 옆으로 들어 올립니다.
+2. 팔을 올릴 때 엄지 손가락이 천장을 향하게 돌려 들어올립니다.
+3. 몸통의 높이에서 3초간 버팁니다.
+4. 원위치로 천천히 돌아 옵니다.
+5. 이 동작을 10-15회 반복합니다.
+6. 팔을 들어올릴 때 몸이 침대에서 떨어지지 않도록 주의합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/6-5.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/6-5.png"
                     }
                 ]
             }
@@ -216,28 +324,37 @@
 				"SID":0,
                 "VALUES": [
                     {
-                        "TITLE":"앉아서 하는 외전 운동",
+                        "TITLE":"앉아서 하는 팔 벌리기",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 앉은 상태로 준비하여, 팔꿈치를 편 상태로 안 아픈 쪽 손으로 아픈 쪽 윗팔을 잡습니다.
+2. 천천히 부하를 걸면서 아픈 어깨를 벌립니다.
+3. 3초 정도 유지한 후, 자세를 바로 합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/7-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/7-1.png"
                     },
                     {
-                        "TITLE":"앉아서 하는 외 회전 운동",
+                        "TITLE":"앉아서 하는 외회전 운동",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 앉은 상태로 준비를 합니다. 팔꿈치를 90도 굽힌 상태로 아픈 쪽 어깨 겨드랑이에 수건을 댑니다.
+2. 반대 손으로 아픈 쪽 손목을 잡고 저항을 걸면서 아픈 어깨를 외회전 합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/7-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/7-2.png"
                     },
                     {
-                        "TITLE":"앉아서 하는 외 회전 관절 범위 운동",
+                        "TITLE":"앉아서 하는 외회전 관절 범위 운동",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 앉은 상태로 준비하여, 팔꿈치를 90도를 굽힌 상태로 아픈 쪽 어깨 겨드랑이에 수건을 댑니다.
+2. 안 아픈 손으로 아픈 쪽 손목을 잡고 부하를 걸어 저항을 걸면서 아픈 어깨를 외회전 합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/7-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/7-3.png"
                     },
                     {
-                        "TITLE":"앉아서 하는 내 회전 운동",
+                        "TITLE":"앉아서 하는 내회전 운동",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 테이블에 앉고, 팔꿈치를 90도를 굽힌 상태로 준비를 합니다.
+2. 반대 손으로 아픈 쪽 손목을 잡고 저항을 걸면서 아픈 어깨를 안쪽으로 회전을 시킵니다.",
+						"URL":"https://live360.co.kr/kses/20200710/7-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/7-4.png"
                     }
                 ]
             },
@@ -248,44 +365,69 @@
                     {
                         "TITLE":"벽에 공 대고 돌리기",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 벽 앞에 선 후 아픈 쪽 팔의 손바닥으로 공을 잡습니다.
+2. 시계방향으로 공을 돌리며 운동을 실시합니다.
+3. 한 방향으로 10회를 돌리고, 반대 방향으로도 실시합니다.
+4. 어깨 부위의 통증이 없는 범위에서 운동을 합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/8-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-1.png"
                     },
                     {
                         "TITLE":"서서 덤벨 앞으로 들기",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 500g~1kg 정도 가벼운 무게의 아령을 준비합니다.
+2. 아령을 쥐고 팔을 편 채로 내려놓습니다.
+3. 천천히 어깨 높이까지 들어올립니다.
+4. 약 3초 정도 유지 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/8-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-2.png"
                     },
                     {
                         "TITLE":"서서 덤벨 뒤로 들기",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 일어선 자세 또는 앉은 자세에서 아령을 쥐고 팔을 편 채로 내려놓습니다. 이 때 엄지손가락이 앞을 향하게 중립 위로 하는 것이 어깨에 통증을 줄여줄 수 있습니다.
+2. 천천히 후방으로 45도 정도 들어올립니다.
+3. 약 3초 정도 유지 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/8-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-3.png"
                     },
                     {
                         "TITLE":"서서 덤벨 옆으로 들기",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 아령을 쥐고 팔을 편 채로 내려놓습니다.
+2. 천천히 어깨 높이까지 옆으로 들어올립니다.
+3. 약 3초 정도 유지 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/8-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-4.png"
                     },
                     {
                         "TITLE":"엎드려 팔 돌려 옆으로 덤벨 들기 운동",
                         "SID":4,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 엎드린 자세에서 덤벨을 잡고 팔을 몸통의 높이까지 옆으로 들어 올립니다.
+2. 팔을 올릴 때 엄지 손가락이 천장을 향하게 돌려 들어올립니다.
+3. 몸통의 높이에서 3초간 정도 유지 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/8-5.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-5.png"
                     },
                     {
                         "TITLE":"옆으로 누워 덤벨 내회전 운동",
                         "SID":5,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 아픈 어깨가 아래로 가도록 침대 또는 바닥에 옆으로 눕습니다.
+2. 팔꿈치는 90도 구부린 상태로 옆구리에 붙이고, 아령을 쥔 손을 바닥에 내려 놓습니다.
+3. 복부까지 아령을 천천히 들어올리고 약 3초 정도 유지 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/8-6.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-6.png"
                     },
                     {
                         "TITLE":"옆으로 누워 덤벨 외회전 운동",
                         "SID":6,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 아픈 어깨가 위로 가도록 침대 또는 바닥에 옆으로 눕습니다.
+2. 팔꿈치는 90도 구부린 상태로 옆구리에 붙입니다.
+3. 바깥쪽으로 팔을 돌리고 약 3초 정도 유지 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/8-7.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/8-7.png"
                     }
                 ]
             },
@@ -296,44 +438,74 @@
                     {
                         "TITLE":"벽 짚고 푸쉬업 운동",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 양 손바닥을 어깨 너비보다 약간 넓게 벌리고 벽에 댑니다.
+2. 팔을 천천히 아래로 구부려서 몸통을 벽에 가까이 기울입니다.
+3. 이 자세를 3초간 유지한 후, 천천히 되돌아오는 동작을 10-15회 반복합니다
+4. 몸통이 벽에 닿으면 안됩니다.
+5. 어깨 높이보다 위로 팔을 올리지 않습니다.
+6. 팔꿈치를 옆으로 구부리지 않습니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/9-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-1.png"
                     },
                     {
                         "TITLE":"푸시업 플러스 운동",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 벽에 손을 대고 팔꿈치를 펴고 서서, 팔꿈치를 굽혀 벽 가까이까지 갑니다.
+2. 팔꿈치를 다시 펴주며, 견갑골을 벌린다는 느낌으로 가슴부위를 뒤로 밀어냅니다.
+3. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/9-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-2.png"
                     },
                     {
                         "TITLE":"덤벨 펀치 운동",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 똑바로 누운 자세에서 가벼운 아령을 손에 쥐고 팔을 어깨높이까지 올려주며, 팔꿈치를 굽히지 않고 천장을 향해 주먹을 밀어줍니다.
+2. 운동 중 가슴이 움직이는 것이 아니라 견갑골의 움직임에 집중합니다.
+3. 이 동작을 10-15회 반복합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/9-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-3.png"
                     },
                     {
                         "TITLE":"서서 덤벨 들고 스캡션 운동",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 어깨 너비로 다리를 벌리고 섭니다.
+2. 팔을 45도 정도 벌린 상태에서 어깨 높이까지 올립니다.
+3. 3초간 버티다 원위치로 천천히 돌아오며, 10-15회 반복합니다.
+
+주의사항
+처음에는 맨손으로 시작하여 500g 단위로 증량합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/9-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-4.png"
                     },
                     {
                         "TITLE":"엎드려서 덤벨 들고 로잉 운동",
                         "SID":4,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 500g~1kg 정도 가벼운 무게의 아령을 준비합니다.
+2. 침대에 엎드린 채로 아픈 팔을 아래로 늘어뜨립니다.
+3. 아령을 손에 쥐고 팔꿈치는 옆구리에 닿을 정도로 팔을 몸에 붙이면서, 견갑골을 가운데로 모으는 느낌으로 뒤로 당깁니다.
+4. 그 자세에서 약 3초 정도 유지한 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/9-5.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-5.png"
                     },
                     {
-                        "TITLE":"엎드려서 덤벨들고 팔 신전하기",
+                        "TITLE":"엎드려서 덤벨들고 팔 뒤로 들기",
                         "SID":5,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 침대에 엎드린 채로 아픈 팔을 몸에 붙이며, 아령을 손에 쥐고 천천히 뒤로 통증이 없는 범위 내에서 올립니다.
+2. 그 자세에서 약 3초 정도 유지한 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/9-6.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-6.png"
                     },
                     {
                         "TITLE":"엎드려서 팔 수평으로 벌리기",
                         "SID":6,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 500g~1kg 정도 가벼운 무게의 아령을 준비합니다.
+2. 침대에 엎드린 채로 아픈 팔을 90도 벌립니다.
+3. 그 자세에서 약 3초 정도 유지한 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/9-7.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/9-7.png"
                     }
                 ]
             }
@@ -351,62 +523,96 @@
                     {
                         "TITLE":"밴드를 이용하여 팔 앞으로 들기",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 밴드는 문고리에 고정하고, 아픈 쪽 팔을 서서히 앞으로 올립니다.
+2. 팔을 올리는 높이는 어깨 높이까지만 올리며, 10초 간 유지합니다.
+3. 이 동작을 10-15회 반복합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/10-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-1.png"
                     },
                     {
                         "TITLE":"밴드를 이용하여 팔 뒤로 당기기",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 밴드를 맞은 편 어깨 높이에 고정 시킵니다.
+2. 팔을 어깨 높이까지 올린 상태에서 내립니다.
+3. 완전히 내린 후 3-5초 정도 유지합니다.
+4. 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/10-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-2.png"
                     },
                     {
                         "TITLE":"밴드 이용한 내회전 운동(등척성)",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 팔꿈치 사이에 수건을 말아 끼워준 상태로, 고무줄을 수평으로 잡고, 한걸음 밖으로 움직입니다.
+2. 3초 정도 유지한 후, 천천히 원래 자리로 돌아가며 10-15회 반복 실시합니다.
+3. 아픈 팔의 팔꿈치는 90도를 유지해야 합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/10-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-3.png"
                     },
                     {
                         "TITLE":"밴드를 이용하여 내회전 운동하기",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
-                    },
-                    {
-                        "TITLE":"90도 외전상태에서 내회전 운동",
-                        "SID":4,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 밴드는 문고리에 고정하고, 아픈 쪽 팔은 팔꿈치를 90도 굽힌 상태로 옆구리에 고정시킵니다.
+2. 팔을 안쪽으로 회전시키고 3초 정도 유지한 후 천천히 원래 자리로 돌아갑니다.
+3. 이 동작을 10-15회 반복합니다.
+
+주의사항
+운동 시 몸통의 회전이나 반동을 쓰지 않게 주의합니다.
+",
+						"URL":"https://live360.co.kr/kses/20200710/10-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-4.png"
                     },
                     {
                         "TITLE":"밴드 이용한 외회전 운동(등척성)",
-                        "SID":5,
-                        "VALUE":"",
-						"URL":""
+                        "SID":4,
+                        "VALUE":"1. 팔꿈치 사이에 수건을 말아 끼워준 상태로, 고무줄을 수평으로 잡고, 한걸음 밖으로 움직입니다.
+2. 3초 정도 유지한 후, 천천히 원래 자리로 돌아가며 10-15회 반복 실시합니다.
+
+주의사항
+아픈 팔의 팔꿈치는 90도를 유지해야 합니다.
+
+",
+						"URL":"https://live360.co.kr/kses/20200710/10-5.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-5.png"
                     },
                     {
                         "TITLE":"밴드를 이용하여 외회전 운동하기",
-                        "SID":6,
-                        "VALUE":"",
-						"URL":""
+                        "SID":5,
+                        "VALUE":"1. 밴드를 문고리에 고정 시킨 뒤, 아픈 쪽 팔로 밴드를 잡습니다.
+2. 아픈 쪽 팔의 팔꿈치를 90도 굽힌 상태로 옆구리에 고정시킵니다.
+3. 어깨를 바깥으로 회전시킨 다음, 10초 동안 자세를 유지합니다.
+4. 상기 동작을 10회 반복하며, 3~5세트 진행합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/10-6.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-6.png"
                     },
                     {
-                        "TITLE":"90도 외전 상태에서 외회전 운동",
+                        "TITLE":"팔벌린 상태에서 외회전 운동",
+                        "SID":6,
+                        "VALUE":"1. 아픈 쪽 팔을 어깨 높이만큼 벌린 상태에서 고무줄과 반대 방향으로 몸을 돌려 고무줄을 잡습니다.
+2. 팔을 위로 회전시키며, 고무줄을 앞쪽 방향으로 잡아 당깁니다.
+3. 이 자세를 3초간 버틴 후, 천천히 시작 자세로 되돌아가며, 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/10-7.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-7.png"
+                    },
+                    {
+                        "TITLE":"밴드를 이용한 서서 팔 앞으로 밀기 운동",
                         "SID":7,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 밴드를 등 뒤편 어깨 높이에 고정시킵니다.
+2. 팔꿈치를 피면서 팔을 앞으로 밉니다.
+3. 팔꿈치가 펴질 때까지 완전히 밀은 후 3초 정도 유지한 후 천천히 돌아옵니다.
+4. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/10-8.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-8.png"
                     },
                     {
                         "TITLE":"서서 팔 옆으로 들어 뒤로 당기기 운동",
                         "SID":8,
-                        "VALUE":"",
-						"URL":""
-                    },
-                    {
-                        "TITLE":"밴드를 이용한 서서 팔 앞으로 밀기 운동",
-                        "SID":9,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 어깨 너비로 선자세에서 팔을 어깨 높이까지 올린 상태에서 고무줄을 뒤로 당깁니다.
+2. 몸통 옆위치에서 3초 정도 유지한 후 천천히 돌아옵니다.
+3. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/10-9.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/10-9.png"
                     }
                 ]
             },
@@ -417,39 +623,40 @@
                     {
                         "TITLE":"밴드 이용하여 어깨 으쓱이기",
                         "SID":0,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 허리를 곧게 펴고 발을 어깨 너비로 벌리고 무릎을 약간 구부린 후 밴드를 발로 밟아 고정합니다.
+2. 허리를 곧게 유지하고 어깨를 들어 올릴 수 있을 때까지 들어올린 후 내립니다.
+3. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/11-1.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/11-1.png"
                     },
                     {
                         "TITLE":"변형 코브라 자세",
                         "SID":1,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 평평한 바닥에 매트를 깔고 엎드려 상체를 들어올리면서 가슴이 바닥에서 10cm 정도 떨어지도록 유지합니다.
+2. 이 때 양 견갑골을 당기면서 견갑골을 최대한 모아 줄 수 있게 유지합니다.
+3. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/11-2.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/11-2.png"
                     },
                     {
                         "TITLE":"밴드를 이용한 스캡션 운동",
                         "SID":2,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 엄지가 하늘을 향하는 상태로 밴드를 쥡니다.
+2. 팔을 약 45도 벌린 상태로 팔꿈치를 펴고 어깨 높이까지 천천히 들어 올립니다.
+3. 3초 정도 유지한 후 천천히 원래 자세로 돌아옵니다.
+4. 이 동작을 10-15회 반복합니다.",
+						"URL":"https://live360.co.kr/kses/20200710/11-3.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/11-3.png"
                     },
                     {
                         "TITLE":"밴드를 이용한 로잉 운동",
                         "SID":3,
-                        "VALUE":"",
-						"URL":""
-                    },
-                    {
-                        "TITLE":"밴드를 이용하여 팔 벌리기",
-                        "SID":4,
-                        "VALUE":"",
-						"URL":""
-                    },
-                    {
-                        "TITLE":"밴드 이용하여 팔 뒤로 당기기",
-                        "SID":5,
-                        "VALUE":"",
-						"URL":""
+                        "VALUE":"1. 밴드를 문고리에 고정시킨 후, 양 손으로 밴드를 잡습니다. 그리고 견갑골을 가운데로 모으는 느낌으로 뒤로 당깁니다.
+2. 약 3초 정도 유지한 후 천천히 원래 자세로 돌아오며, 10-15회 반복합니다. ",
+						"URL":"https://live360.co.kr/kses/20200710/11-4.html"
+						,"THUMBNAIL":"http://ezv.kr/kses_exercise/thumbnail/11-4.png"
                     }
+
                 ]
             }
         ]

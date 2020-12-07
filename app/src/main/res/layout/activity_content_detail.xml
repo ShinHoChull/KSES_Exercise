@@ -23,7 +23,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"/>
             <ImageView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/detail_thumnail"
@@ -140,10 +146,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="#ffffff"
-                                android:text="1. 편한 자세로 섭니다.\n2. 어깨를 귀 쪽으로 올립니다.
-\n3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.\n4. 이 동작을 10-15회 반복합니다.1. 편한 자세로 섭니다.\n2. 어깨를 귀 쪽으로 올립니다.
-\n3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.\n4. 이 동작을 10-15회 반복합니다.1. 편한 자세로 섭니다.\n2. 어깨를 귀 쪽으로 올립니다.
-\n3. 과도하게 목을 앞으로 빼거나 팔꿈치를 굽히지 않도록 주의합니다.\n4. 이 동작을 10-15회 반복합니다."
+                                android:text=""
                                 android:gravity="top"
                                 android:paddingStart="10dp"
                                 android:textSize="15dp"

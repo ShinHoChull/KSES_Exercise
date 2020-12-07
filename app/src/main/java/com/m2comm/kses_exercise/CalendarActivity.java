@@ -105,7 +105,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     GaugeSeekBar gaugeSeekBar;
     LinearLayout innerView;
 
-
     //프로그레스에 필요한 변수
     int main_per_count = 0;
     int counter = 0;
@@ -119,6 +118,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     //step3 운동체크 버튼
     FrameLayout step3_exercise_check_bt;
+
     //나의 운동기록 버튼
     LinearLayout my_exercise_list_bt1 ,my_exercise_list_bt2;
     CustomHandler handler;
@@ -204,8 +204,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             this.contentTopActivity = new ContentTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
             this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         }
-
-
     }
 
     @Override

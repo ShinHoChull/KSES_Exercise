@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,14 +15,17 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import com.m2comm.kairb.Web;
+import androidx.core.content.ContextCompat;
+
+import com.m2comm.kses_exercise.ContentDetailActivity;
+
 
 public class FullScreenableChromeClient extends WebChromeClient {
 
     private Activity mActivity = null;
 
     private View mCustomView;
-    private WebChromeClient.CustomViewCallback mCustomViewCallback;
+    private CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
     private FrameLayout mFullscreenContainer;
     private static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -36,7 +38,7 @@ public class FullScreenableChromeClient extends WebChromeClient {
     public boolean onJsAlert(WebView view, String url, String message, final android.webkit.JsResult result)
     {
         new AlertDialog.Builder(mActivity)
-                .setTitle("KAIRB")
+                .setTitle("견관절 운동")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok,
                         new AlertDialog.OnClickListener()
@@ -55,7 +57,7 @@ public class FullScreenableChromeClient extends WebChromeClient {
     @Override
     public boolean onJsConfirm(WebView view, String url, String message, final android.webkit.JsResult result){
         new AlertDialog.Builder(view.getContext())
-                .setTitle("KAIRB")
+                .setTitle("견관절 운동")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
@@ -75,7 +77,7 @@ public class FullScreenableChromeClient extends WebChromeClient {
     };
 
     @Override
-    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+    public void onShowCustomView(View view, CustomViewCallback callback) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             if (mCustomView != null) {
@@ -100,7 +102,7 @@ public class FullScreenableChromeClient extends WebChromeClient {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onShowCustomView(View view, int requestedOrientation, WebChromeClient.CustomViewCallback callback) {
+    public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
         this.onShowCustomView(view, callback);
     }
 
@@ -128,17 +130,19 @@ public class FullScreenableChromeClient extends WebChromeClient {
         if (enabled) {
             winParams.flags |= bits;
             Log.d("full","full FUll");
-            ((Web) mActivity).setScreenLan();
+            ((ContentDetailActivity) mActivity).setScreenLan();
         } else {
             winParams.flags &= ~bits;
             if (mCustomView != null) {
                 Log.d("full","not FUll");
-                ((Web) mActivity).setScreenPor();
+                ((ContentDetailActivity) mActivity).setScreenPor();
                 mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             }
         }
         win.setAttributes(winParams);
     }
+
+
 
     private static class FullscreenHolder extends FrameLayout {
         public FullscreenHolder(Context ctx) {

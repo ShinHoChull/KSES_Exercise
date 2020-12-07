@@ -136,7 +136,7 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
             JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
             for (int i = 0, j = menuDepth3JsonArray.length(); i < j; i++) {
                 JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE"), objTitle.getString("VALUE"), objTitle.getInt("SID")));
+                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE"), objTitle.getString("URL"), objTitle.getInt("SID"), objTitle.getString("VALUE"),objTitle.getString("THUMBNAIL")));
             }
 
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class ContentListActivity extends AppCompatActivity implements View.OnCli
                 depth2Title = menuDepth3JObj.getString("TITLE");
                 for (int i = 0, j = menuDepth3JsonArray.length(); i < j; i++) {
                     JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                    arrs.add(new MenuDTO(objTitle.getString("TITLE"), objTitle.getString("VALUE"), objTitle.getInt("SID")));
+                    arrs.add(new MenuDTO(objTitle.getString("TITLE"), objTitle.getString("URL"), objTitle.getInt("SID"), objTitle.getString("VALUE"),objTitle.getString("THUMBNAIL")));
                 }
             } catch (Exception e) {
                 Log.d("leftClickError", e.toString());

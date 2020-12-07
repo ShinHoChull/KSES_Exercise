@@ -103,7 +103,6 @@ public class AlarmDetail extends AppCompatActivity implements View.OnClickListen
             this.popTopActivity = new PopTopActivity(this ,this , getLayoutInflater() , R.id.content_top,"나의 운동일");
             this.bottomActivity = new BottomActivity(getLayoutInflater() , R.id.bottom , this , this);
         }
-
     }
 
     @Override

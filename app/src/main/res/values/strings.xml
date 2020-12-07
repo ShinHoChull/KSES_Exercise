@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">견관절 운동</string>
+
+    <color name="setting_off">#ebebeb</color>
+    <color name="setting_on">#15A5A9</color>
+
 </resources>

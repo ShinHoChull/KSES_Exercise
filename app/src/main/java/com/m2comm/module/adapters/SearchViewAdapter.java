@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.m2comm.kses_exercise.R;
 import com.m2comm.module.models.ContentDTO;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -58,8 +59,8 @@ public class SearchViewAdapter extends BaseAdapter {
         } else {
             this.viewHolder = (ViewHodel) convertView.getTag();
         }
-
         ContentDTO row = contentArray.get(position);
+        Picasso.get().load(row.getImgUrl()).into(this.viewHolder.img);
         this.viewHolder.tv.setText(row.getTitle() + row.getGroupSid());
 
         return convertView;

@@ -39,6 +39,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private int groupDefaultNum = 0;
     private int leftClick = 0;
     private TextView closeBt;
+    private ImageView menuBt;
     ArrayList<String> leftArray;
     ArrayList<MenuDTO> rightArray;
     JSONArray menuDepth2JsonArray;
@@ -84,7 +85,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
                     for ( int i = 0 , j =  menuDepth3JsonArray.length(); i < j ; i++ ) {
                         JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                        rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),objTitle.getInt("SID")));
+                        rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("URL"),objTitle.getInt("SID"),objTitle.getString("VALUE"),objTitle.getString("THUMBNAIL")));
                     }
                     menuChange();
                 } catch (Exception e){
@@ -103,6 +104,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("arr",rightArray);
                 intent.putExtra("title",leftArray.get(leftClick));
                 intent.putExtra("content_title",rightArray.get(position).getTitle());
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                finish();
+            }
+        });
+
+        this.menuBt = findViewById(R.id.menu_settingBt);
+        this.menuBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext() , SettingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 finish();
@@ -141,7 +153,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             JSONArray menuDepth3JsonArray = new JSONArray(menuDepth3JObj.getString("VALUES"));
             for ( int i = 0 , j =  menuDepth3JsonArray.length(); i < j ; i++ ) {
                 JSONObject objTitle = new JSONObject(menuDepth3JsonArray.get(i).toString());
-                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("VALUE"),objTitle.getInt("SID")));
+                this.rightArray.add(new MenuDTO(objTitle.getString("TITLE") , objTitle.getString("URL"),objTitle.getInt("SID"),objTitle.getString("VALUE"),objTitle.getString("THUMBNAIL")));
             }
 
             this.menuChange();

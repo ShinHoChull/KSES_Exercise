@@ -191,55 +191,86 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Menu List 한번만 불러와서 디바이스에 저장한다.
         try {
-            if (csp.getValue("version", "").equals("")) {
-                //처음에 한
-                this.csp.put("menu", getMenu());
-                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
-                        .setPriority(Priority.LOW)
-                        .build()
-                        .getAsString(new StringRequestListener() {
-                            @Override
-                            public void onResponse(String response) {
+            AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+                    .setPriority(Priority.LOW)
+                    .build()
+                    .getAsString(new StringRequestListener() {
+                        @Override
+                        public void onResponse(String response) {
+                            if ( !csp.getValue("version","").equals(response) ) {
+                                //버전이 다를경우 Menu를 가져온다.
                                 csp.put("version",response);
-                            }
+                                AndroidNetworking.get("http://ezv.kr/kses_exercise/menu.json")
+                                        .setPriority(Priority.LOW)
+                                        .build().getAsString(new StringRequestListener() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Log.d("menu",response);
+                                        csp.put("menu",response);
+                                    }
 
-                            @Override
-                            public void onError(ANError anError) {
-                                Log.d("versionerror",anError.getErrorDetail());
+                                    @Override
+                                    public void onError(ANError anError) {
+                                        Log.d("menuerror",anError.getErrorDetail());
+                                    }
+                                });
                             }
-                        });
-            } else {
-                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
-                        .setPriority(Priority.LOW)
-                        .build()
-                        .getAsString(new StringRequestListener() {
-                                @Override
-                            public void onResponse(String response) {
-                                if ( !csp.getValue("version","").equals(response) ) {
-                                    //버전이 다를경우 Menu를 가져온다.
-                                    csp.put("version",response);
-                                    AndroidNetworking.get("http://ezv.kr/kses_exercise/menu.json")
-                                            .setPriority(Priority.LOW)
-                                            .build().getAsString(new StringRequestListener() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("menu",response);
-                                            csp.put("menu",response);
-                                        }
+                        }
+                        @Override
+                        public void onError(ANError anError) {
 
-                                        @Override
-                                        public void onError(ANError anError) {
-                                            Log.d("menuerror",anError.getErrorDetail());
-                                        }
-                                    });
-                                }
-                            }
-                            @Override
-                            public void onError(ANError anError) {
+                        }
+                    });
 
-                            }
-                        });
-            }
+//            if (csp.getValue("version", "").equals("")) {
+//                //처음에 한
+//                this.csp.put("menu", getMenu());
+//                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+//                        .setPriority(Priority.LOW)
+//                        .build()
+//                        .getAsString(new StringRequestListener() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                csp.put("version",response);
+//                            }
+//
+//                            @Override
+//                            public void onError(ANError anError) {
+//                                Log.d("versionerror",anError.getErrorDetail());
+//                            }
+//                        });
+//            } else {
+//                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+//                        .setPriority(Priority.LOW)
+//                        .build()
+//                        .getAsString(new StringRequestListener() {
+//                                @Override
+//                            public void onResponse(String response) {
+//                                if ( !csp.getValue("version","").equals(response) ) {
+//                                    //버전이 다를경우 Menu를 가져온다.
+//                                    csp.put("version",response);
+//                                    AndroidNetworking.get("http://ezv.kr/kses_exercise/menu.json")
+//                                            .setPriority(Priority.LOW)
+//                                            .build().getAsString(new StringRequestListener() {
+//                                        @Override
+//                                        public void onResponse(String response) {
+//                                            Log.d("menu",response);
+//                                            csp.put("menu",response);
+//                                        }
+//
+//                                        @Override
+//                                        public void onError(ANError anError) {
+//                                            Log.d("menuerror",anError.getErrorDetail());
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                            @Override
+//                            public void onError(ANError anError) {
+//
+//                            }
+//                        });
+//            }
 
         } catch (Exception e) {
             Toast.makeText(this, "Menu Save Fail", Toast.LENGTH_SHORT).show();

@@ -72,6 +72,7 @@ public class SearchActivity extends AppCompatActivity {
         for ( int i = 0 , j = 4 ; i < j ; i ++ ) {
             this.getMenuDataSetting( i );
         }
+
         this.imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         this.search_img.setOnClickListener(new View.OnClickListener() {
@@ -145,9 +146,11 @@ public class SearchActivity extends AppCompatActivity {
                     JSONObject tt = new JSONObject(menuDepth3JsonArray.get(k).toString());
                     String depth3Title = tt.getString("TITLE");
                     int depth3Num = tt.getInt("SID");
+                    String imgUrl = tt.getString("THUMBNAIL");
+                    Log.d("imgUrl=",imgUrl);
                     Log.d("title3=",depth3Title);
                     realList.add(new FavDTO(0,groupNum , depth2Num , depth3Num ,
-                            tt.getString("URL") , depth1Title + " > "+depth2Title,depth3Title));
+                            imgUrl , depth1Title + " > "+depth2Title,depth3Title));
                 }
             }
 
@@ -170,7 +173,7 @@ public class SearchActivity extends AppCompatActivity {
 
             for ( int k = 0 , l =  menuDepth3JsonArray.length(); k < l ; k++ ) {
                 JSONObject tt = new JSONObject(menuDepth3JsonArray.get(k).toString());
-                rightArray.add(new MenuDTO(tt.getString("TITLE") , tt.getString("VALUE"), tt.getInt("SID")));
+                rightArray.add(new MenuDTO(tt.getString("TITLE") , tt.getString("URL"), tt.getInt("SID"),tt.getString("VALUE"),tt.getString("THUMBNAIL")));
             }
 
         } catch (Exception e) {

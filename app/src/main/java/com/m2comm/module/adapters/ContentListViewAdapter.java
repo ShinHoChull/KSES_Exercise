@@ -21,6 +21,7 @@ import com.m2comm.module.Custom_SharedPreferences;
 import com.m2comm.module.models.ContentDTO;
 import com.m2comm.module.models.FavDTO;
 import com.m2comm.module.models.MenuDTO;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,10 +33,10 @@ public class ContentListViewAdapter extends BaseAdapter {
     ArrayList<MenuDTO> contentArray;
     boolean isFav = false;
     private Custom_SharedPreferences csp;
-    int groupNum , depth2Num;
-    String group_title , depth2Title;
+    int groupNum, depth2Num;
+    String group_title, depth2Title;
 
-    public ContentListViewAdapter(Context context, LayoutInflater layoutInflater, ArrayList<MenuDTO> contentArray, boolean isFav , int groupNum , int depth2Num , String group_title, String depth2Title) {
+    public ContentListViewAdapter(Context context, LayoutInflater layoutInflater, ArrayList<MenuDTO> contentArray, boolean isFav, int groupNum, int depth2Num, String group_title, String depth2Title) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.contentArray = contentArray;
@@ -66,58 +67,58 @@ public class ContentListViewAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        if (convertView == null) {
-            final MenuDTO contentDTO = contentArray.get(position);
-            convertView = this.layoutInflater.inflate(R.layout.content_item, parent, false);
-            ImageView content_item = convertView.findViewById(R.id.content_thumbnail);
-            final ImageView favBt = convertView.findViewById(R.id.favBt);
-            TextView tv = convertView.findViewById(R.id.content_title);
+        final MenuDTO contentDTO = contentArray.get(position);
+        convertView = this.layoutInflater.inflate(R.layout.content_item, parent, false);
+        ImageView content_item = convertView.findViewById(R.id.content_thumbnail);
+        final ImageView favBt = convertView.findViewById(R.id.favBt);
+        TextView tv = convertView.findViewById(R.id.content_title);
 
-            tv.setText(contentDTO.getTitle());
-            if (this.isFav) {
-                favBt.setVisibility(View.VISIBLE);
-            } else {
-                favBt.setVisibility(View.GONE);
-            }
-            final FavDTO favDTO = new FavDTO(0,this.groupNum , this.depth2Num , position , contentDTO.getUrl(),this.group_title+">"+this.depth2Title, contentDTO.getTitle());
+        Picasso.get().load(contentDTO.getThumbnail()).into(content_item);
+        tv.setText(contentDTO.getTitle());
 
-            if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
-                for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
-                    FavDTO row = it.next();
-                    if ( row.getGroupNum() == this.groupNum && row.getDepth2Num() == this.depth2Num && row.getDepth3Num() == position ) {
-                        favBt.setImageResource(R.drawable.content_on);
-                    }
+        if (this.isFav) {
+            favBt.setVisibility(View.VISIBLE);
+        } else {
+            favBt.setVisibility(View.GONE);
+        }
+        final FavDTO favDTO = new FavDTO(0, this.groupNum, this.depth2Num, position, contentDTO.getThumbnail(), this.group_title + ">" + this.depth2Title, contentDTO.getTitle());
+
+        if (Common.common_menuDTO_ArrayList != null && Common.common_menuDTO_ArrayList.size() > 0) {
+            for (Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext(); ) {
+                FavDTO row = it.next();
+                if (row.getGroupNum() == this.groupNum && row.getDepth2Num() == this.depth2Num && row.getDepth3Num() == position) {
+                    favBt.setImageResource(R.drawable.content_on);
                 }
             }
+        }
 
-            favBt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        favBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    if (Common.common_menuDTO_ArrayList.size() > 0) {
-                        boolean isAdd = true;
-                        for(Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext() ; ) {
-                            FavDTO row = it.next();
-                            if ( row.getGroupNum() == favDTO.getGroupNum() && row.getDepth2Num() == favDTO.getDepth2Num() && row.getDepth3Num() == favDTO.getDepth3Num() ) {
-                                it.remove();
-                                favBt.setImageResource(R.drawable.content_off);
-                                isAdd = false;
-                            }
+                if (Common.common_menuDTO_ArrayList.size() > 0) {
+                    boolean isAdd = true;
+                    for (Iterator<FavDTO> it = Common.common_menuDTO_ArrayList.iterator(); it.hasNext(); ) {
+                        FavDTO row = it.next();
+                        if (row.getGroupNum() == favDTO.getGroupNum() && row.getDepth2Num() == favDTO.getDepth2Num() && row.getDepth3Num() == favDTO.getDepth3Num()) {
+                            it.remove();
+                            favBt.setImageResource(R.drawable.content_off);
+                            isAdd = false;
                         }
-                        if (isAdd) {
-                            Common.common_menuDTO_ArrayList.add(favDTO);
-                            favBt.setImageResource(R.drawable.content_on);
-                        }
-
-                    } else {
+                    }
+                    if (isAdd) {
                         Common.common_menuDTO_ArrayList.add(favDTO);
                         favBt.setImageResource(R.drawable.content_on);
                     }
-                    ((ContentListActivity)context).changeCount(Common.common_menuDTO_ArrayList.size());
-                }
-            });
 
-        }
+                } else {
+                    Common.common_menuDTO_ArrayList.add(favDTO);
+                    favBt.setImageResource(R.drawable.content_on);
+                }
+                ((ContentListActivity) context).changeCount(Common.common_menuDTO_ArrayList.size());
+            }
+        });
+
 
         return convertView;
     }

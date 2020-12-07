@@ -86,7 +86,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
 
             for ( int k = 0 , l =  menuDepth3JsonArray.length(); k < l ; k++ ) {
                 JSONObject tt = new JSONObject(menuDepth3JsonArray.get(k).toString());
-                rightArray.add(new MenuDTO(tt.getString("TITLE") , tt.getString("VALUE"), tt.getInt("SID")));
+                rightArray.add(new MenuDTO(tt.getString("TITLE") , tt.getString("URL"), tt.getInt("SID"), tt.getString("VALUE"),tt.getString("THUMBNAIL")));
             }
 
         } catch (Exception e) {

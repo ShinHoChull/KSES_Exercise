@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PopupActivity"
-            android:theme="@style/Theme.AppCompat.Translucent">
-
-        </activity>
+        <activity android:name=".SettingActivity"></activity>
+        <activity
+            android:name=".PopupActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"></activity>
         <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,16 +36,25 @@
         <activity
             android:name=".AlarmDetail"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".AlarmListActivity" />
-        <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".ContentDetailActivity" />
+        <activity
+            android:name=".AlarmListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContentDetailActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ContentListActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".MenuActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name="com.m2comm.module.AlarmReceiver" />
     </application>

@@ -83,7 +83,6 @@ public class AlarmDAO implements Realm.Transaction {
         return this.realm.where(AlarmDTO.class).equalTo("num", id).findFirst();
     }
 
-
     @Override
     public void execute(Realm realm) {
 

@@ -14,6 +14,7 @@ import com.m2comm.kses_exercise.R;
 import com.m2comm.module.Common;
 import com.m2comm.module.models.ContentDTO;
 import com.m2comm.module.models.FavDTO;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,12 +57,15 @@ public class FavViewAdapter extends BaseAdapter {
             TextView groupTitle = convertView.findViewById(R.id.groupTitle);
             TextView contentTitle = convertView.findViewById(R.id.content_title);
             final ImageView delBt = convertView.findViewById(R.id.delBt);
+            ImageView thumnail = convertView.findViewById(R.id.content_thumbnail);
 
             if ( isDel ) {
                 delBt.setVisibility(View.VISIBLE);
             } else {
                 delBt.setVisibility(View.GONE);
             }
+
+            Picasso.get().load(favDTO.getUrl()).into(thumnail);
 
             groupTitle.setText(favDTO.getGroupTitle());
             contentTitle.setText(favDTO.getContent_title());
