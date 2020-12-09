@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Menu List 한번만 불러와서 디바이스에 저장한다.
         try {
-            AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+            AndroidNetworking.get("")
                     .setPriority(Priority.LOW)
                     .build()
                     .getAsString(new StringRequestListener() {
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if ( !csp.getValue("version","").equals(response) ) {
                                 //버전이 다를경우 Menu를 가져온다.
                                 csp.put("version",response);
-                                AndroidNetworking.get("http://ezv.kr/kses_exercise/menu.json")
+                                AndroidNetworking.get("")
                                         .setPriority(Priority.LOW)
                                         .build().getAsString(new StringRequestListener() {
                                     @Override
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            if (csp.getValue("version", "").equals("")) {
 //                //처음에 한
 //                this.csp.put("menu", getMenu());
-//                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+//                AndroidNetworking.get("")
 //                        .setPriority(Priority.LOW)
 //                        .build()
 //                        .getAsString(new StringRequestListener() {
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                            }
 //                        });
 //            } else {
-//                AndroidNetworking.get("http://ezv.kr/kses_exercise/version.php")
+//                AndroidNetworking.get("")
 //                        .setPriority(Priority.LOW)
 //                        .build()
 //                        .getAsString(new StringRequestListener() {
